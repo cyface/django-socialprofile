@@ -1,9 +1,9 @@
+# lines that begin with # are comments.
 *.db
 *.db-journal
 *.egg-info
 *.log
 *.py[co]
-*.pyc
 *-env
 .coverage
 .DS_Store
