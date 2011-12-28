@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from django.core.management import execute_manager
-#try:
+#try: # Try/except removed to make sure we see the errors when deploying to Gondor
 import settings # Assumed to be in the same directory.
 #except ImportError:
 #    import sys
