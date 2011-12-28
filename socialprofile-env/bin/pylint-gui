@@ -1,7 +1,0 @@
-#!/Users/cyface/Dropbox/Personal/Cyface/Aptana3Workspace/django-socialprofile/socialprofile-env/bin/python
-import sys
-try:
-    from pylint import gui 
-    gui.Run(sys.argv[1:])
-except ImportError:
-    sys.exit('tkinter is not available')
