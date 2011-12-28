@@ -10,6 +10,7 @@ from socialprofile.settings_main import * #@UnusedWildImport
 try:
     from socialprofile.settings_local import * #@UnusedWildImport
 except ImportError:
+    from socialprofile.settings_local_template import * #@UnusedWildImport
     print("ERROR: You need to rename settings_local.template to settings_local.py and customize it.")
     
 # Import Gondor auto-generated local settings if they exist.

@@ -2,12 +2,12 @@
 Local Django Settings File
 
 INSTRUCTIONS
-SAVE A COPY OF THIS FILE IN THIS DIRECTORY WITH THE NAME local_settings.py
+SAVE A COPY OF THIS FILE IN THIS DIRECTORY WITH THE NAME settings_local.py
 MAKE YOUR LOCAL SETTINGS CHANGES IN THAT FILE AND DO NOT CHECK IT IN
 CHANGES TO THIS FILE SHOULD BE TO ADD/REMOVE SETTINGS THAT NEED TO BE
 MADE LOCALLY BY ALL INSTALLATIONS
 
-local_settings.py, once created, should never be checked into source control
+settings_local.py, once created, should never be checked into source control
 It is ignored by default by .gitignore, so if you don't mess with that, you should be fine.
 """
 # pylint: disable=R0801, W0611
@@ -134,6 +134,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner' # Should work with Django 1.2.1
 # TEMPLATE_CONTEXT_PROCESSORS +=
 
 AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
     'social_auth.backends.google.GoogleOAuth2Backend',
@@ -151,9 +152,9 @@ FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
 GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
 
-#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/another-login-url/'
-#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/new-users-redirect-url/'
-#SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/new-association-redirect-url/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 #SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
 #SOCIAL_AUTH_ERROR_KEY = 'social_errors' # In case of authentication error, the message can be stored in session if this setting is defined
 #SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
