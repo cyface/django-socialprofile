@@ -1,0 +1,8 @@
+<html>
+	{% if user.is_authenticated %}
+	</p>Welcome {{ user.email }}!</p>
+	<p><a href="/logout">Sign Out</a></p>
+	{% else %}
+	Please <a href="/login/google-oauth2">Sign-In using your Google Account</a>.
+	{% endif %}
+</html>

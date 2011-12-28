@@ -1,0 +1,4 @@
+#!/Users/cyface/Dropbox/Personal/Cyface/Aptana3Workspace/django-socialprofile/socialprofile-env/bin/python -uWdefault
+
+from logilab.common.pytest import run
+run()

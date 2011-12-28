@@ -1,0 +1,9 @@
+#!/Users/cyface/Dropbox/Personal/Cyface/Aptana3Workspace/django-socialprofile/socialprofile-env/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'gondor==1.0.1','console_scripts','gondor'
+__requires__ = 'gondor==1.0.1'
+import sys
+from pkg_resources import load_entry_point
+
+sys.exit(
+   load_entry_point('gondor==1.0.1', 'console_scripts', 'gondor')()
+)

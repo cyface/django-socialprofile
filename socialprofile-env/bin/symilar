@@ -1,0 +1,3 @@
+#!/Users/cyface/Dropbox/Personal/Cyface/Aptana3Workspace/django-socialprofile/socialprofile-env/bin/python
+from pylint.checkers import similar
+similar.run()

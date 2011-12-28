@@ -1,0 +1,13 @@
+LICENSE.txt
+MANIFEST.in
+README.txt
+nose_cov.py
+setup.cfg
+setup.py
+nose_cov.egg-info/PKG-INFO
+nose_cov.egg-info/SOURCES.txt
+nose_cov.egg-info/dependency_links.txt
+nose_cov.egg-info/entry_points.txt
+nose_cov.egg-info/not-zip-safe
+nose_cov.egg-info/requires.txt
+nose_cov.egg-info/top_level.txt

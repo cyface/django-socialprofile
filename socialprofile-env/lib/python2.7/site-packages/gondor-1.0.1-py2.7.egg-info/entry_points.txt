@@ -1,0 +1,3 @@
+[console_scripts]
+gondor = gondor.__main__:main
+

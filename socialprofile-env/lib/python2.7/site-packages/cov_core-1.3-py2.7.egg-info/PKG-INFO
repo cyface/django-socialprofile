@@ -1,0 +1,27 @@
+Metadata-Version: 1.0
+Name: cov-core
+Version: 1.3
+Summary: plugin core for use by pytest-cov, nose-cov and unittest2-cov
+Home-page: http://bitbucket.org/memedough/cov-core/overview
+Author: Meme Dough
+Author-email: memedough@gmail.com
+License: MIT License
+Description: cov-core
+        ========
+        
+        This is a lib package for use by pytest-cov, nose-cov and unittest2-cov.  Unless your developing a
+        coverage plugin for a test framework then you probably want one of those.
+Keywords: cover coverage
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.4
+Classifier: Programming Language :: Python :: 2.5
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.0
+Classifier: Programming Language :: Python :: 3.1
+Classifier: Topic :: Software Development :: Testing

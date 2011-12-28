@@ -1,0 +1,13 @@
+LICENSE.txt
+MANIFEST.in
+README.txt
+cov_core.py
+cov_core_init.py
+setup.cfg
+setup.py
+cov_core.egg-info/PKG-INFO
+cov_core.egg-info/SOURCES.txt
+cov_core.egg-info/dependency_links.txt
+cov_core.egg-info/not-zip-safe
+cov_core.egg-info/requires.txt
+cov_core.egg-info/top_level.txt
