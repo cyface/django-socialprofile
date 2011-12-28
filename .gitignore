@@ -1,4 +1,3 @@
-nes that start with '#' are comments.
 *.db
 *.db-journal
 *.egg-info
