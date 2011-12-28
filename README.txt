@@ -1,1 +1,1 @@
-django-buildout-base README File.
+django-socialprofile uses django-socialregistration to enable people to log in with their social netowrk credentials, and then edit a typical user profile afterwareds.
