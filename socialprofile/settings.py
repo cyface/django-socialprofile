@@ -5,12 +5,12 @@
 # NOTE
 # see settings_local.template for instructions on making your local settings file
 
-from socialprofile.settings_main import * #@UnusedWildImport
+from settings_main import * #@UnusedWildImport
 
 try:
-    from socialprofile.settings_local import * #@UnusedWildImport
+    from settings_local import * #@UnusedWildImport
 except ImportError:
-    from socialprofile.settings_local_template import * #@UnusedWildImport
+    from settings_local_template import * #@UnusedWildImport
     print("ERROR: You need to rename settings_local.template to settings_local.py and customize it.")
     
 # Import Gondor auto-generated local settings if they exist.
