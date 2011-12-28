@@ -3,6 +3,7 @@
 *.egg-info
 *.log
 *.py[co]
+*.pyc
 *-env
 .coverage
 .DS_Store
