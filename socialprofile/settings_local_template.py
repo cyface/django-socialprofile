@@ -172,7 +172,7 @@ SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = True # Groups accounts by email address
 SOCIAL_AUTH_DEFAULT_USERNAME = 'Inigo Montoya'
 
-#LOGIN_URL          = '/login-form/'
+LOGIN_URL          = '/login/google-oauth2'
 #LOGIN_REDIRECT_URL = '/logged-in/'
 #LOGIN_ERROR_URL    = '/login-error/'
 
