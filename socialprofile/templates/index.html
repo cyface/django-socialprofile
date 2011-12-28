@@ -1,8 +1,9 @@
 <html>
+	<head><title></title></head>
 	{% if user.is_authenticated %}
-	</p>Welcome {{ user.email }}!</p>
+	</p>Welcome {{user.username}} ({{ user.email }})!</p>
 	<p><a href="/logout">Sign Out</a></p>
 	{% else %}
-	Please <a href="/login/google-oauth2">Sign-In using your Google Account</a>.
+	Interested in interacting? Head over to the <a href="/secure">Secure area.</a>
 	{% endif %}
 </html>
