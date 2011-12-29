@@ -1,0 +1,6 @@
+{% if user.is_authenticated %}
+	<p>Welcome {{user.username}} ({{ user.email }})!
+	{% else %}
+	You are not logged in! :(
+	{% endif %}</p>
+<hr>

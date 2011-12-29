@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="language" content="english">
+		
+		<title>{% block headtitle %}Django Social Profiles{% endblock %}</title>
+	
+		{% block metatags %}
+		{% endblock %}
+		
+		{% if debug %}
+			<script type="text/javascript">
+				var isDebug = true;
+			</script>
+		{% else %}
+			<script type="text/javascript">
+				var isDebug = false;
+			</script>
+		{% endif %}
+		
+		{% block head %}
+		{% endblock %}
+	</head>
+	
+	<body class='{% block body_class %}{% endblock %}'>
+		
+		<!-- Begin Header -->
+		<div class="container top-bar">
+			
+		</div>
+		<div class="container head">
+			<div class="flare">
+			
+			{% block header %}{% include "header.html" %}{% endblock %}
+			
+			</div>
+		</div>
+		<!-- End Header -->
+		
+		<!-- Begin Main Content -->
+		{% block content %}<p>No Content Defined</p>{% endblock %}
+		<!-- End Main Content -->
+		
+		<!-- Begin Footer -->
+		{% block footer %}{% include "footer.html" %}{% endblock %}
+		<!-- End Footer -->
+		
+		
+	</body>
+</html>

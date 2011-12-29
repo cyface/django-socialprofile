@@ -10,7 +10,12 @@
 	{% if user.is_authenticated %}
 	Thanks for visiting the site!
 	{% else %}
-	Interested in interacting? Head over to the <a href="/secure">Secure area.</a>
+	Please choose a method to get access to this site:
+	<ul>
+		<li><a href="/login/google-oauth2">Google/Gmail</a></li>
+		<li><a href="/login/twitter">Twitter</a></li>
+		<li><a href="/login/facebook">Facebook</a></li>
+	</ul>
 	{% endif %}
 </html>
 {% endblock %}

@@ -23,10 +23,23 @@ def logout_view(request):
     response_data = {}
     return render_to_response('index.html', response_data, context_instance=RequestContext(request))
 
+def select_view(request):
+    """
+    Lets users choose how they want to request access.
+
+    url: /select
+    
+    template : templates/select.html
+    """                      
+    
+    response_data = {}
+    
+    return render_to_response('select.html', response_data, context_instance=RequestContext(request))
+
 @login_required
 def secure_view(request):
     """
-    Main site page page.
+    Secure testing page.
 
     url: /secure
     
