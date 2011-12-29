@@ -2,12 +2,12 @@
 Local Django Settings File
 
 INSTRUCTIONS
-SAVE A COPY OF THIS FILE IN THIS DIRECTORY WITH THE NAME settings_local.py
+SAVE A COPY OF THIS FILE IN THIS DIRECTORY WITH THE NAME local_settings.py
 MAKE YOUR LOCAL SETTINGS CHANGES IN THAT FILE AND DO NOT CHECK IT IN
 CHANGES TO THIS FILE SHOULD BE TO ADD/REMOVE SETTINGS THAT NEED TO BE
 MADE LOCALLY BY ALL INSTALLATIONS
 
-settings_local.py, once created, should never be checked into source control
+local_settings.py, once created, should never be checked into source control
 It is ignored by default by .gitignore, so if you don't mess with that, you should be fine.
 """
 # pylint: disable=R0801, W0611
@@ -151,6 +151,7 @@ FACEBOOK_APP_ID              = '295912813778057'
 FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
 GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
+GOOGLE_DISPLAY_NAME          = 'Django Social Auth'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
@@ -172,9 +173,9 @@ SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = True # Groups accounts by email address
 SOCIAL_AUTH_DEFAULT_USERNAME = 'Inigo Montoya'
 
-LOGIN_URL          = '/login/google-oauth2'
+LOGIN_URL          = '/select'
 #LOGIN_REDIRECT_URL = '/logged-in/'
-#LOGIN_ERROR_URL    = '/login-error/'
+#LOGIN_ERROR_URL    = '/'
 
 ### django-registration Settings
 ACCOUNT_ACTIVATION_DAYS = 14
@@ -208,3 +209,4 @@ if DEBUG:
 #        format='%(asctime)s %(levelname)s %(message)s',
 #        filename=os.path.join(PROJECT_ROOT, 'django.log'),
 #        filemode='a+')
+
