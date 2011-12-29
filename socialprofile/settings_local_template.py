@@ -43,17 +43,17 @@ MEDIA_URL = '/media/'
 # Absolute path to the directory that holds media.
 # Note that as of Django 1.3 - media is for uploaded files only.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, "media")
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 #Staticfiles Config
-STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static') ]
+STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'socialprofile', 'static') ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, 'admin')
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Local DB settings. (Postgres)
 DATABASES = {
@@ -151,6 +151,7 @@ FACEBOOK_APP_ID              = '295912813778057'
 FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
 GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
+GOOGLE_OAUTH_EXTRA_SCOPE     = 'https://www.googleapis.com/oauth2/v1/userinfo'
 GOOGLE_DISPLAY_NAME          = 'Django Social Auth'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
@@ -181,23 +182,23 @@ LOGIN_URL          = '/select'
 ACCOUNT_ACTIVATION_DAYS = 14
 
 ### DEBUG TOOLBAR
-#if DEBUG:
-#    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-#    INSTALLED_APPS += ('debug_toolbar',)
-#
-#    DEBUG_TOOLBAR_PANELS = (
-#        'debug_toolbar.panels.timer.TimerDebugPanel',
-#        'debug_toolbar.panels.headers.HeaderDebugPanel',
-#        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-#        'debug_toolbar.panels.template.TemplateDebugPanel',
-#        'debug_toolbar.panels.sql.SQLDebugPanel',
-#        'debug_toolbar.panels.signals.SignalDebugPanel',
-#        'debug_toolbar.panels.logger.LoggingPanel',
-#    )
-#    
-#    DEBUG_TOOLBAR_CONFIG = {
-#        'INTERCEPT_REDIRECTS': False
-#    }
+if DEBUG:
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    INSTALLED_APPS += ('debug_toolbar',)
+
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.timer.TimerDebugPanel',
+        'debug_toolbar.panels.headers.HeaderDebugPanel',
+        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+        'debug_toolbar.panels.template.TemplateDebugPanel',
+        'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.logger.LoggingPanel',
+    )
+    
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False
+    }
 
 ### SECURE SITE
 # SSL_SITE_LOGIN_URL = '' # URL to HTTPS version of site for secure sign-in.
