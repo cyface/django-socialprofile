@@ -40,3 +40,5 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social_auth',
 )
+
+AUTH_PROFILE_MODULE = "socialprofile.UserProfile"
