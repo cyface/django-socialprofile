@@ -12,7 +12,7 @@ It is ignored by default by .gitignore, so if you don't mess with that, you shou
 """
 # pylint: disable=R0801, W0611
 import os
-from settings_main import MIDDLEWARE_CLASSES, INSTALLED_APPS
+#from settings_main import MIDDLEWARE_CLASSES, INSTALLED_APPS
 
 # Set the root path of the project so it's not hard coded
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -31,7 +31,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'sp'
 
 # List of Admin users to be emailed by error system
 MANAGERS = (
-    # ('Tim White', 'tim@cyface.com'),
+# ('Tim White', 'tim@cyface.com'),
 )
 ADMINS = MANAGERS
 
@@ -46,9 +46,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 #Staticfiles Config
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticroot')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'socialprofile', 'static') ]
+STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static') ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -57,23 +57,23 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Local DB settings. (Postgres)
 DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'pb2',
-#        'USER': 'pb2',
-#        'PASSWORD': '',
-#        'HOST': '127.0.0.1',
-#        'PORT': '', # Set to empty string for default.
-#        'SUPPORTS_TRANSACTIONS': 'true',
-#    },
-     'default': {
+    #    'default': {
+    #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #        'NAME': 'pb2',
+    #        'USER': 'pb2',
+    #        'PASSWORD': '',
+    #        'HOST': '127.0.0.1',
+    #        'PORT': '', # Set to empty string for default.
+    #        'SUPPORTS_TRANSACTIONS': 'true',
+    #    },
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sp',
         'USER': 'sp',
         'PASSWORD': '',
-#        'HOST': '127.0.0.1',
-#        'PORT': '', # Set to empty string for default.
-#        'SUPPORTS_TRANSACTIONS': 'true',
+        #        'HOST': '127.0.0.1',
+        #        'PORT': '', # Set to empty string for default.
+        #        'SUPPORTS_TRANSACTIONS': 'true',
     }
 }
 
@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': PROJECT_ROOT + '/socialprofile.db',
         'SUPPORTS_TRANSACTIONS': 'false',
-    }
+        }
 }
 
 # Local time zone for this installation. Choices can be found here:
@@ -138,7 +138,7 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
     'social_auth.backends.google.GoogleOAuth2Backend',
-)
+    )
 
 ##### Custom Variables Below Here #######
 
@@ -149,9 +149,11 @@ TWITTER_CONSUMER_KEY         = 'gvlRdtanILw15YXxKGIA'
 TWITTER_CONSUMER_SECRET      = 'acw6IiDtt5kJrmUI8WJVHAENmnCSllpqlM13dQPI'
 FACEBOOK_APP_ID              = '295912813778057'
 FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'gender']
 GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
-GOOGLE_OAUTH_EXTRA_SCOPE     = 'https://www.googleapis.com/oauth2/v1/userinfo'
+GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',]
+GOOGLE_OAUTH2_EXTRA_DATA     = [('gender', 'gender')]
 GOOGLE_DISPLAY_NAME          = 'Django Social Auth'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
@@ -171,9 +173,6 @@ SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 #FACEBOOK_AUTH_EXTRA_ARGUMENTS = {'display': 'touch'}
 #SOCIAL_AUTH_INACTIVE_USER_URL = '...'
 
-SOCIAL_AUTH_ASSOCIATE_BY_MAIL = True # Groups accounts by email address
-SOCIAL_AUTH_DEFAULT_USERNAME = 'Inigo Montoya'
-
 LOGIN_URL          = '/select'
 #LOGIN_REDIRECT_URL = '/logged-in/'
 #LOGIN_ERROR_URL    = '/'
@@ -182,23 +181,23 @@ LOGIN_URL          = '/select'
 ACCOUNT_ACTIVATION_DAYS = 14
 
 ### DEBUG TOOLBAR
-if DEBUG:
-    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    INSTALLED_APPS += ('debug_toolbar',)
-
-    DEBUG_TOOLBAR_PANELS = (
-        'debug_toolbar.panels.timer.TimerDebugPanel',
-        'debug_toolbar.panels.headers.HeaderDebugPanel',
-        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-        'debug_toolbar.panels.template.TemplateDebugPanel',
-        'debug_toolbar.panels.sql.SQLDebugPanel',
-        'debug_toolbar.panels.signals.SignalDebugPanel',
-        'debug_toolbar.panels.logger.LoggingPanel',
-    )
-    
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False
-    }
+#if DEBUG:
+#    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+#    INSTALLED_APPS += ('debug_toolbar',)
+#
+#    DEBUG_TOOLBAR_PANELS = (
+#        'debug_toolbar.panels.timer.TimerDebugPanel',
+#        'debug_toolbar.panels.headers.HeaderDebugPanel',
+#        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+#        'debug_toolbar.panels.template.TemplateDebugPanel',
+#        'debug_toolbar.panels.sql.SQLDebugPanel',
+#        'debug_toolbar.panels.signals.SignalDebugPanel',
+#        'debug_toolbar.panels.logger.LoggingPanel',
+#        )
+#
+#    DEBUG_TOOLBAR_CONFIG = {
+#        'INTERCEPT_REDIRECTS': False
+#    }
 
 ### SECURE SITE
 # SSL_SITE_LOGIN_URL = '' # URL to HTTPS version of site for secure sign-in.
@@ -210,4 +209,3 @@ if DEBUG:
 #        format='%(asctime)s %(levelname)s %(message)s',
 #        filename=os.path.join(PROJECT_ROOT, 'django.log'),
 #        filemode='a+')
-
