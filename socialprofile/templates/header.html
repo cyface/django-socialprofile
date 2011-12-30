@@ -1,6 +1,6 @@
 {% if user.is_authenticated %}
-	<p>Welcome {{user.username}} ({{ user.email }})!
+	<p>Welcome {{user.username}} ({{ user.email }})!</p>
 	{% else %}
-	You are not logged in! :(
-	{% endif %}</p>
+	<p>You are not logged in! :(</p>
+	{% endif %}
 <hr>
