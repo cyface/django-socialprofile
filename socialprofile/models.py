@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
-from social_auth.backends.google import GoogleOAuth2Backend
 from social_auth.backends.facebook import FacebookBackend
+from social_auth.backends.google import GoogleOAuth2Backend
+from social_auth.backends.twitter import TwitterBackend
 from django.db import models
 from django.contrib.auth.models import User
 from social_auth.signals import socialauth_registered
@@ -66,3 +67,15 @@ def google_extra_values(sender, user, response, details, **kwargs):
     return True
 
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
+
+def twitter_extra_values(sender, user, response, details, **kwargs):
+    user.last_name = response['last_name']
+    user.first_name = response['first_name']
+    profile = user.get_profile()
+    profile.url = 'http://twitter.com/' + response['username']
+
+    profile.save()
+
+    return True
+
+socialauth_registered.connect(twitter_extra_values, sender=TwitterBackend)
