@@ -89,7 +89,6 @@ def profile_view(request):
                 user.save()
                 profile.save()
             except IntegrityError:
-                log.debug('error')
                 form = ProfileForm()
                 form._errors = {'username': [u'Your chosen username was not unique.'], }
 
