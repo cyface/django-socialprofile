@@ -7,7 +7,7 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-    <section itemscope itemtype="http://data-vocabulary.org/Person">
+    <section title="profile">
         <h1>Edit Your Profile</h1>
         {{ form.errors }}
         <form action="{%  url profile_page %}" method="post">

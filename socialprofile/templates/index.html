@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block headtitle %}{% endblock %}
+{% block headtitle %}Django Social Profiles - Home{% endblock %}
 
 {% block body_class %}{% endblock %}
 
@@ -8,9 +8,8 @@
 
 {% block content %} 
 	{% if user.is_authenticated %}
-	Thanks for visiting the site!
+	<h2>Welcome to Social Profiles</h2>
 	{% else %}
-	Interested in interacting? Head over to the <a href="/secure">Secure area.</a>
+	<h2>Interested in interacting? Head over to the <a href="{% url secure_page %}">Secure area.</a></h2>
 	{% endif %}
-</html>
 {% endblock %}

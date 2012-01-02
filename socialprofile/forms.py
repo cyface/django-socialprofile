@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from models import UserProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import strip_tags
 from widgets import H5EmailInput
@@ -12,7 +13,7 @@ class ProfileForm(forms.Form):
     email = forms.EmailField(label="Email Address", widget=H5EmailInput())
     first_name = forms.CharField(max_length=30, required=False, label='First Name',)
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
-    gender = forms.CharField(max_length=10, required=False)
+    gender = forms.CharField(max_length=10, required=False, widget=forms.Select(choices=UserProfile.GENDER_CHOICES))
     url = forms.URLField(required=False, label='Homepage URL', widget=forms.TextInput(attrs={'size': '100', }))
     image_url = forms.URLField(required=False, label='Profile Picture URL', widget=forms.TextInput(attrs={'size': '100', }))
     description = forms.CharField(required=False, max_length=300, widget=forms.Textarea(attrs={'rows':'1', 'cols':'80'}))
