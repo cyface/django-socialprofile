@@ -1,7 +1,6 @@
-from social_auth.signals import pre_update
 from django.db.models.signals import post_save
-from django.conf import settings
 from social_auth.backends.google import GoogleOAuth2Backend
+from social_auth.backends.facebook import FacebookBackend
 from django.db import models
 from django.contrib.auth.models import User
 from social_auth.signals import socialauth_registered
@@ -9,7 +8,6 @@ from urllib import urlencode
 from urllib2 import Request, urlopen
 from django.utils import simplejson
 import logging
-
 
 log = logging.getLogger(name='socialprofile')
 
@@ -26,11 +24,26 @@ class UserProfile(models.Model):
     description = models.TextField(blank=True)
 
 def create_user_profile(sender, instance, created, **kwargs):
-    log.debug('Inside Create User Profile')
     if created:
         UserProfile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
+
+def facebook_extra_values(sender, user, response, details, **kwargs):
+    user.last_name = response['last_name']
+    user.first_name = response['first_name']
+    profile = user.get_profile()
+    profile.gender = response['gender']
+    profile.image_url = 'https://graph.facebook.com/' + response['username'] + '/picture'
+    profile.url = response['link']
+    if response['hometown']:
+        profile.description = response['hometown']['name']
+
+    profile.save()
+
+    return True
+
+socialauth_registered.connect(facebook_extra_values, sender=FacebookBackend)
 
 def google_extra_values(sender, user, response, details, **kwargs):
 #    log.debug('Inside Google Extra Values Handler')
