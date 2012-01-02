@@ -149,11 +149,10 @@ TWITTER_CONSUMER_KEY         = 'gvlRdtanILw15YXxKGIA'
 TWITTER_CONSUMER_SECRET      = 'acw6IiDtt5kJrmUI8WJVHAENmnCSllpqlM13dQPI'
 FACEBOOK_APP_ID              = '295912813778057'
 FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
-FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'gender']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_notes', 'user_website']
 GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
 #GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',]
-GOOGLE_OAUTH2_EXTRA_DATA     = [('gender', 'gender')]
 GOOGLE_DISPLAY_NAME          = 'Django Social Auth'
 
 SOCIAL_AUTH_CHANGE_SIGNAL_ONLY = True # Prevent updating of name, etc. once user is created
