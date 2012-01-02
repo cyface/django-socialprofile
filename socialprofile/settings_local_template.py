@@ -48,7 +48,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 #Staticfiles Config
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticroot')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), os.path.join(PROJECT_ROOT, 'socialprofile', 'static') ]
+STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static')  ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.

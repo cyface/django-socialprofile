@@ -2,6 +2,7 @@ django>=1.3
 django-social-auth
 django-debug-toolbar
 django-nose
+gondor
 nose
 nose-cov
 pylint
