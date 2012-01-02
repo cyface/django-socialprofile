@@ -191,17 +191,17 @@ if DEBUG:
 ### SECURE SITE
 # SSL_SITE_LOGIN_URL = '' # URL to HTTPS version of site for secure sign-in.
 
-### LOGGING
-if DEBUG:
-    import logging
-    import logging.handlers
-
-    rotating_handler = logging.handlers.RotatingFileHandler(os.path.join(PROJECT_ROOT, 'django.log'), maxBytes=200000, backupCount=5)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    rotating_handler.setFormatter(formatter)
-    logging.getLogger('').addHandler(rotating_handler)
-
-    logging.getLogger(name='django').setLevel(logging.ERROR)
-    sp_logger = logging.getLogger(name='socialprofile')
-    sp_logger.setLevel(logging.DEBUG)
-    sp_logger.debug('Logging Startup')
+#### LOGGING
+#if DEBUG:
+#    import logging
+#    import logging.handlers
+#
+#    rotating_handler = logging.handlers.RotatingFileHandler(os.path.join(PROJECT_ROOT, 'django.log'), maxBytes=200000, backupCount=5)
+#    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#    rotating_handler.setFormatter(formatter)
+#    logging.getLogger('').addHandler(rotating_handler)
+#
+#    logging.getLogger(name='django').setLevel(logging.ERROR)
+#    sp_logger = logging.getLogger(name='socialprofile')
+#    sp_logger.setLevel(logging.DEBUG)
+#    sp_logger.debug('Logging Startup')
