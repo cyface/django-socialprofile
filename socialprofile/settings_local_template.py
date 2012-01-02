@@ -12,7 +12,7 @@ It is ignored by default by .gitignore, so if you don't mess with that, you shou
 """
 # pylint: disable=R0801, W0611
 import os
-#from settings_main import MIDDLEWARE_CLASSES, INSTALLED_APPS
+from settings_main import MIDDLEWARE_CLASSES, INSTALLED_APPS
 
 # Set the root path of the project so it's not hard coded
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -48,7 +48,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 #Staticfiles Config
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticroot')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static') ]
+STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static'), os.path.join(PROJECT_ROOT, 'socialprofile', 'static') ]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -128,7 +128,7 @@ DEFAULT_FROM_EMAIL = 'a real email address'
 SERVER_EMAIL = 'a real email address'
 
 ### TESTS
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner' # Should work with Django 1.2.1
+#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner' # Should work with Django 1.2.1
 
 ### Local add-ons to main inclusion variables
 # TEMPLATE_CONTEXT_PROCESSORS +=
@@ -152,26 +152,15 @@ FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'gender']
 GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
-GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',]
+#GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',]
 GOOGLE_OAUTH2_EXTRA_DATA     = [('gender', 'gender')]
 GOOGLE_DISPLAY_NAME          = 'Django Social Auth'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
-SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
-#SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
-#SOCIAL_AUTH_ERROR_KEY = 'social_errors' # In case of authentication error, the message can be stored in session if this setting is defined
-#SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
-#SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
-#SOCIAL_AUTH_USERNAME_FIXER = lambda u: slugify(u)
-#SOCIAL_AUTH_UUID_LENGTH = 16
-#SOCIAL_AUTH_EXTRA_DATA = False
-#SOCIAL_AUTH_EXPIRATION = 'expires'
-#SOCIAL_AUTH_SESSION_EXPIRATION = False
-#SOCIAL_AUTH_USER_MODEL = 'myapp.CustomUser'
-#SOCIAL_AUTH_CREATE_USERS = False
-#FACEBOOK_AUTH_EXTRA_ARGUMENTS = {'display': 'touch'}
-#SOCIAL_AUTH_INACTIVE_USER_URL = '...'
+SOCIAL_AUTH_CHANGE_SIGNAL_ONLY = True # Prevent updating of name, etc. once user is created
+
+#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/secure'
+#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
+#SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 
 LOGIN_URL          = '/select'
 #LOGIN_REDIRECT_URL = '/logged-in/'
@@ -181,31 +170,38 @@ LOGIN_URL          = '/select'
 ACCOUNT_ACTIVATION_DAYS = 14
 
 ### DEBUG TOOLBAR
-#if DEBUG:
-#    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-#    INSTALLED_APPS += ('debug_toolbar',)
-#
-#    DEBUG_TOOLBAR_PANELS = (
-#        'debug_toolbar.panels.timer.TimerDebugPanel',
-#        'debug_toolbar.panels.headers.HeaderDebugPanel',
-#        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-#        'debug_toolbar.panels.template.TemplateDebugPanel',
-#        'debug_toolbar.panels.sql.SQLDebugPanel',
-#        'debug_toolbar.panels.signals.SignalDebugPanel',
-#        'debug_toolbar.panels.logger.LoggingPanel',
-#        )
-#
-#    DEBUG_TOOLBAR_CONFIG = {
-#        'INTERCEPT_REDIRECTS': False
-#    }
+if DEBUG:
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    INSTALLED_APPS += ('debug_toolbar',)
+
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.timer.TimerDebugPanel',
+        'debug_toolbar.panels.headers.HeaderDebugPanel',
+        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+        'debug_toolbar.panels.template.TemplateDebugPanel',
+        'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.logger.LoggingPanel',
+        )
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False
+    }
 
 ### SECURE SITE
 # SSL_SITE_LOGIN_URL = '' # URL to HTTPS version of site for secure sign-in.
 
 ### LOGGING
-#if DEBUG:
-#    import logging
-#    logging.basicConfig(level=logging.DEBUG,
-#        format='%(asctime)s %(levelname)s %(message)s',
-#        filename=os.path.join(PROJECT_ROOT, 'django.log'),
-#        filemode='a+')
+if DEBUG:
+    import logging
+    import logging.handlers
+
+    rotating_handler = logging.handlers.RotatingFileHandler(os.path.join(PROJECT_ROOT, 'django.log'), maxBytes=200000, backupCount=5)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    rotating_handler.setFormatter(formatter)
+    logging.getLogger('').addHandler(rotating_handler)
+
+    logging.getLogger(name='django').setLevel(logging.ERROR)
+    sp_logger = logging.getLogger(name='socialprofile')
+    sp_logger.setLevel(logging.DEBUG)
+    sp_logger.debug('Logging Startup')

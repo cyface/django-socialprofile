@@ -1,29 +1,55 @@
 from social_auth.signals import pre_update
 from django.db.models.signals import post_save
-from social_auth.backends.facebook import FacebookBackend
+from django.conf import settings
 from social_auth.backends.google import GoogleOAuth2Backend
 from django.db import models
 from django.contrib.auth.models import User
+from social_auth.signals import socialauth_registered
+from urllib import urlencode
+from urllib2 import Request, urlopen
+from django.utils import simplejson
+import logging
+
+
+log = logging.getLogger(name='socialprofile')
 
 class UserProfile(models.Model):
+    GENDER_CHOICES = (
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+        )
     user = models.OneToOneField(User)
-    gender = models.CharField(max_length=10)
-
-def facebook_extra_values(sender, user, response, details, **kwargs):
-    user.gender = response.get('gender')
-    return True
-
-def google_extra_values(sender, user, response, details, **kwargs):
-    user.gender = response.get('gender')
-    print ("HELLLLLLLOOOOOOOO")
-    return True
+    gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES)
+    url = models.URLField(blank=True)
+    image_url = models.URLField(blank=True)
+    description = models.TextField(blank=True)
 
 def create_user_profile(sender, instance, created, **kwargs):
+    log.debug('Inside Create User Profile')
     if created:
         UserProfile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
 
-pre_update.connect(facebook_extra_values, sender=FacebookBackend)
+def google_extra_values(sender, user, response, details, **kwargs):
+#    log.debug('Inside Google Extra Values Handler')
+    user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
 
-pre_update.connect(google_extra_values, sender=GoogleOAuth2Backend)
+    data = {'access_token': response['access_token'], 'alt': 'json'}
+    params = urlencode (data)
+    request = Request(user_info_url + '?' + params, headers={'Authorization': params})
+    result =  simplejson.loads(urlopen(request).read())
+
+    user.last_name = result['family_name']
+    user.first_name = result['given_name']
+    profile = user.get_profile()
+    profile.gender = result['gender']
+    profile.image_url = result['picture']
+    profile.url = result['link']
+
+    profile.save()
+
+    return True
+
+socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)

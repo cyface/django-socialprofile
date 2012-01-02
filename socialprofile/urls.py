@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     
     # Sign Up
     url(r'^select$', 'socialprofile.views.select_view', name="select_page"),
+
+    # Profile
+    url(r'^profile', 'socialprofile.views.profile_view', name="profile_page"),
     
     # Social Registration
     url(r'', include('social_auth.urls')),

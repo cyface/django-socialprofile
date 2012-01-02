@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<meta name="language" content="english">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0" />
+        <link rel="/static/css/socialprofile.css" />
 		
 		<title>{% block headtitle %}Django Social Profiles{% endblock %}</title>
 	
@@ -24,28 +25,16 @@
 	</head>
 	
 	<body class='{% block body_class %}{% endblock %}'>
-		
-		<!-- Begin Header -->
-		<div class="container top-bar">
-			
-		</div>
-		<div class="container head">
-			<div class="flare">
-			
+
+        <header>
 			{% block header %}{% include "header.html" %}{% endblock %}
-			
-			</div>
-		</div>
-		<!-- End Header -->
-		
-		<!-- Begin Main Content -->
+		</header>
+
 		{% block content %}<p>No Content Defined</p>{% endblock %}
-		<!-- End Main Content -->
 		
-		<!-- Begin Footer -->
+		<footer>
 		{% block footer %}{% include "footer.html" %}{% endblock %}
-		<!-- End Footer -->
-		
+        </footer>
 		
 	</body>
 </html>

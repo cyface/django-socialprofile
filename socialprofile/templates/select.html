@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block headtitle %}{% endblock %}
+{% block headtitle %}Select a Way To Sign In{% endblock %}
 
 {% block body_class %}{% endblock %}
 
@@ -12,10 +12,9 @@
 	{% else %}
 	Please choose a method to get access to this site:
 	<ul>
-		<li><a href="{% url socialauth_begin 'google-oauth2' %}">Google/Gmail</a></li>
-		<li><a href="{% url socialauth_begin 'twitter' %}">Twitter</a></li>
-		<li><a href="{% url socialauth_begin 'facebook' %}">Facebook</a></li>
+		<li><a href="{% url socialauth_begin 'google-oauth2' %}?next={{ next }}">Google/Gmail</a></li>
+		<li><a href="{% url socialauth_begin 'twitter' %}?next={{ next }}">Twitter</a></li>
+		<li><a href="{% url socialauth_begin 'facebook' %}?next={{ next }}">Facebook</a></li>
 	</ul>
 	{% endif %}
-</html>
 {% endblock %}
