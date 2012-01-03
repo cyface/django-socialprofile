@@ -7,6 +7,8 @@
 *-env
 .coverage
 .DS_Store
+.idea
+.project
 .pydevproject
 .pydevproject.bak
 .settings

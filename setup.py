@@ -5,18 +5,18 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "django-buildout-base",
+    name = "django-socialprofile",
     version = ".1",
-    url = 'http://cyface.com',
+    url = 'http://timlwhite.com',
     license = 'GPL',
-    description = "django-buildout-base Site",
+    description = "django-socialprofile enables users to manage their social profile.",
     long_description = read('README.txt'),
 
     author = 'Tim White',
     author_email = 'tim@cyface.com',
 
-    packages = find_packages('src'),
-    package_dir = {'': 'src'},
+    packages = find_packages('socialprofile'),
+    package_dir = {'': 'socialprofile'},
 
     install_requires = ['setuptools'],
 
