@@ -69,8 +69,8 @@ def google_extra_values(sender, user, response, details, **kwargs):
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
 
 def twitter_extra_values(sender, user, response, details, **kwargs):
-    user.last_name = response['last_name']
-    user.first_name = response['first_name']
+    user.last_name = response.get('last_name','')
+    user.first_name = response.get('first_name','')
     profile = user.get_profile()
     profile.url = 'http://twitter.com/' + response['username']
 
