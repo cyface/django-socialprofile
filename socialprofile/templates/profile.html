@@ -8,6 +8,9 @@
 
 {% block content %}
     <section title="profile">
+        {%  if user.get_profile.image_url %}
+            <img src="{{ user.get_profile.image_url }}" />
+        {% endif %}
         <h1>Edit Your Profile</h1>
         {{ form.errors }}
         <form action="{%  url profile_page %}" method="post">
