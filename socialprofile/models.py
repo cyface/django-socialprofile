@@ -25,6 +25,7 @@ class UserProfile(models.Model):
     image_url = models.URLField(blank=True)
     description = models.TextField(blank=True)
 
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
@@ -32,14 +33,15 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 def facebook_extra_values(sender, user, response, details, **kwargs):
-    user.last_name = response['last_name']
-    user.first_name = response['first_name']
+    user.last_name = response.get('last_name', '')
+    user.first_name = response.get('first_name', '')
     profile = user.get_profile()
-    profile.gender = response['gender']
-    profile.image_url = 'https://graph.facebook.com/' + response['username'] + '/picture'
-    profile.url = response['link']
-    if response['hometown']:
-        profile.description = response['hometown']['name']
+    profile.gender = response.get('gender', '')
+    if (response.get('username') is not None):
+        profile.image_url = 'https://graph.facebook.com/' + response.get('username') + '/picture'
+    profile.url = response.get('link', '')
+    if response.get('hometown') is not None:
+        profile.description = response.get('hometown').get('name')
 
     profile.save()
 
@@ -51,19 +53,22 @@ def google_extra_values(sender, user, response, details, **kwargs):
 #    log.debug('Inside Google Extra Values Handler')
     user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
 
-    data = {'access_token': response['access_token'], 'alt': 'json'}
-    params = urlencode (data)
-    request = Request(user_info_url + '?' + params, headers={'Authorization': params})
-    result =  simplejson.loads(urlopen(request).read())
+    data = {'access_token': response.get('access_token', ''), 'alt': 'json'}
+    params = urlencode(data)
+    try:
+        request = Request(user_info_url + '?' + params, headers={'Authorization': params})
+        result = simplejson.loads(urlopen(request).read())
 
-    user.last_name = result['family_name']
-    user.first_name = result['given_name']
-    profile = user.get_profile()
-    profile.gender = result['gender']
-    profile.image_url = result['picture']
-    profile.url = result['link']
+        user.last_name = result.get('family_name', '')
+        user.first_name = result.get('given_name', '')
+        profile = user.get_profile()
+        profile.gender = result.get('gender', '')
+        profile.image_url = result.get('picture', '')
+        profile.url = result.get('link', '')
 
-    profile.save()
+        profile.save()
+    except:
+        pass
 
     return True
 
@@ -71,14 +76,15 @@ socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
 
 def twitter_extra_values(sender, user, response, details, **kwargs):
     try:
-        first_name, last_name = response['name'].split(' ', 1)
+        first_name, last_name = response.get('name', '').split(' ', 1)
     except:
-        first_name = response['name']
+        first_name = response.get('name', '')
         last_name = ''
     user.last_name = last_name
     user.first_name = first_name
     profile = user.get_profile()
-    profile.url = 'http://twitter.com/' + response.get('screen_name', '')
+    if response.get('screen_name') is not None:
+        profile.url = 'http://twitter.com/' + response.get('screen_name', '')
     profile.image_url = response.get('profile_image_url_https', '')
     profile.description = response.get('description', '')
 
