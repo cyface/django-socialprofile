@@ -17,6 +17,7 @@ class UserProfile(models.Model):
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
+        ('', '')
         )
     user = models.OneToOneField(User)
     gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES)
@@ -69,10 +70,17 @@ def google_extra_values(sender, user, response, details, **kwargs):
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
 
 def twitter_extra_values(sender, user, response, details, **kwargs):
-    user.last_name = response.get('last_name','')
-    user.first_name = response.get('first_name','')
+    try:
+        first_name, last_name = response['name'].split(' ', 1)
+    except:
+        first_name = response['name']
+        last_name = ''
+    user.last_name = last_name
+    user.first_name = first_name
     profile = user.get_profile()
-    profile.url = 'http://twitter.com/' + response['username']
+    profile.url = 'http://twitter.com/' + response.get('screen_name', '')
+    profile.image_url = response.get('profile_image_url_https', '')
+    profile.description = response.get('description', '')
 
     profile.save()
 
