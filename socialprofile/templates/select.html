@@ -6,15 +6,16 @@
 
 {% block head %}{% endblock %}
 
-{% block content %} 
-	{% if user.is_authenticated %}
-	Thanks for visiting the site!
-	{% else %}
-	Please choose a method to get access to this site:
-	<ul id='login_select'>
-		<li><a href="{% url socialauth_begin 'google-oauth2' %}?next={{ next }}"><img src="{{ STATIC_URL }}images/sign_in_with_google.png" alt="Google"/></a></li>
-		<li><a href="{% url socialauth_begin 'twitter' %}?next={{ next }}"><img src="{{ STATIC_URL }}images/sign_in_with_twitter.png" alt="Twitter"/></a></li>
-		<li><a href="{% url socialauth_begin 'facebook' %}?next={{ next }}"><img src="{{ STATIC_URL }}images/sign_in_with_facebook.png" alt="Facebook"/></a></li>
-	</ul>
-	{% endif %}
+{% block content %}
+    {% if user.is_authenticated %}
+        Thanks for visiting the site!
+    {% else %}
+        Please choose a method to get access to this site:
+        <ul id='login_select'>
+            <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="login_button_bottom">Google</span></a>
+            </li>
+            <li><a href="{% url socialauth_begin 'twitter' %}"><span id="login_button_top">Twitter</span></a></li>
+            <li><a href="{% url socialauth_begin 'facebook' %}"><span id="login_button_middle">Facebook</span></a></li>
+        </ul>
+    {% endif %}
 {% endblock %}
