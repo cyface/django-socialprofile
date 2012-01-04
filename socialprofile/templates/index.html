@@ -10,27 +10,8 @@
     {% if user.is_authenticated %}
         <h2>Welcome to Social Profiles</h2>
     {% else %}
-        <h2>Interested in interacting? Head over to the <a href="{% url secure_page %}">Secure area.</a></h2>
-        <a href="#" onclick="openSignInDialog();">Show Dialog</a>
-        <script type="text/javascript">
-            $(function() {
-                createSignInDialog();
-            });
-            function createSignInDialog() {
-                $( "#dialog" ).dialog({ resizable: false, modal: true, autoOpen: false });
-            }
-            function openSignInDialog() {
-                $( "#dialog" ).dialog("open");
-            }
-        </script>
-
-        <div id="dialog" title="Select A Sign In Method">
-            <ul id='login_select'>
-                <li><a href="{% url socialauth_begin 'google-oauth2' %}?next={{ next }}"><img src="{{ STATIC_URL }}images/sign_in_with_google.png" alt="Google"/></a></li>
-                <li><a href="{% url socialauth_begin 'twitter' %}?next={{ next }}"><img src="{{ STATIC_URL }}images/sign_in_with_twitter.png" alt="Twitter"/></a></li>
-                <li><a href="{% url socialauth_begin 'facebook' %}?next={{ next }}"><img src="{{ STATIC_URL }}images/sign_in_with_facebook.png" alt="Facebook"/></a></li>
-            </ul>
-        </div>
+        <h2>Interested in interacting? Head over to the <a href="#" onclick="openSignInDialog('/secure');">Secure area.</a></h2>
+        {% include "dialog.html" %}
     {% endif %}
 {% endblock %}
 
