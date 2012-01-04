@@ -43,7 +43,7 @@ MEDIA_URL = '/media/'
 # Absolute path to the directory that holds media.
 # Note that as of Django 1.3 - media is for uploaded files only.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'mediaroot')
 
 #Staticfiles Config
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticroot')
