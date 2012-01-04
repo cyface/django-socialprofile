@@ -11,13 +11,16 @@
         <h2>Welcome to Social Profiles</h2>
     {% else %}
         <h2>Interested in interacting? Head over to the <a href="{% url secure_page %}">Secure area.</a></h2>
-        <a href="javascript:showDialog();">Show Dialog</a>
+        <a href="#" onclick="openSignInDialog();">Show Dialog</a>
         <script type="text/javascript">
             $(function() {
-                showDialog();
+                createSignInDialog();
             });
-            function showDialog() {
-                $( "#dialog" ).dialog({ resizable: false, modal: true });
+            function createSignInDialog() {
+                $( "#dialog" ).dialog({ resizable: false, modal: true, autoOpen: false });
+            }
+            function openSignInDialog() {
+                $( "#dialog" ).dialog("open");
             }
         </script>
 
