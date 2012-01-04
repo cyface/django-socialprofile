@@ -1,2 +1,4 @@
 nav ul{margin:0;padding:0 1em 0 0;text-align:center}
-nav li{display:inline;padding-left:1em}
+nav li{display:inline;padding-left:1em;}
+#login_select {list-style:none;list-style-type:none}
+#login_select img {border:none}
