@@ -19,7 +19,7 @@ staticfiles = on
 
 ; Path to map frontend servers to for your site media (includes both STATIC_URL
 ; and MEDIA_URL; you must ensure they are under the same path)
-site_media_url = /site_media
+site_media_url = /static
 
 ; Gondor will use settings_module as DJANGO_SETTINGS_MODULE when it runs your
 ; code. Commented out by default (means it will not be set).
