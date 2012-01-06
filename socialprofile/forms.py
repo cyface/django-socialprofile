@@ -41,3 +41,6 @@ class ProfileForm(forms.Form):
         if initial is None and isinstance(user, User):
             initial = dict(user.__dict__.items() + user.get_profile().__dict__.items())
         super(ProfileForm, self).__init__(data=data, initial=initial, *args, **kwargs)
+
+class AcceptTermsForm(forms.Form):
+    accepted_terms = forms.BooleanField()

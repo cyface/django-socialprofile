@@ -17,11 +17,14 @@ urlpatterns = patterns('',
     # Secure Page
     url(r'^secure$', 'socialprofile.views.secure_view', name="secure_page"),
     
-    # Sign Up
+    # Select Sign Up Method
     url(r'^select$', 'socialprofile.views.select_view', name="select_page"),
 
     # Profile
     url(r'^profile', 'socialprofile.views.profile_view', name="profile_page"),
+
+    # Accept Terms
+    url(r'^accept', 'socialprofile.views.accept_view', name="accept_page"),
     
     # Social Registration
     url(r'', include('social_auth.urls')),

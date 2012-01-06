@@ -161,8 +161,8 @@ GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profil
 SOCIAL_AUTH_CHANGE_SIGNAL_ONLY = True # Prevent updating of name, etc. once user is created
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = True # Try and connect accounts with the same email address
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/secure'
-#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
 #SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 
 LOGIN_URL          = '/select'
@@ -190,9 +190,6 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False
     }
-
-### SECURE SITE
-# SSL_SITE_LOGIN_URL = '' # URL to HTTPS version of site for secure sign-in.
 
 #### LOGGING
 #if DEBUG:
