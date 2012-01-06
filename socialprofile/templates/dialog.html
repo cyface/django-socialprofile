@@ -3,24 +3,25 @@
         createSignInDialog();
     });
     function createSignInDialog() {
-        $("#dialog").dialog({ resizable:false, modal:true, autoOpen:false });
+        $("#sp-dialog").dialog({ resizable:false, modal:true, autoOpen:false });
     }
     function openSignInDialog(postLoginPage) {
         if (typeof postLoginPage != 'undefined') {
-            $("#login_select li a").attr("href",
+            $("#sp-login_select li a").attr("href",
                     function (i, val) {
                         return val + '?next=' + postLoginPage;
                     }
             );
         }
-        $("#dialog").dialog("open");
+        $("#sp-dialog").dialog("open");
     }
 </script>
 
-<div id="dialog" title="Select A Sign In Method">
-    <ul id='login_select'>
-        <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="login_button_bottom">Google</span></a></li>
-        <li><a href="{% url socialauth_begin 'twitter' %}"><span id="login_button_top">Twitter</span></a></li>
-        <li><a href="{% url socialauth_begin 'facebook' %}"><span id="login_button_middle">Facebook</span></a></li>
+<div id="sp-dialog" title="Select A Sign In Method">
+    <ul id='sp-login_select'>
+        <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="sp-login_button_bottom">Google</span></a></li>
+        <li><a href="{% url socialauth_begin 'twitter' %}"><span id="sp-login_button_top">Twitter</span></a></li>
+        <li><a href="{% url socialauth_begin 'facebook' %}"><span id="sp-login_button_middle">Facebook</span></a></li>
     </ul>
+    <p><form><input type="checkbox"><span id="sp-terms">I agree to the site Terms & Conditions.</span></form></p>
 </div>
