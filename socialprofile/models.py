@@ -1,3 +1,4 @@
+"""Django models for the socialprofile application"""
 from django.db.models.signals import post_save
 from social_auth.backends.facebook import FacebookBackend
 from social_auth.backends.google import GoogleOAuth2Backend
@@ -13,6 +14,7 @@ import logging
 log = logging.getLogger(name='socialprofile')
 
 class UserProfile(models.Model):
+    """Master User Profile - Captures additional data available from social auth providers"""
     GENDER_CHOICES = (
         ('male', 'Male'),
         ('female', 'Female'),
@@ -27,13 +29,15 @@ class UserProfile(models.Model):
     accepted_terms = models.BooleanField(default=False)
 
 
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_profile(sender, instance, created):
+    """Triggered when a user is first created to create a user profile object as well"""
     if created:
         UserProfile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
 
 def facebook_extra_values(sender, user, response, details, **kwargs):
+    """Triggered when a user is created from Facebook auth to capture their extended data"""
     user.last_name = response.get('last_name', '')
     user.first_name = response.get('first_name', '')
     profile = user.get_profile()
@@ -50,7 +54,8 @@ def facebook_extra_values(sender, user, response, details, **kwargs):
 
 socialauth_registered.connect(facebook_extra_values, sender=FacebookBackend)
 
-def google_extra_values(sender, user, response, details, **kwargs):
+def google_extra_values(sender, user, response):
+    """Triggered when a user is created from Google auth to capture their extended data"""
 #    log.debug('Inside Google Extra Values Handler')
     user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
 
@@ -75,7 +80,8 @@ def google_extra_values(sender, user, response, details, **kwargs):
 
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
 
-def twitter_extra_values(sender, user, response, details, **kwargs):
+def twitter_extra_values(sender, user, response):
+    """Triggered when a user is created from Twitter auth to capture their extended data"""
     try:
         first_name, last_name = response.get('name', '').split(' ', 1)
     except:

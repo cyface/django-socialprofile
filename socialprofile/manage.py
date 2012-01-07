@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Manage.py runs Django Commands with the settings.py in the same dir"""
 from django.core.management import execute_manager
 #try: # Try/except removed to make sure we see the errors when deploying to Gondor
 import settings # Assumed to be in the same directory.

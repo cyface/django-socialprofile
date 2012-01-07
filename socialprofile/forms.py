@@ -1,3 +1,4 @@
+"""Django forms for the socialprofile application"""
 from django import forms
 from django.contrib.auth.models import User
 from models import UserProfile
@@ -9,6 +10,7 @@ import logging
 log = logging.getLogger(name='socialprofile')
 
 class ProfileForm(forms.Form):
+    """Master form for editing the user's profile"""
     username = forms.CharField(max_length=30, label='User Name')
     email = forms.EmailField(label="Email Address", widget=H5EmailInput())
     first_name = forms.CharField(max_length=30, required=False, label='First Name',)
@@ -19,6 +21,7 @@ class ProfileForm(forms.Form):
     description = forms.CharField(required=False, max_length=300, widget=forms.Textarea(attrs={'rows':'1', 'cols':'80'}))
 
     def clean_username(self):
+        """Automatically called by Django, this method 'cleans' the username, which means making sure it's unique"""
         working_username = self.cleaned_data.get('username')
 
         # Check Username for Uniqueness
@@ -33,14 +36,12 @@ class ProfileForm(forms.Form):
         return working_username
 
     def clean_description(self):
-        # Strip HTML out of description
+        """Strip HTML out of description"""
         return strip_tags(self.cleaned_data['description'])
 
     def __init__(self, data=None, user=None, initial=None, *args, **kwargs):
+        """Lets you pass in a user= to bind this form from"""
         self.user = user
         if initial is None and isinstance(user, User):
             initial = dict(user.__dict__.items() + user.get_profile().__dict__.items())
         super(ProfileForm, self).__init__(data=data, initial=initial, *args, **kwargs)
-
-class AcceptTermsForm(forms.Form):
-    accepted_terms = forms.BooleanField()

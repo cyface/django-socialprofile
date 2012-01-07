@@ -1,3 +1,4 @@
+"""Django Views for the socialprofile module"""
 from django.shortcuts import render_to_response
 from django.db import IntegrityError
 from django.template import RequestContext
@@ -25,6 +26,13 @@ def index(request):
 
 
 def logout_view(request):
+    """
+    Logout Page
+
+    url: /logout
+
+    template : templates/index.html
+    """
     logout(request)
     response_data = {}
     return render_to_response('index.html', response_data, context_instance=RequestContext(request))
@@ -44,33 +52,6 @@ def select_view(request):
     response_data = {'next': nextPage}
 
     return render_to_response('select.html', response_data, context_instance=RequestContext(request))
-
-
-@login_required
-def accept_view(request):
-    """
-    View for presenting Terms & Conditions to Accept.
-
-    url: /accept
-
-    template : templates/accept.html
-    """
-
-    if request.method == 'POST': # If the form has been submitted...
-        form = AcceptTermsForm(request.POST) # A form bound to the POST data
-        if form.is_valid():
-            user = request.user
-            form.clean()
-            if form.cleaned_data.get('accepted_terms', False) == True:
-                profile = user.get_profile()
-                profile.accepted_terms = True
-                profile.save()
-    else:
-        form = AcceptTermsForm
-
-    response_data = {'form': AcceptTermsForm}
-
-    return render_to_response('accept.html', response_data, context_instance=RequestContext(request))
 
 @login_required
 def secure_view(request):

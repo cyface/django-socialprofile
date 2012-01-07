@@ -3,6 +3,8 @@
     pass-offs to sub-modules, who will have their own urls.py defining actions within.
 """
 
+# pylint: disable=W0401, W0614
+
 from django.conf.urls.defaults import *  #@UnusedWildImport
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -22,9 +24,6 @@ urlpatterns = patterns('',
 
     # Profile
     url(r'^profile', 'socialprofile.views.profile_view', name="profile_page"),
-
-    # Accept Terms
-    url(r'^accept', 'socialprofile.views.accept_view', name="accept_page"),
     
     # Social Registration
     url(r'', include('social_auth.urls')),

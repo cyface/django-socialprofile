@@ -1,6 +1,6 @@
 """Automated Unit Test Settings File for the Project"""
 
-# pylint: disable=W0401, W0614
+# pylint: disable=W0401, W0614, E0611, F0401
 
 from socialprofile.settings import * #@UnusedWildImport
 try:

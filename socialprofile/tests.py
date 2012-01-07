@@ -1,3 +1,4 @@
+"""Unit Tests for the socialprofile module"""
 import unittest
 from urllib import urlencode
 from urllib2 import Request, urlopen
