@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from forms import ProfileForm, AcceptTermsForm
+from forms import ProfileForm
 import logging
 
 log = logging.getLogger(name='socialprofile')

@@ -1,10 +1,14 @@
 """Unit Tests for the socialprofile module"""
+
+# pylint: disable=R0904
+
 import unittest
 from urllib import urlencode
 from urllib2 import Request, urlopen
 from django.utils import simplejson
 
 class OauthGoogleTestCase(unittest.TestCase):
+    """Tests Google Oauth for extra values, you need to look in user_auth tables for an access_token"""
     def testGetUserData(self):
         access_token = 'GETAFRESHONE'
 

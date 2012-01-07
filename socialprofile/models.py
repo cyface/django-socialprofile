@@ -1,4 +1,7 @@
 """Django models for the socialprofile application"""
+
+# pylint: disable=W0613
+
 from django.db.models.signals import post_save
 from social_auth.backends.facebook import FacebookBackend
 from social_auth.backends.google import GoogleOAuth2Backend
@@ -36,7 +39,8 @@ def create_user_profile(sender, instance, created):
 
 post_save.connect(create_user_profile, sender=User)
 
-def facebook_extra_values(sender, user, response, details, **kwargs):
+#noinspection PyUnusedLocal
+def facebook_extra_values(sender, user, response):
     """Triggered when a user is created from Facebook auth to capture their extended data"""
     user.last_name = response.get('last_name', '')
     user.first_name = response.get('first_name', '')
@@ -54,6 +58,7 @@ def facebook_extra_values(sender, user, response, details, **kwargs):
 
 socialauth_registered.connect(facebook_extra_values, sender=FacebookBackend)
 
+#noinspection PyUnusedLocal
 def google_extra_values(sender, user, response):
     """Triggered when a user is created from Google auth to capture their extended data"""
 #    log.debug('Inside Google Extra Values Handler')
@@ -80,6 +85,7 @@ def google_extra_values(sender, user, response):
 
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
 
+#noinspection PyUnusedLocal
 def twitter_extra_values(sender, user, response):
     """Triggered when a user is created from Twitter auth to capture their extended data"""
     try:
