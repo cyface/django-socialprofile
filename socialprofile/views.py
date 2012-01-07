@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from forms import ProfileForm
 import logging
 
-log = logging.getLogger(name='socialprofile')
+logger = logging.getLogger(name='socialprofile')
 
 def index(request):
     """
@@ -18,7 +18,7 @@ def index(request):
     template : templates/index.html
     """
 
-    log.debug('indexpage')
+    logger.debug('indexpage')
 
     response_data = {}
 

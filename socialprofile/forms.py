@@ -7,7 +7,7 @@ from django.utils.html import strip_tags
 from widgets import H5EmailInput
 import logging
 
-log = logging.getLogger(name='socialprofile')
+logger = logging.getLogger(name='socialprofile')
 
 class ProfileForm(forms.Form):
     """Master form for editing the user's profile"""

@@ -10,6 +10,7 @@ from django.utils import simplejson
 class OauthGoogleTestCase(unittest.TestCase):
     """Tests Google Oauth for extra values, you need to look in user_auth tables for an access_token"""
     def testGetUserData(self):
+        """Test user data from Google oauth"""
         access_token = 'GETAFRESHONE'
 
         user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
