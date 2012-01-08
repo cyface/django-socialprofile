@@ -31,6 +31,16 @@ class UserProfile(models.Model):
     description = models.TextField(blank=True)
     accepted_terms = models.BooleanField(default=False)
 
+    def get_full_name(self):
+        """
+        Do a more intellegent version of django's builting user.get_full_name
+        """
+        if self.user.first_name:
+            return ("%s %s" % (self.user.first_name, self.user.last_name)).strip()
+        return self.user.username
+    
+    def __unicode__(self):
+        return self.get_full_name()
 
 def create_user_profile(sender, instance, created):
     """Triggered when a user is first created to create a user profile object as well"""
