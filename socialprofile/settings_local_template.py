@@ -59,40 +59,13 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 DATABASES = {
     #    'default': {
     #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #        'NAME': 'pb2',
-    #        'USER': 'pb2',
+    #        'NAME': 'socialprofile',
+    #        'USER': 'socialprofile',
     #        'PASSWORD': '',
     #        'HOST': '127.0.0.1',
     #        'PORT': '', # Set to empty string for default.
     #        'SUPPORTS_TRANSACTIONS': 'true',
     #    },
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'sp',
-        'USER': 'sp',
-        'PASSWORD': '',
-        #        'HOST': '127.0.0.1',
-        #        'PORT': '', # Set to empty string for default.
-        #        'SUPPORTS_TRANSACTIONS': 'true',
-    }
-}
-
-# Local DB settings. (MySQL)
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'pb2',
-#        'USER': 'pb2',
-#        'PASSWORD': '',
-#        'HOST': '127.0.0.1',
-#        'PORT': '', # Set to empty string for default.
-#        'SUPPORTS_TRANSACTIONS': 'false',
-#        'OPTIONS': {'init_command': 'SET storage_engine=INNODB'},
-#    }
-#}
-
-# Local DB settings. (SQLLite)
-DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': PROJECT_ROOT + '/socialprofile.db',
