@@ -1,4 +1,4 @@
-"""Django models for the socialprofile application"""
+"""Django Models for SocialProfile App"""
 
 # pylint: disable=W0613
 
@@ -14,10 +14,10 @@ from urllib2 import Request, urlopen
 from django.utils import simplejson
 import logging
 
-logger = logging.getLogger(name='socialprofile')
+log = logging.getLogger(name='socialprofile')
 
 class UserProfile(models.Model):
-    """Master User Profile - Captures additional data available from social auth providers"""
+    """Main UserProfile Object - Holds extra profile data retrived from auth providers"""
     GENDER_CHOICES = (
         ('male', 'Male'),
         ('female', 'Female'),
@@ -31,27 +31,16 @@ class UserProfile(models.Model):
     description = models.TextField(blank=True)
     accepted_terms = models.BooleanField(default=False)
 
-    def get_full_name(self):
-        """
-        Do a more intellegent version of django's builting user.get_full_name
-        """
-        if self.user.first_name:
-            return ("%s %s" % (self.user.first_name, self.user.last_name)).strip()
-        return self.user.username
-    
-    def __unicode__(self):
-        return self.get_full_name()
 
-def create_user_profile(sender, instance, created):
-    """Triggered when a user is first created to create a user profile object as well"""
+def create_user_profile(sender, instance, created, **kwargs):
+    """Creates a UserProfile Object Whenever a User Object is Created"""
     if created:
         UserProfile.objects.create(user=instance)
 
 post_save.connect(create_user_profile, sender=User)
 
-#noinspection PyUnusedLocal
-def facebook_extra_values(sender, user, response):
-    """Triggered when a user is created from Facebook auth to capture their extended data"""
+def facebook_extra_values(sender, user, response, details, **kwargs):
+    """Populates a UserProfile Object when a new User is created via Facebook Auth"""
     user.last_name = response.get('last_name', '')
     user.first_name = response.get('first_name', '')
     profile = user.get_profile()
@@ -68,9 +57,8 @@ def facebook_extra_values(sender, user, response):
 
 socialauth_registered.connect(facebook_extra_values, sender=FacebookBackend)
 
-#noinspection PyUnusedLocal
-def google_extra_values(sender, user, response):
-    """Triggered when a user is created from Google auth to capture their extended data"""
+def google_extra_values(sender, user, response, details, **kwargs):
+    """Populates a UserProfile Object when a new User is created via Google Auth"""
 #    log.debug('Inside Google Extra Values Handler')
     user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
 
@@ -95,9 +83,8 @@ def google_extra_values(sender, user, response):
 
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
 
-#noinspection PyUnusedLocal
-def twitter_extra_values(sender, user, response):
-    """Triggered when a user is created from Twitter auth to capture their extended data"""
+def twitter_extra_values(sender, user, response, details, **kwargs):
+    """Populates a UserProfile Object when a new User is created via Twitter Auth"""
     try:
         first_name, last_name = response.get('name', '').split(' ', 1)
     except:
