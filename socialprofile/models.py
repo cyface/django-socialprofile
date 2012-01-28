@@ -29,7 +29,6 @@ class UserProfile(models.Model):
     url = models.URLField(blank=True)
     image_url = models.URLField(blank=True)
     description = models.TextField(blank=True)
-    accepted_terms = models.BooleanField(default=False)
 
 
 def create_user_profile(sender, instance, created, **kwargs):

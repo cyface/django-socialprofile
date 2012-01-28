@@ -2,7 +2,6 @@
 
 # pylint: disable=W0401, W0614, E0611, F0401
 
-from socialprofile.settings import * #@UnusedWildImport
 try:
     from socialprofile.settings_test_local import * #@UnusedWildImport
 except:

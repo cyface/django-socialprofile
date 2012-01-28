@@ -5,8 +5,6 @@
 # NOTE
 # see settings_local_template.py for instructions on making your local settings file
 
-from settings_main import * #@UnusedWildImport
-
 try:
     from settings_local import * #@UnusedWildImport
 except ImportError:
