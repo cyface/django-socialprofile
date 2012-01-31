@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block headtitle %}Accept Terms and Conditions{% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+    <section title="termsandconditions">
+        <h1>Accept Terms and Conditions</h1>
+        {{ form.errors }}
+        <form action="{%  url accept_terms %}" method="post">
+            {% csrf_token %}
+            <ul>
+                {{ form.as_ul }}
+            </ul>
+            <p><input type="submit" value="Accept"></p>
+        </form>
+    </section>
+{% endblock %}
