@@ -14,29 +14,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Home Page
-    url(r'^$', 'socialprofile.views.index', name="home_page"),
-    
-    # Secure Page
-    url(r'^secure$', 'socialprofile.views.secure_view', name="secure_page"),
-    
-    # Select Sign Up Method
-    url(r'^select$', 'socialprofile.views.select_view', name="select_page"),
+    url(r'^$', 'termsandconditions.views.index', name="home_page"),
 
-    # Profile
-    url(r'^profile', 'socialprofile.views.profile_view', name="profile_page"),
-    
-    # Social Registration
-    url(r'', include('social_auth.urls')),
-    
-    # Logout Page
-    url(r'^logout$', 'socialprofile.views.logout_view', name="logout_page"),
-    
-    # Admin documentation:
-    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Admin Site:
-    (r'^admin/', include(admin.site.urls)),
-      
+    # Accept Terms
+    url(r'^profile', 'termsandconditions.views.accept_view', name="profile_page"),
 )
 
 #Only hook up the static and media to run through Django in a dev environment...in prod, needs to be handled by web server
