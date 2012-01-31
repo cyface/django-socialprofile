@@ -20,6 +20,6 @@ DATABASES = {
 # Test Cache Settings
 CACHE_BACKEND = "file://" + tempfile.gettempdir()
 
-# INSTALLED_APPS += ('django_nose',)
+INSTALLED_APPS += ('django_nose',)
 
-# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner' # Should work with Django 1.2.1+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner' # Should work with Django 1.2.1+

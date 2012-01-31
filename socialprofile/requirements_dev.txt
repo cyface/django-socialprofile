@@ -2,7 +2,7 @@
 coverage
 django-debug-toolbar
 django-nose
-gondor
 nose
 nosexcover
 pylint
+sphinx
