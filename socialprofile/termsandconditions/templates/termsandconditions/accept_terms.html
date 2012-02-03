@@ -10,7 +10,7 @@
     <section title="termsandconditions">
         <h1>Accept Terms and Conditions</h1>
         {{ form.errors }}
-        <form action="{%  url accept_terms %}" method="post">
+        <form action="{%  url terms_accept_page %}" method="post">
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}

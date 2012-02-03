@@ -102,6 +102,6 @@ def profile_view(request):
     else:
         form = ProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
 
-    response_data = {'form': form, 'errors': form.errors}
+    response_data = {'form': form}
 
     return render_to_response('profile.html', response_data, context_instance=RequestContext(request))

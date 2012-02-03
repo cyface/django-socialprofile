@@ -17,19 +17,22 @@ urlpatterns = patterns('',
     url(r'^$', 'socialprofile.views.index', name="home_page"),
     
     # Secure Page
-    url(r'^secure$', 'socialprofile.views.secure_view', name="secure_page"),
+    url(r'^secure/$', 'socialprofile.views.secure_view', name="secure_page"),
     
     # Select Sign Up Method
-    url(r'^select$', 'socialprofile.views.select_view', name="select_page"),
+    url(r'^select/$', 'socialprofile.views.select_view', name="select_page"),
 
     # Profile
-    url(r'^profile', 'socialprofile.views.profile_view', name="profile_page"),
-    
+    url(r'^profile/$', 'socialprofile.views.profile_view', name="profile_page"),
+
+    # Terms and Conditions
+    url(r'^terms/', include('termsandconditions.urls')),
+
     # Social Registration
     url(r'', include('social_auth.urls')),
     
     # Logout Page
-    url(r'^logout$', 'socialprofile.views.logout_view', name="logout_page"),
+    url(r'^logout/$', 'socialprofile.views.logout_view', name="logout_page"),
     
     # Admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -4,24 +4,32 @@ from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from forms import TermsAndConditionsForm
+from models import TermsAndConditions
+from django.conf import settings
+from django.http import Http404
 import logging
 
 logger = logging.getLogger(name='termsandconditions')
 
-def index(request):
+def terms_view (request, slug='default', version_number='latest'):
     """
-    Main site page page.
+    View Terms and Conditions Text
 
     url: /
     
-    template : templates/index.html
+    template : templates/view_terms.html
     """
 
-    logger.debug('indexpage')
+    logger.debug('index_view')
 
-    response_data = {}
+    try:
+        form = TermsAndConditionsForm(slug=slug)
+    except TermsAndConditions.DoesNotExist:
+        raise Http404
 
-    return render_to_response('index.html', response_data, context_instance=RequestContext(request))
+    response_data = {'form': form}
+
+    return render_to_response('termsandconditions/view_terms.html', response_data, context_instance=RequestContext(request))
 
 
 @login_required
@@ -29,10 +37,12 @@ def accept_view(request):
     """
     Terms and Conditions Acceptance view
 
-    url: /acceptterms
+    url: /terms/accept
 
     template : templates/accept_terms.html
     """
+
+    logger.debug('accept_view')
 
     if request.method == 'POST': # If the form has been submitted...
         form = TermsAndConditionsForm(request.POST) # A form bound to the POST data
@@ -43,11 +53,9 @@ def accept_view(request):
                 pass
             except IntegrityError:
                 pass
-
-
     else:
         form = TermsAndConditionsForm() # Pass in User to Pre-Populate with Current Values
 
-    response_data = {'form': form, 'errors': form.errors}
+    response_data = {'form': form}
 
-    return render_to_response('templates/accept_terms.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('termsandconditions/accept_terms.html', response_data, context_instance=RequestContext(request))
