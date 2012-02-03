@@ -3,6 +3,6 @@ REM Assuming you have python installed, you can install virtualenv using the com
 REM curl -O https://raw.github.com/pypa/virtualenv/master/virtualenv.py
 REM This should be run from the project directory, not inside the socialprofile dir
 
-virtualenv --no-site-packages socialprofile-env
+virtualenv --system-site-packages socialprofile-env
 call socialprofile-env\Scripts\activate.bat
 pip install -r socialprofile/requirements_dev.txt
