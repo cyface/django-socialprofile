@@ -7,9 +7,37 @@ from forms import TermsAndConditionsForm
 from models import TermsAndConditions
 from django.conf import settings
 from django.http import Http404
+from django.views.generic import TemplateView
 import logging
 
 logger = logging.getLogger(name='termsandconditions')
+
+class TermsView (TemplateView):
+    template_name = 'termsandconditions/view_terms.html'
+
+    logger.debug('TemplateView')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(TermsView, self).get_context_data(**kwargs)
+        try:
+            slug = 'site-terms'
+            form = TermsAndConditionsForm(slug=slug)
+            context['form'] = form
+        except TermsAndConditions.DoesNotExist:
+            raise Http404
+
+        return context
+
+    def get_urls(self):
+        from django.conf.urls.defaults import patterns, url
+
+        urlpatterns = patterns('',
+            url(r'^terms/', TermsView.as_view(), name='terms_terms_view'),
+        )
+        return urlpatterns
+    urls = property(get_urls)
+
 
 def terms_view (request, slug='default', version_number='latest'):
     """
