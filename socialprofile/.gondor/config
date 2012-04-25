@@ -11,6 +11,8 @@ requirements_file = requirements.txt
 ; application which represents the callable in the module.
 wsgi_entry_point = wsgi:application
 
+managepy = socialprofile-demo/manage.py
+
 ; Can be either nashvegas, south or none
 migrations = none
 

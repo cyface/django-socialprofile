@@ -1,8 +1,0 @@
-#sp-nav{margin:0;padding:0 1em 0 0;text-align:center}
-#sp-nav li{display:inline;padding-left:1em;}
-#sp-login_select {list-style:none;list-style-type:none;margin-left:-30px;}
-#sp-login_select span {margin-top:6px;}
-#sp-login_button_top {width:244px; height:45px;display:block;background:url('../images/social_signin_buttons.png') 0 0 no-repeat;text-indent:-9999em}
-#sp-login_button_middle {width:244px; height:45px;display:block;background:url('../images/social_signin_buttons.png') 0 -45px no-repeat;text-indent:-9999em}
-#sp-login_button_bottom {width:244px; height:45px;display:block;background:url('../images/social_signin_buttons.png') 0 -90px no-repeat;text-indent:-9999em}
-#sp-terms {font-size: 12px;}
