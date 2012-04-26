@@ -49,6 +49,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'mediaroot')
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticroot')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static')  ]
+TEMPLATE_DIRS = [os.path.join(PROJECT_ROOT, 'templates')]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -135,7 +136,7 @@ SOCIAL_AUTH_CHANGE_SIGNAL_ONLY = True # Prevent updating of name, etc. once user
 SOCIAL_AUTH_ASSOCIATE_BY_MAIL = True # Try and connect accounts with the same email address
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
+#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
 #SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 
 LOGIN_URL          = '/select'
