@@ -4,5 +4,5 @@
 # This should be run from the project directory, not inside the socialprofile dir
 
 virtualenv --system-site-packages socialprofile-env
-. ./socialprofile-env/bin/activate
+. ./django-socialprofile-env/bin/activate
 pip install -r ./socialprofile/requirements_dev.txt
