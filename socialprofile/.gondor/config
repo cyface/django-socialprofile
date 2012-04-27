@@ -9,7 +9,7 @@ requirements_file = requirements.txt
 ; The wsgi entry point of your application in two parts separated by a colon.
 ; wsgi:deploy where wsgi is the Python module which should be importable and
 ; application which represents the callable in the module.
-wsgi_entry_point = socialprofile-demo/wsgi:application
+wsgi_entry_point = wsgi:application
 
 managepy = socialprofile-demo/manage.py
 
