@@ -45,4 +45,4 @@ INSTALLED_APPS = (
     'termsandconditions'
 )
 
-AUTH_PROFILE_MODULE = "socialprofile.UserProfile"
+AUTH_PROFILE_MODULE = 'socialprofile.UserProfile'
