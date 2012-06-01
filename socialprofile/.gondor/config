@@ -26,4 +26,4 @@ site_media_url = /assets
 
 ; Gondor will use settings_module as DJANGO_SETTINGS_MODULE when it runs your
 ; code. Commented out by default (means it will not be set).
-settings_module = socialprofile.socialprofile_demo.settings
+settings_module = socialprofile_demo.settings
