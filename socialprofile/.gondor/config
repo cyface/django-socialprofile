@@ -4,7 +4,7 @@ vcs = git
 
 [app]
 ; This path is relative to your project root (the directory .gondor is in)
-requirements_file = requirements.txt
+requirements_file = socialprofile_demo/requirements.txt
 
 ; The wsgi entry point of your application in two parts separated by a colon.
 ; wsgi:deploy where wsgi is the Python module which should be importable and
