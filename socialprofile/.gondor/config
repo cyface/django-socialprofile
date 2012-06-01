@@ -11,7 +11,7 @@ requirements_file = requirements.txt
 ; application which represents the callable in the module.
 wsgi_entry_point = socialprofile-demo.wsgi:application
 
-managepy = socialprofile-demo/manage.py
+managepy = socialprofile_demo/manage.py
 
 ; Can be either nashvegas, south or none
 migrations = none
@@ -26,4 +26,4 @@ site_media_url = /assets
 
 ; Gondor will use settings_module as DJANGO_SETTINGS_MODULE when it runs your
 ; code. Commented out by default (means it will not be set).
-settings_module = socialprofile-demo.settings
+settings_module = socialprofile_demo.settings
