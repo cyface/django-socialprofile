@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from models import UserProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import strip_tags
+from django.forms.models import model_to_dict
 from widgets import H5EmailInput
 import logging
 
@@ -43,5 +44,6 @@ class ProfileForm(forms.Form):
         """Lets you pass in a user= to bind this form from"""
         self.user = user
         if initial is None and isinstance(user, User):
-            initial = dict(user.__dict__.items() + user.get_profile().__dict__.items())
+            initial = model_to_dict(user) # Set initial values for form to user object properties
+            initial.update( model_to_dict(user.get_profile())) # Add User Profile properties to initial values
         super(ProfileForm, self).__init__(data=data, initial=initial, *args, **kwargs)
