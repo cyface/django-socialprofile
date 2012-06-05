@@ -75,7 +75,7 @@ DATABASES = {
 }
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'socialprofile_demo.wsgi.application'
+#WSGI_APPLICATION = 'socialprofile_demo.wsgi.application'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -93,6 +93,13 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = False
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale.
+USE_L10N = False
+
+# If you set this to False, Django will not use timezone-aware datetimes.
+USE_TZ = True
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'zv$+w7juz@(g!^53o0ai1u082)=jkz9my_r=3)fglrj5t8l$2#'
