@@ -3,6 +3,5 @@
 # curl -O https://raw.github.com/pypa/virtualenv/master/virtualenv.py
 # This should be run from the project directory, not inside the socialprofile dir
 
-virtualenv --system-site-packages django-socialprofile-env
 . ./django-socialprofile-env/bin/activate
-pip install -r ./socialprofile_demo/requirements_dev.txt
+pip install --upgrade -r ./socialprofile_demo/requirements_dev.txt
