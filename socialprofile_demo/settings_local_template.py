@@ -99,7 +99,7 @@ USE_I18N = False
 USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'zv$+w7juz@(g!^53o0ai1u082)=jkz9my_r=3)fglrj5t8l$2#'
@@ -155,6 +155,9 @@ LOGIN_URL          = '/select'
 
 ### django-registration Settings
 ACCOUNT_ACTIVATION_DAYS = 14
+
+### TermsAndConditions
+DEFAULT_TERMS_SLUG = 'site-terms'
 
 ### DEBUG TOOLBAR
 if DEBUG:

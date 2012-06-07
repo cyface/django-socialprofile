@@ -17,13 +17,14 @@ else:
 
 class UserTermsAndConditions(models.Model):
     """Holds mapping between TermsAndConditions and Users"""
-    user = models.OneToOneField(User, related_name="userterms")
-    terms = models.OneToOneField("TermsAndConditions", related_name="terms")
-    ip_address = models.IPAddressField(null=True, blank=True)
+    user = models.ForeignKey(User, related_name="userterms")
+    terms = models.ForeignKey("TermsAndConditions", related_name="terms")
+    ip_address = models.IPAddressField(null=True, blank=True, verbose_name='IP Address')
     date_accepted = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         get_latest_by = 'date_accepted'
+        verbose_name_plural = 'User Terms and Conditions'
 
 class TermsAndConditions(models.Model):
     """Holds Versions of TermsAndConditions
@@ -40,6 +41,9 @@ class TermsAndConditions(models.Model):
         ordering = ['-date_active',]
         get_latest_by = 'date_active'
         verbose_name_plural = 'Terms and Conditions'
+
+    def __unicode__(self):
+        return "%s-v%.2F" % (self.slug, self.version_number)
 
     @staticmethod
     def get_active(slug='default'):
