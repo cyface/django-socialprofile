@@ -4,15 +4,15 @@ from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from forms import TermsAndConditionsForm
-from models import TermsAndConditions
-from django.conf import settings
+from models import TermsAndConditions, UserTermsAndConditions
 from django.http import Http404
 from django.views.generic import TemplateView
+import datetime
 import logging
 
 logger = logging.getLogger(name='termsandconditions')
 
-class TermsView (TemplateView):
+class TermsView(TemplateView):
     template_name = 'termsandconditions/view_terms.html'
 
     logger.debug('TemplateView')
@@ -30,16 +30,17 @@ class TermsView (TemplateView):
         return context
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
+        from django.conf.urls import patterns, url
 
         urlpatterns = patterns('',
             url(r'^terms/', TermsView.as_view(), name='terms_terms_view'),
         )
         return urlpatterns
+
     urls = property(get_urls)
 
 
-def terms_view (request, slug='default', version_number='latest'):
+def terms_view(request, slug='default', version_number='latest'):
     """
     View Terms and Conditions Text
 
@@ -57,7 +58,8 @@ def terms_view (request, slug='default', version_number='latest'):
 
     response_data = {'form': form}
 
-    return render_to_response('termsandconditions/view_terms.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('termsandconditions/view_terms.html', response_data,
+        context_instance=RequestContext(request))
 
 
 @login_required
@@ -78,12 +80,19 @@ def accept_view(request):
             user = request.user
             form.clean()
             try:
-                pass
-            except IntegrityError:
+                terms = TermsAndConditions.objects.get(slug=form.cleaned_data['slug'])
+                userTerms = UserTermsAndConditions()
+                userTerms.terms=terms
+                userTerms.user=user
+                userTerms.date_accepted=datetime.datetime.now()
+                userTerms.ip_address=request.META['REMOTE_ADDR']
+                result = userTerms.save()
+            except IntegrityError as err:
                 pass
     else:
         form = TermsAndConditionsForm() # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
-    return render_to_response('termsandconditions/accept_terms.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('termsandconditions/accept_terms.html', response_data,
+        context_instance=RequestContext(request))

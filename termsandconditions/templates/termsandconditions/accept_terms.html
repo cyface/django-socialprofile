@@ -4,17 +4,25 @@
 
 {% block body_class %}{% endblock %}
 
-{% block head %}{% endblock %}
+{% block head %}
+    <style>
+        .terms-text {
+            width: 80%;
+        }
+        .terms-form {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
     <section title="termsandconditions">
         <h1>Accept Terms and Conditions</h1>
         {{ form.errors }}
-        <form action="{%  url terms_accept_page %}" method="post">
+        <form action="{%  url terms_accept_page %}" method="post" class="terms-form">
             {% csrf_token %}
-            <ul>
-                {{ form.as_ul }}
-            </ul>
+            {{ form.text }}
+            {{ form.slug }}
             <p><input type="submit" value="Accept"></p>
         </form>
     </section>
