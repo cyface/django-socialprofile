@@ -23,6 +23,8 @@
             {% csrf_token %}
             {{ form.text }}
             {{ form.slug }}
+            {{ form.version_number }}
+            {{ form.returnTo }}
             <p><input type="submit" value="Accept"></p>
         </form>
     </section>

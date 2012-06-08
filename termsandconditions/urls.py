@@ -5,7 +5,7 @@
 
 # pylint: disable=W0401, W0614
 
-from django.conf.urls.defaults import *  #@UnusedWildImport
+from django.conf.urls import *  #@UnusedWildImport
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.core.urlresolvers import reverse
