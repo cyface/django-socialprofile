@@ -46,4 +46,4 @@ class ProfileForm(forms.Form):
         if initial is None and isinstance(user, User):
             initial = model_to_dict(user) # Set initial values for form to user object properties
             initial.update( model_to_dict(user.get_profile())) # Add User Profile properties to initial values
-        super(ProfileForm, self).__init__(data=data, initial=initial, *args, **kwargs)
+        super(ProfileForm, self).__init__(data=data, initial=initial)

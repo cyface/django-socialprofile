@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from forms import TermsAndConditionsForm
 from models import TermsAndConditions, UserTermsAndConditions
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.views.generic import TemplateView
 import datetime
 import logging
@@ -80,19 +80,24 @@ def accept_view(request):
             user = request.user
             form.clean()
             try:
-                terms = TermsAndConditions.objects.get(slug=form.cleaned_data['slug'])
+                terms = TermsAndConditions.objects.get(slug=form.cleaned_data['slug'], version_number=form.cleaned_data['version_number'])
                 userTerms = UserTermsAndConditions()
                 userTerms.terms=terms
                 userTerms.user=user
                 userTerms.date_accepted=datetime.datetime.now()
                 userTerms.ip_address=request.META['REMOTE_ADDR']
-                result = userTerms.save()
+                userTerms.save()
+                if form.cleaned_data.has_key('returnTo'):
+                    return HttpResponseRedirect(form.cleaned_data['returnTo'])
             except IntegrityError as err:
-                pass
+                logger.error('Integrity Error Saving Terms and Conditions', err)
     else:
         form = TermsAndConditionsForm() # Pass in User to Pre-Populate with Current Values
+        if request.GET.has_key('returnTo') :
+            form.initial['returnTo'] = request.GET['returnTo']
 
-    response_data = {'form': form}
+    response_data = {'form': form, }
+
 
     return render_to_response('termsandconditions/accept_terms.html', response_data,
         context_instance=RequestContext(request))

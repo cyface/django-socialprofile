@@ -44,7 +44,7 @@ def facebook_extra_values(sender, user, response, details, **kwargs):
     user.first_name = response.get('first_name', '')
     profile = user.get_profile()
     profile.gender = response.get('gender', '')
-    if (response.get('username') is not None):
+    if response.get('username') is not None:
         profile.image_url = 'https://graph.facebook.com/' + response.get('username') + '/picture'
     profile.url = response.get('link', '')
     if response.get('hometown') is not None:

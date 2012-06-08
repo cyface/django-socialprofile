@@ -22,7 +22,7 @@ class TermsAndConditionsTests(unittest.TestCase):
     def test_terms_and_conditions(self):
         """Various tests of the TermsAndConditions Module"""
 
-        """Testing Direct Assignment of Acceptance"""
+        # Testing Direct Assignment of Acceptance
         UserTermsAndConditions.objects.create(user=self.user1, terms=self.terms1)
         UserTermsAndConditions.objects.create(user=self.user2, terms=self.terms3)
 
@@ -31,11 +31,11 @@ class TermsAndConditionsTests(unittest.TestCase):
 
         self.assertEquals('user1', self.terms1.users.all()[0].username)
 
-        """Testing the get_active static method of TermsAndConditions"""
+        # Testing the get_active static method of TermsAndConditions
         self.assertEquals(2.0, TermsAndConditions.get_active(slug='siteterms').version_number)
         self.assertEquals(1.5, TermsAndConditions.get_active(slug='contribterms').version_number)
 
-        """Testing the agreed_to_latest static method of TermsAndConditions"""
+        # Testing the agreed_to_latest static method of TermsAndConditions
         self.assertEquals(False, TermsAndConditions.agreed_to_latest(user=self.user1, slug='siteterms'))
         self.assertEquals(True, TermsAndConditions.agreed_to_latest(user=self.user2, slug='contribterms'))
 
