@@ -14,7 +14,7 @@ def index(request):
     template : templates/index.html
     """
 
-    logger.debug('indexpage')
+    logger.debug('demo_indexpage')
 
     response_data = {}
 

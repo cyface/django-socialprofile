@@ -6,21 +6,16 @@
 # pylint: disable=W0401, W0614
 
 from django.conf.urls import *  #@UnusedWildImport
-from django.views.generic import RedirectView
 from django.contrib import admin
-from django.core.urlresolvers import reverse
-from views import TermsView
+from views import ViewTerms
 
 admin.autodiscover()
 
 # Instantiate TermsView class-based-view in order to pull the urls property off of it.
-terms_view = TermsView()
+terms_view = ViewTerms()
 
 urlpatterns = patterns('termsandconditions.views',
     # View Terms
-    url(r'^$', 'terms_view'),
-    url(r'^view/$', 'terms_view', name="view_terms_page"),
-    url(r'^view/(?P<slug>[-\w]+)/$', 'terms_view', name="view_terms_page_with_slug"),
     url(r'', include(terms_view.urls)),
 
     # Accept Terms
@@ -31,5 +26,5 @@ urlpatterns = patterns('termsandconditions.views',
 )
 
 
-#
+#url(r'^view/(?P<slug>[-\w]+)/$', 'terms_view', name="view_terms_page_with_slug"),
 #url(r'^(?P<slug>\[-w])/(?P<version_number>\[0..9\.]+)$', 'accept_view', name="view_terms_page_with_version"),
