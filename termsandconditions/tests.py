@@ -135,6 +135,8 @@ class TermsAndConditionsTests(TestCase):
     def test_terms_upgrade(self):
         """Validate a user is prompted to accept terms again when new version comes out"""
 
+        UserTermsAndConditions.objects.create(user=self.user1, terms=self.terms2)
+
         LOGGER.debug('Test user1 login pre upgrade')
         login_response = self.c.login(username='user1', password='user1password')
         self.assertTrue(login_response)
@@ -148,8 +150,8 @@ class TermsAndConditionsTests(TestCase):
             text="Terms and Conditions2", version_number=2.5, date_active="2012-02-05")
 
         LOGGER.debug('Test user1 is redirected when changing pages')
-        logged_in_response = self.c.get('/secure/', follow=True)
-        self.assertContains(logged_in_response, "Secure")
+        post_upgrade_response = self.c.get('/secure/', follow=True)
+        self.assertRedirects(post_upgrade_response, "http://testserver/terms/accept/?returnTo=/secure/")
 
 
     def test_terms_view(self):
