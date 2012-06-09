@@ -24,3 +24,8 @@ from django.utils import simplejson
 #
 #        print result['family_name']
 
+class SocialProfileUrlsTestCase(unittest.TestCase):
+    def test_redirect_urls(self):
+        def testLoginRequiredRedirect(self):
+            response = self.c.get('/secure/', follow=True)
+            self.assertRedirects(response, "http://testserver/select/?next=/secure/")
