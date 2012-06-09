@@ -13,14 +13,14 @@ import logging
 
 logger = logging.getLogger(name='termsandconditions')
 
-class TermsView(TemplateView):
+class ViewTerms(TemplateView):
     template_name = 'termsandconditions/view_terms.html'
 
-    logger.debug('TemplateView')
+    logger.debug('termsviewpage')
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(TermsView, self).get_context_data(**kwargs)
+        context = super(ViewTerms, self).get_context_data(**kwargs)
         try:
             slug = 'site-terms'
             form = TermsAndConditionsForm(slug=slug)
@@ -34,33 +34,12 @@ class TermsView(TemplateView):
         from django.conf.urls import patterns, url
 
         urlpatterns = patterns('',
-            url(r'^terms/', TermsView.as_view(), name='terms_terms_view'),
+            url(r'^$', ViewTerms.as_view(), name='terms_index'),
+            url(r'^view/$', ViewTerms.as_view(), name='terms_view'),
         )
         return urlpatterns
 
     urls = property(get_urls)
-
-
-def terms_view(request, slug='default', version_number='latest'):
-    """
-    View Terms and Conditions Text
-
-    url: /
-    
-    template : templates/view_terms.html
-    """
-
-    logger.debug('index_view')
-
-    try:
-        form = TermsAndConditionsForm(slug=slug)
-    except TermsAndConditions.DoesNotExist:
-        raise Http404
-
-    response_data = {'form': form}
-
-    return render_to_response('termsandconditions/view_terms.html', response_data,
-        context_instance=RequestContext(request))
 
 
 @login_required
@@ -73,7 +52,7 @@ def accept_view(request):
     template : templates/accept_terms.html
     """
 
-    logger.debug('accept_view')
+    logger.debug('termsacceptpage')
 
     if request.method == 'POST': # If the form has been submitted...
         form = TermsAndConditionsForm(request.POST) # A form bound to the POST data
@@ -103,6 +82,7 @@ def accept_view(request):
     return render_to_response('termsandconditions/accept_terms.html', response_data,
         context_instance=RequestContext(request))
 
+@login_required
 @terms_required
 def terms_required_view(request):
     """
@@ -112,6 +92,8 @@ def terms_required_view(request):
 
     template : templates/terms_required.html
     """
+
+    logger.debug('termsrequiredpage')
 
     response_data = {}
 
