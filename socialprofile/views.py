@@ -33,6 +33,9 @@ def logout_view(request):
 
     template : templates/index.html
     """
+
+    logger.debug('logoutpage')
+
     logout(request)
     response_data = {}
     return render_to_response('index.html', response_data, context_instance=RequestContext(request))
@@ -46,6 +49,8 @@ def select_view(request):
     
     template : templates/select.html
     """
+
+    logger.debug('selectpage')
 
     nextPage = request.GET.get('next', '/')
 
@@ -63,6 +68,8 @@ def secure_view(request):
     template : templates/secure.html
     """
 
+    logger.debug('securepage')
+
     response_data = {}
 
     return render_to_response('secure.html', response_data, context_instance=RequestContext(request))
@@ -77,6 +84,8 @@ def profile_view(request):
 
     template : templates/profile.html
     """
+
+    logger.debug('profilepage')
 
     if request.method == 'POST': # If the form has been submitted...
         form = ProfileForm(request.POST) # A form bound to the POST data
