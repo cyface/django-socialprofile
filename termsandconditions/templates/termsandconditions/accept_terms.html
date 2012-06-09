@@ -6,8 +6,18 @@
 
 {% block head %}
     <style>
-        .terms-text {
+        .title {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .terms-html {
+            height: 200px;
             width: 80%;
+            margin: auto;
+            overflow: auto;
+            border: 1px solid #666;
+            background-color: #ccc;
+            padding: 8px;
         }
         .terms-form {
             text-align: center;
@@ -17,11 +27,13 @@
 
 {% block content %}
     <section title="termsandconditions">
-        <h1>Accept Terms and Conditions</h1>
+        <h1 class="title">Please Accept the Site Terms and Conditions</h1>
         {{ form.errors }}
+        <div class="terms-html">
+            {{ form.text.value|safe }}
+        </div>
         <form action="{%  url terms_accept_page %}" method="post" class="terms-form">
             {% csrf_token %}
-            {{ form.text }}
             {{ form.slug }}
             {{ form.version_number }}
             {{ form.returnTo }}

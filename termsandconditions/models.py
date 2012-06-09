@@ -63,6 +63,7 @@ class TermsAndConditions(models.Model):
         except TermsAndConditions.DoesNotExist:
             activeTerms = TermsAndConditions.objects.create(
                 slug=DEFAULT_TERMS_SLUG,
+                name=DEFAULT_TERMS_SLUG,
                 date_active=datetime.datetime.now(),
                 version_number=1,
                 text='SITE TERMS')

@@ -8,7 +8,7 @@ logger = logging.getLogger(name='termsandconditions')
 
 class TermsAndConditionsForm(forms.Form):
     """Master form for displaying and accepting Terms and Conditions"""
-    text = forms.CharField(widget=forms.Textarea(attrs={'readonly': 'readonly', 'class': 'terms-text'}))
+    text = forms.CharField(widget=forms.Textarea(attrs={'readonly': 'readonly', 'class': 'terms-text'}), required=False)
     slug = forms.SlugField(widget=forms.HiddenInput)
     version_number = forms.DecimalField(widget=forms.HiddenInput)
     returnTo = forms.CharField(widget=forms.HiddenInput, required=False) #URI to Return to After Accept
