@@ -8,15 +8,20 @@ if hasattr(settings, 'ACCEPT_TERMS_PATH'):
 else:
     ACCEPT_TERMS_PATH = '/terms/accept/'
 
-if hasattr(settings, 'ACCEPT_TERMS_EXCLUDE_PREFIX_LIST'):
-    ACCEPT_TERMS_EXCLUDE_PREFIX_LIST = settings.ACCEPT_TERMS_EXCLUDE_PREFIX_LIST
+if hasattr(settings, 'TERMS_RETURNTO_PARAM'):
+    TERMS_RETURNTO_PARAM = settings.TERMS_RETURNTO_PARAM
 else:
-    ACCEPT_TERMS_EXCLUDE_PREFIX_LIST = {'/admin/',}
+    TERMS_RETURNTO_PARAM = 'returnTo'
 
-if hasattr(settings, 'ACCEPT_TERMS_EXCLUDE_LIST'):
-    ACCEPT_TERMS_EXCLUDE_LIST = settings.ACCEPT_TERMS_EXCLUDE_LIST
+if hasattr(settings, 'TERMS_EXCLUDE_URL_PREFIX_LIST'):
+    TERMS_EXCLUDE_URL_PREFIX_LIST = settings.TERMS_EXCLUDE_URL_PREFIX_LIST
 else:
-    ACCEPT_TERMS_EXCLUDE_LIST = {'/',}
+    TERMS_EXCLUDE_URL_PREFIX_LIST = {'/admin/',}
+
+if hasattr(settings, 'TERMS_EXCLUDE_URL_LIST'):
+    TERMS_EXCLUDE_URL_LIST = settings.TERMS_EXCLUDE_URL_LIST
+else:
+    TERMS_EXCLUDE_URL_LIST = {'/', '/terms/required/',}
 
 class TermsAndConditionslRedirectMiddleware:
     """
@@ -28,16 +33,16 @@ class TermsAndConditionslRedirectMiddleware:
 
                 currentPath = request.META['PATH_INFO']
                 excludePathFlag = False
-                for excludePath in ACCEPT_TERMS_EXCLUDE_PREFIX_LIST:
+                for excludePath in TERMS_EXCLUDE_URL_PREFIX_LIST:
                     if currentPath.startswith(excludePath):
                         excludePathFlag = True
 
-                if currentPath in ACCEPT_TERMS_EXCLUDE_LIST:
+                if currentPath in TERMS_EXCLUDE_URL_LIST:
                     excludePathFlag = True
 
                 if currentPath != ACCEPT_TERMS_PATH and not excludePathFlag:
                     login_url_parts = list(urlparse.urlparse(ACCEPT_TERMS_PATH))
                     querystring = QueryDict(login_url_parts[4], mutable=True)
-                    querystring['returnTo'] = currentPath
+                    querystring[TERMS_RETURNTO_PARAM] = currentPath
                     login_url_parts[4] = querystring.urlencode(safe='/')
                     return HttpResponseRedirect(urlparse.urlunparse(login_url_parts))

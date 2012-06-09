@@ -25,6 +25,9 @@ urlpatterns = patterns('termsandconditions.views',
 
     # Accept Terms
     url(r'^accept/$', 'accept_view', name="terms_accept_page"),
+
+    # Terms Required
+    url(r'^required', 'terms_required_view', name="terms_required_page"),
 )
 
 
