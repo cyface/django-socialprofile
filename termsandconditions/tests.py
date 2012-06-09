@@ -61,6 +61,19 @@ class TermsAndConditionsTests(TestCase):
         self.assertEquals('site-terms-2.00', str(TermsAndConditions.get_active(slug='site-terms')))
         self.assertEquals('contrib-terms-1.50', str(TermsAndConditions.get_active(slug='contrib-terms')))
 
+    def test_middleware_redirect(self):
+        """Validate that a user is redirected to the terms accept page if they are logged in, and decorator is on method"""
+
+        UserTermsAndConditions.objects.all().delete()
+
+        logger.debug('Test user1 login for middleware')
+        login_response = self.c.login(username='user1', password='user1password')
+        self.assertTrue(login_response)
+
+        logger.debug('Test /secure/ after login')
+        logged_in_response = self.c.get('/secure/', follow=True)
+        self.assertRedirects(logged_in_response, "http://testserver/terms/accept/?returnTo=/secure/")
+
     def test_terms_required_redirect(self):
         """Validate that a user is redirected to the terms accept page if they are logged in, and decorator is on method"""
 
