@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from forms import TermsAndConditionsForm
 from models import TermsAndConditions, UserTermsAndConditions
+from decorators import terms_required
 from django.http import Http404, HttpResponseRedirect
 from django.views.generic import TemplateView
 import datetime
@@ -101,3 +102,17 @@ def accept_view(request):
 
     return render_to_response('termsandconditions/accept_terms.html', response_data,
         context_instance=RequestContext(request))
+
+@terms_required
+def terms_required_view(request):
+    """
+    Terms Required testing page.
+
+    url: /terms_required
+
+    template : templates/terms_required.html
+    """
+
+    response_data = {}
+
+    return render_to_response('termsandconditions/terms_required.html', response_data, context_instance=RequestContext(request))

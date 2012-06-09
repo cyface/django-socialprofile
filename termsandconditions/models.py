@@ -18,7 +18,7 @@ else:
 class UserTermsAndConditions(models.Model):
     """Holds mapping between TermsAndConditions and Users"""
     user = models.ForeignKey(User, related_name="userterms")
-    terms = models.ForeignKey("TermsAndConditions", related_name="terms")
+    terms = models.ForeignKey("TermsAndConditions", related_name="userterms")
     ip_address = models.IPAddressField(null=True, blank=True, verbose_name='IP Address')
     date_accepted = models.DateTimeField(auto_now_add=True, verbose_name='Date Accepted')
 
@@ -34,7 +34,7 @@ class TermsAndConditions(models.Model):
     Active one for a given slug is: date_active is not Null and is latest not in future"""
     slug = models.SlugField(default='site-terms')
     name = models.TextField(max_length=255)
-    users = models.ManyToManyField(User, through=UserTermsAndConditions, blank=True, null=True, )
+    users = models.ManyToManyField(User, through=UserTermsAndConditions, blank=True, null=True,)
     version_number = models.DecimalField(default=1.0, decimal_places=2, max_digits=6)
     text = models.TextField(null=True, blank=True)
     date_active = models.DateTimeField(blank=True, null=True, help_text="Leave Null To Never Make Active")
