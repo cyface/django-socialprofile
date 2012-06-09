@@ -55,8 +55,19 @@ class TermsAndConditions(models.Model):
         if slug == 'default':
             slug = DEFAULT_TERMS_SLUG
 
-        return TermsAndConditions.objects.filter(date_active__isnull=False, date_active__lte=datetime.datetime.now(),
-            slug=slug).latest('date_active')
+        try:
+            activeTerms = TermsAndConditions.objects.filter(
+                date_active__isnull=False,
+                date_active__lte=datetime.datetime.now(),
+                slug=slug).latest('date_active')
+        except TermsAndConditions.DoesNotExist:
+            activeTerms = TermsAndConditions.objects.create(
+                slug=DEFAULT_TERMS_SLUG,
+                date_active=datetime.datetime.now(),
+                version_number=1,
+                text='SITE TERMS')
+
+        return activeTerms
 
     @staticmethod
     def agreed_to_latest(user, slug='default'):
