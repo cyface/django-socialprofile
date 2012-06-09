@@ -2,35 +2,47 @@
 
 # pylint: disable=R0904
 
-import unittest
+from django.test.client import Client
+from django.test import TestCase
 from django.contrib.auth.models import User
 from termsandconditions.models import TermsAndConditions
 from termsandconditions.models import UserTermsAndConditions
+import logging
 
-class TermsAndConditionsTests(unittest.TestCase):
+logger = logging.getLogger(name='termsandconditions')
+
+
+class TermsAndConditionsTests(TestCase):
     """Tests Terms and Conditions Module"""
+
     def setUp(self):
         """Setup for each test"""
-        self.user1 = User.objects.create(username='user1')
-        self.user2 = User.objects.create(username='user2')
-        self.terms1 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms", text="Terms and Conditions1", version_number=1.0, date_active="2012-01-01")
-        self.terms2 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms", text="Terms and Conditions2", version_number=2.0, date_active="2012-01-05")
-        self.terms3 = TermsAndConditions.objects.create(slug="contrib-terms", name="Contributor Terms", text="Terms and Conditions1", version_number=1.5, date_active="2012-01-01")
-        self.terms4 = TermsAndConditions.objects.create(slug="contrib-terms", name="Contributor Terms", text="Terms and Conditions1", version_number=2.0, date_active="2100-01-01")
+        logger.debug('Test Setup')
+        self.c = Client()
+        self.user1 = User.objects.create_user('user1', 'user1@user1.com', 'user1password')
+        self.user2 = User.objects.create_user('user2', 'user2@user2.com', 'user2password')
+        self.terms1 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms",
+            text="Terms and Conditions1", version_number=1.0, date_active="2012-01-01")
+        self.terms2 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms",
+            text="Terms and Conditions2", version_number=2.0, date_active="2012-01-05")
+        self.terms3 = TermsAndConditions.objects.create(slug="contrib-terms", name="Contributor Terms",
+            text="Terms and Conditions1", version_number=1.5, date_active="2012-01-01")
+        self.terms4 = TermsAndConditions.objects.create(slug="contrib-terms", name="Contributor Terms",
+            text="Terms and Conditions1", version_number=2.0, date_active="2100-01-01")
 
     def tearDown(self):
         """Teardown for each test"""
+        logger.debug('Test TearDown')
         User.objects.all().delete()
         TermsAndConditions.objects.all().delete()
         UserTermsAndConditions.objects.all().delete()
 
-    def test_terms_and_conditions(self):
+    def test_terms_and_conditions_models(self):
         """Various tests of the TermsAndConditions Module"""
 
         # Testing Direct Assignment of Acceptance
-        self.userterms1 = UserTermsAndConditions.objects.create(user=self.user1, terms=self.terms1)
+        UserTermsAndConditions.objects.create(user=self.user1, terms=self.terms1)
         UserTermsAndConditions.objects.create(user=self.user2, terms=self.terms3)
-
 
         self.assertEquals(1.0, self.user1.userterms.get().terms.version_number)
         self.assertEquals(1.5, self.user2.userterms.get().terms.version_number)
@@ -45,8 +57,58 @@ class TermsAndConditionsTests(unittest.TestCase):
         self.assertEquals(False, TermsAndConditions.agreed_to_latest(user=self.user1, slug='site-terms'))
         self.assertEquals(True, TermsAndConditions.agreed_to_latest(user=self.user2, slug='contrib-terms'))
 
-    def test_terms_and_conditions_urls(self):
-        def testTermsRequiredRedirect(self):
-            response = self.c.get('/terms/required/', follow=True)
-            self.assertRedirects(response, "http://testserver/terms/accept/?returnTo=/terms/required/")
+        # Testing the unicode method of TermsAndConditions
+        self.assertEquals('site-terms-2.00', str(TermsAndConditions.get_active(slug='site-terms')))
+        self.assertEquals('contrib-terms-1.50', str(TermsAndConditions.get_active(slug='contrib-terms')))
+
+    def test_terms_required_redirect(self):
+        """Validate that a user is redirected to the terms accept page if they are logged in, and decorator is on method"""
+
+        logger.debug('Test /terms/required/ pre login')
+        not_logged_in_response = self.c.get('/terms/required/', follow=True)
+        self.assertRedirects(not_logged_in_response, "http://testserver/select/?next=%2Fterms%2Frequired%2F")
+
+        logger.debug('Test user1 login')
+        login_response = self.c.login(username='user1', password='user1password')
+        self.assertTrue(login_response)
+
+        logger.debug('Test /terms/required/ after login')
+        logged_in_response = self.c.get('/terms/required/', follow=True)
+        self.assertRedirects(logged_in_response, "http://testserver/terms/accept/?returnTo=/terms/required/")
+
+    def test_auto_create(self):
+        """Validate that a terms are auto created if none exist"""
+        logger.debug('Test auto create terms')
+
+        TermsAndConditions.objects.all().delete()
+
+        numTerms = TermsAndConditions.objects.count()
+        self.assertEquals(0, numTerms)
+
+        logger.debug('Test user1 login')
+        login_response = self.c.login(username='user1', password='user1password')
+        self.assertTrue(login_response)
+
+        logger.debug('Test /terms/required/ after login with no TermsAndConditions')
+        logged_in_response = self.c.get('/terms/required/', follow=True)
+        self.assertRedirects(logged_in_response, "http://testserver/terms/accept/?returnTo=/terms/required/")
+
+        logger.debug('Test TermsAndConditions Object Was Created')
+        numTerms = TermsAndConditions.objects.count()
+        self.assertEquals(1, numTerms)
+
+        terms = TermsAndConditions.objects.get()
+        self.assertEquals('site-terms-1.00', str(terms))
+
+    def test_terms_view(self):
+        """Test Accessing the View Terms and Conditions Functions"""
+
+        logger.debug('Test /terms/')
+        response1 = self.c.get('/terms/', follow=True)
+        self.assertContains(response1, '<h1>Terms and Conditions</h1>')
+
+        logger.debug('Test /terms/view/')
+        response2 = self.c.get('/terms/view/', follow=True)
+        self.assertContains(response2, '<h1>Terms and Conditions</h1>')
+
 
