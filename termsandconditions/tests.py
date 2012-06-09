@@ -89,6 +89,23 @@ class TermsAndConditionsTests(TestCase):
         logged_in_response = self.c.get('/terms/required/', follow=True)
         self.assertRedirects(logged_in_response, "http://testserver/terms/accept/?returnTo=/terms/required/")
 
+    def test_accept(self):
+        """Validate that accepting terms works"""
+
+        logger.debug('Test user1 login for accept')
+        login_response = self.c.login(username='user1', password='user1password')
+        self.assertTrue(login_response)
+
+        logger.debug('Test /terms/accept/ get')
+        logged_in_response = self.c.get('/terms/accept/', follow=True)
+        self.assertContains(logged_in_response, "Accept")
+
+        logger.debug('Test /terms/accept/ post')
+        logged_in_response = self.c.post('/terms/accept/', {'slug': 'site-terms', 'version_number': '2.00', 'returnTo': '/secure/'}, follow=True)
+        self.assertContains(logged_in_response, "Secure")
+
+        self.assertEquals(True, TermsAndConditions.agreed_to_latest(user=self.user1, slug='site-terms'))
+
     def test_auto_create(self):
         """Validate that a terms are auto created if none exist"""
         logger.debug('Test auto create terms')
