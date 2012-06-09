@@ -21,7 +21,7 @@ else:
 if hasattr(settings, 'TERMS_EXCLUDE_URL_LIST'):
     TERMS_EXCLUDE_URL_LIST = settings.TERMS_EXCLUDE_URL_LIST
 else:
-    TERMS_EXCLUDE_URL_LIST = {'/', '/terms/required/',}
+    TERMS_EXCLUDE_URL_LIST = {'/', '/terms/required/', '/logout/'}
 
 class TermsAndConditionslRedirectMiddleware:
     """
