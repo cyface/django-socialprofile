@@ -8,7 +8,7 @@ from django.conf import settings
 import datetime
 import logging
 
-log = logging.getLogger(name='termsandconditions')
+LOGGER = logging.getLogger(name='termsandconditions')
 
 if hasattr(settings, 'DEFAULT_TERMS_SLUG'):
     DEFAULT_TERMS_SLUG = settings.DEFAULT_TERMS_SLUG

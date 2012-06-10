@@ -142,9 +142,6 @@ GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
 GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',] # Note that this extra scope is not the same as the API URL we use
 
-#SOCIAL_AUTH_CHANGE_SIGNAL_ONLY = True # Prevent updating of name, etc. once user is created
-#SOCIAL_AUTH_ASSOCIATE_BY_MAIL = True # Try and connect accounts with the same email address
-
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
     'social_auth.backends.pipeline.associate.associate_by_email',
@@ -152,15 +149,17 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.user.create_user',
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.misc.save_status_to_session',
+    'termsandconditions.pipeline.user_accept_terms',
 #    'social_auth.backends.pipeline.user.update_user_details'
 )
 
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/'
 #SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
 #SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 
-LOGIN_URL          = '/select'
+LOGIN_URL          = '/select/'
 #LOGIN_REDIRECT_URL = '/logged-in/'
 #LOGIN_ERROR_URL    = '/'
 

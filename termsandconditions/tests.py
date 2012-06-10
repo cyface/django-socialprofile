@@ -79,7 +79,7 @@ class TermsAndConditionsTests(TestCase):
 
         LOGGER.debug('Test /terms/required/ pre login')
         not_logged_in_response = self.c.get('/terms/required/', follow=True)
-        self.assertRedirects(not_logged_in_response, "http://testserver/select/?next=%2Fterms%2Frequired%2F")
+        self.assertRedirects(not_logged_in_response, "http://testserver/select/?next=/terms/required/")
 
         LOGGER.debug('Test user1 login')
         login_response = self.c.login(username='user1', password='user1password')
@@ -153,6 +153,18 @@ class TermsAndConditionsTests(TestCase):
         post_upgrade_response = self.c.get('/secure/', follow=True)
         self.assertRedirects(post_upgrade_response, "http://testserver/terms/accept/?returnTo=/secure/")
 
+    def test_no_middleware(self):
+        """Test a secure page with the middleware excepting it"""
+
+        UserTermsAndConditions.objects.create(user=self.user1, terms=self.terms2)
+
+        LOGGER.debug('Test user1 login no middleware')
+        login_response = self.c.login(username='user1', password='user1password')
+        self.assertTrue(login_response)
+
+        LOGGER.debug('Test user1 not redirected after login')
+        logged_in_response = self.c.get('/securetoo/', follow=True)
+        self.assertContains(logged_in_response, "SECOND")
 
     def test_terms_view(self):
         """Test Accessing the View Terms and Conditions Functions"""
