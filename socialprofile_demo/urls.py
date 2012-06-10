@@ -16,6 +16,12 @@ urlpatterns = patterns('',
     # Home Page
     url(r'^$', 'socialprofile.views.index', name="home_page"),
 
+    # Secure Page
+    url(r'^secure/$', 'socialprofile_demo.views.secure_view', name="secure_page"),
+
+    # Secure Page Too
+    url(r'^securetoo/$', 'socialprofile_demo.views.secure_view_too', name="secure_page_too"),
+
     # Social Profiles
     url(r'', include('socialprofile.urls')),
 

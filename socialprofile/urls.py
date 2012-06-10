@@ -13,9 +13,6 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
-    # Secure Page
-    url(r'^secure/$', 'socialprofile.views.secure_view', name="secure_page"),
     
     # Select Sign Up Method
     url(r'^select/$', 'socialprofile.views.select_view', name="select_page"),
