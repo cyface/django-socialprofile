@@ -2,11 +2,11 @@ import urlparse
 from django.http import HttpResponseRedirect, QueryDict
 from models import TermsAndConditions
 from django.conf import settings
+from pipeline import redirect_to_terms_accept
 
 ACCEPT_TERMS_PATH = getattr(settings, 'ACCEPT_TERMS_PATH', '/terms/accept/')
-TERMS_RETURNTO_PARAM = getattr(settings, 'TERMS_RETURNTO_PARAM', 'returnTo')
 TERMS_EXCLUDE_URL_PREFIX_LIST = getattr(settings, 'TERMS_EXCLUDE_URL_PREFIX_LIST', {'/admin/',})
-TERMS_EXCLUDE_URL_LIST = getattr(settings, 'TERMS_EXCLUDE_URL_LIST', {'/', '/terms/required/', '/logout/'})
+TERMS_EXCLUDE_URL_LIST = getattr(settings, 'TERMS_EXCLUDE_URL_LIST', {'/', '/terms/required/', '/logout/', '/securetoo/'})
 
 class TermsAndConditionslRedirectMiddleware:
     """
@@ -26,8 +26,4 @@ class TermsAndConditionslRedirectMiddleware:
                     excludePathFlag = True
 
                 if currentPath != ACCEPT_TERMS_PATH and not excludePathFlag:
-                    login_url_parts = list(urlparse.urlparse(ACCEPT_TERMS_PATH))
-                    querystring = QueryDict(login_url_parts[4], mutable=True)
-                    querystring[TERMS_RETURNTO_PARAM] = currentPath
-                    login_url_parts[4] = querystring.urlencode(safe='/')
-                    return HttpResponseRedirect(urlparse.urlunparse(login_url_parts))
+                    return redirect_to_terms_accept(currentPath)
