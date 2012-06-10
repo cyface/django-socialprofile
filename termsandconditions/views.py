@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from forms import TermsAndConditionsForm
 from models import TermsAndConditions, UserTermsAndConditions
 from decorators import terms_required
@@ -42,7 +43,6 @@ class ViewTerms(TemplateView):
     urls = property(get_urls)
 
 
-@login_required
 def accept_view(request):
     """
     Terms and Conditions Acceptance view
@@ -55,9 +55,18 @@ def accept_view(request):
     logger.debug('termsacceptpage')
 
     if request.method == 'POST': # If the form has been submitted...
+        if request.user.is_authenticated():
+            user = request.user
+        else:
+            if request.session.has_key('partial_pipeline'):
+                user_pk = request.session['partial_pipeline']['kwargs']['user']['pk']
+                user = User.objects.get(id=user_pk)
+            else:
+                return HttpResponseRedirect('/')
+
         form = TermsAndConditionsForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            user = request.user
+            #user = request.user
             form.clean()
             try:
                 terms = TermsAndConditions.objects.get(slug=form.cleaned_data['slug'], version_number=form.cleaned_data['version_number'])
