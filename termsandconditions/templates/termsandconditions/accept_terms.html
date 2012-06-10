@@ -5,7 +5,7 @@
 {% block body_class %}{% endblock %}
 
 {% block head %}
-    <style>
+    <style xmlns="http://www.w3.org/1999/html">
         .title {
             text-align: center;
             margin-top: 20px;
@@ -39,5 +39,6 @@
             {{ form.returnTo }}
             <p><input type="submit" value="Accept"></p>
         </form>
+    <p><a href="{%  url terms_view %}" target="_blank">Print Terms & Conditions</a></p>
     </section>
 {% endblock %}
