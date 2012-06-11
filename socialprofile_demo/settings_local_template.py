@@ -11,7 +11,7 @@ local_settings.py, once created, should never be checked into source control
 It is ignored by default by .gitignore, so if you don't mess with that, you should be fine.
 """
 # pylint: disable=R0801, W0611
-import os
+import os, logging
 from settings_main import MIDDLEWARE_CLASSES, INSTALLED_APPS
 
 # Set the root path of the project so it's not hard coded
@@ -154,7 +154,6 @@ SOCIAL_AUTH_PIPELINE = (
 #    'social_auth.backends.pipeline.user.update_user_details'
 )
 
-
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/'
 #SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
 #SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
@@ -194,9 +193,14 @@ if DEBUG:
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+# Catch Python warnings (e.g. deprecation warnings) into the logger
+logging.captureWarnings(True)
+
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,''
+    'disable_existing_loggers': False,
+    'capturewarnings': True,
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
@@ -223,6 +227,11 @@ LOGGING = {
         },
     },
     'loggers': {
+        'py.warnings': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': True,
+            },
         'django.request': {
             'handlers': ['mail_admins', 'console'],
             'level': 'ERROR',
