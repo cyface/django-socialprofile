@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load socialprofile_tags %}
 
 {% block headtitle %}Profile{% endblock %}
 
@@ -21,4 +22,10 @@
             <p><input type="submit" value="Save Changes"></p>
         </form>
     </section>
+    <h2>Social Authentication Connections</h2>
+    <ul>
+        {% for user_social_auth in user.social_auth.all %}
+                <li>{{ user_social_auth.provider|social_provider_name }} <a href="disconnect">Disconnect</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
