@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    $(function () {
+        createDeleteAccountModal();
+    });
+    function createDeleteAccountModal() {
+        $("#da-modal").dialog({ resizable:false, modal:true, autoOpen:false });
+    }
+    function openDeleteAccountModal(postLoginPage) {
+        if (typeof postLoginPage != 'undefined') {
+            $("#da-modal-select li a").attr("href",
+                    function (i, val) {
+                        return val + '?next=' + postLoginPage;
+                    }
+            );
+        }
+        $("#sp-dialog").dialog("open");
+    }
+</script>
+
+<div id="#da-modal" title="Really Delete Your Account?">
+    <ul id='#da-modal-select'>
+        <li>Completely Remove Your Account and All Items You've Created?</li>
+        <li>Keep Account</li>
+    </ul>
+</div>
