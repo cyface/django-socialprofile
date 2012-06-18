@@ -10,8 +10,8 @@
     {% if user.is_authenticated %}
         <h2>Welcome to Social Profiles</h2>
     {% else %}
-        <h2>Interested in interacting? Head over to the <a href="#" onclick="openSignInDialog('/secure');">Secure area.</a></h2>
-        {% include "dialog.html" %}
+        <h2>Interested in interacting? Head over to the <a href="#" onclick="openLoginModal('/secure');">Secure area.</a></h2>
+        {% include "login_modal.html" %}
     {% endif %}
 {% endblock %}
 

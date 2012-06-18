@@ -11,11 +11,12 @@
         Thanks for visiting the site!
     {% else %}
         Please choose a method to get access to this site:
-        <ul id='login_select'>
-            <li><a href="{% url socialauth_begin 'google-oauth2' %}?next={{ next }}"><span id="login_button_bottom">Google</span></a>
-            </li>
-            <li><a href="{% url socialauth_begin 'twitter' %}?next={{ next }}"><span id="login_button_top">Twitter</span></a></li>
-            <li><a href="{% url socialauth_begin 'facebook' %}?next={{ next }}"><span id="login_button_middle">Facebook</span></a></li>
-        </ul>
+        <div id="sp-dialog" title="Select A Sign In Method">
+            <ul id='sp-login-select'>
+                <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="sp-login-button-bottom">Google</span></a></li>
+                <li><a href="{% url socialauth_begin 'twitter' %}"><span id="sp-login-button-top">Twitter</span></a></li>
+                <li><a href="{% url socialauth_begin 'facebook' %}"><span id="sp-login-button-middle">Facebook</span></a></li>
+            </ul>
+        </div>
     {% endif %}
 {% endblock %}
