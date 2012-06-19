@@ -3,24 +3,24 @@
         createLoginModal();
     });
     function createLoginModal() {
-        $("#sp-dialog").dialog({ resizable:false, modal:true, autoOpen:false });
+        $("#sp_login_modal").dialog({ resizable:false, modal:true, autoOpen:false });
     }
     function openLoginModal(postLoginPage) {
         if (typeof postLoginPage != 'undefined') {
-            $("#sp-login-select li a").attr("href",
+            $("#sp_login_modal ul li a").attr("href",
                     function (i, val) {
                         return val + '?next=' + postLoginPage;
                     }
             );
         }
-        $("#sp-dialog").dialog("open");
+        $("#sp_login_modal").dialog("open");
     }
 </script>
 
-<div id="sp-dialog" title="Select A Sign In Method">
-    <ul id='sp-login-select'>
-        <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="sp-login-button-bottom">Google</span></a></li>
-        <li><a href="{% url socialauth_begin 'twitter' %}"><span id="sp-login-button-top">Twitter</span></a></li>
-        <li><a href="{% url socialauth_begin 'facebook' %}"><span id="sp-login-button-middle">Facebook</span></a></li>
+<div id="sp_login_modal" title="Select A Sign In Method">
+    <ul>
+        <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="sp_google_button">Google</span></a></li>
+        <li><a href="{% url socialauth_begin 'twitter' %}"><span id="sp_twitter_button">Twitter</span></a></li>
+        <li><a href="{% url socialauth_begin 'facebook' %}"><span id="sp_facebook_button">Facebook</span></a></li>
     </ul>
 </div>
