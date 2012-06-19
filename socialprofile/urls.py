@@ -20,6 +20,9 @@ urlpatterns = patterns('',
     # Profile
     url(r'^profile/$', 'socialprofile.views.profile_view', name="profile_page"),
 
+    # Delete
+    url(r'^delete/$', 'socialprofile.views.delete_view', name="delete_page"),
+
     # Social Registration
     url(r'', include('social_auth.urls')),
     
