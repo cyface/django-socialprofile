@@ -4,6 +4,7 @@ from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from forms import ProfileForm
 import logging
 
@@ -92,9 +93,33 @@ def profile_view(request):
                 form = ProfileForm()
                 form._errors = {'username': [u'Your chosen username was not unique.'], }
 
+            messages.add_message(request, messages.INFO, 'Your profile has been updated.')
+
     else:
         form = ProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
     return render_to_response('profile.html', response_data, context_instance=RequestContext(request))
+
+@login_required
+def delete_view(request):
+    """
+    Account Delete Action view
+
+    url: /delete
+
+    template : templates/delete_success.html
+    """
+
+    logger.debug('deletepage')
+
+#    if request.method == 'POST': # If the form has been submitted...
+#        if request.POST.has_key('confirm'):
+    user_to_delete = request.user
+    logout(request)
+    user_to_delete.delete()
+
+    response_data = {}
+
+    return render_to_response('delete_success.html', response_data, context_instance=RequestContext(request))

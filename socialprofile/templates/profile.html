@@ -24,8 +24,14 @@
     </section>
     <h2>Social Authentication Connections</h2>
     <ul>
+        {%  with num_connections=user.social_auth.all.count %}
         {% for user_social_auth in user.social_auth.all %}
-                <li>{{ user_social_auth.provider|social_provider_name }} <a href="disconnect">Disconnect</a></li>
+                <li>{{ user_social_auth.provider|social_provider_name }} {% if num_connections > 1 %}<a href="{% url socialauth_disconnect user_social_auth.provider %}">Disconnect</a>{% else %}<em>(Primary Connection, Can't Be Deleted)</em>{% endif %}</li>
         {% endfor %}
+        {% endwith %}
+        <li><a href="#" onclick="openLoginModal()">Add Social Authentication Connection</a></li>
+        {% include "login_modal.html" %}
     </ul>
+    <h2><a href="#" onclick="openDeleteAccountModal();">Delete Account</a></h2>
+    {% include "delete_account_modal.html" %}
 {% endblock %}

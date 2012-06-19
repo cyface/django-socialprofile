@@ -1,25 +1,22 @@
-<script type="text/javascript">
+<script>
     $(function () {
         createDeleteAccountModal();
     });
     function createDeleteAccountModal() {
         $("#da-modal").dialog({ resizable:false, modal:true, autoOpen:false });
     }
-    function openDeleteAccountModal(postLoginPage) {
-        if (typeof postLoginPage != 'undefined') {
-            $("#da-modal-select li a").attr("href",
-                    function (i, val) {
-                        return val + '?next=' + postLoginPage;
-                    }
-            );
-        }
-        $("#sp-dialog").dialog("open");
+    function openDeleteAccountModal() {
+        $("#da-modal").dialog("open");
+    }
+
+    function closeDeleteAccountModal() {
+        $("#da-modal").dialog("close");
     }
 </script>
 
-<div id="#da-modal" title="Really Delete Your Account?">
-    <ul id='#da-modal-select'>
-        <li>Completely Remove Your Account and All Items You've Created?</li>
-        <li>Keep Account</li>
+<div id="da-modal" title="Delete Your Account?">
+    <ul id='da-modal-select'>
+        <li><a href="{%  url delete_page %}">Completely Remove Your Account and All Items You've Created?</a></li>
+        <li style="margin-top: 5px;"><a href="#" onclick="closeDeleteAccountModal()">Keep Account</a></li>
     </ul>
 </div>
