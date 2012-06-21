@@ -22,6 +22,12 @@
         </script>
     {% endif %}
 
+    <script>
+        /* Fix Facebook Appending Hash */
+        if (window.location.hash == "#_=_")
+            window.location.hash = "";
+    </script>
+
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 
