@@ -151,7 +151,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.misc.save_status_to_session',
     'termsandconditions.pipeline.user_accept_terms',
-#    'social_auth.backends.pipeline.user.update_user_details'
 )
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/socialprofile/'
