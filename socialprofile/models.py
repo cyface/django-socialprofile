@@ -14,7 +14,7 @@ from urllib2 import Request, urlopen
 from django.utils import simplejson
 import logging
 
-LOGGER = logging.getLogger(name='socialprofile')
+LOGGER = logging.getLogger(name='socialprofile.models')
 
 class SocialProfile(models.Model):
     """Main SocialProfile Object - Holds extra profile data retrieved from auth providers"""
