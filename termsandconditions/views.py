@@ -12,12 +12,12 @@ from django.views.generic import TemplateView
 import datetime
 import logging
 
-logger = logging.getLogger(name='termsandconditions')
+LOGGER = logging.getLogger(name='termsandconditions')
 
 class ViewTerms(TemplateView):
     template_name = 'termsandconditions/view_terms.html'
 
-    logger.debug('termsviewpage')
+    LOGGER.debug('termsviewpage')
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -52,7 +52,7 @@ def accept_view(request):
     template : templates/accept_terms.html
     """
 
-    logger.debug('termsacceptpage')
+    LOGGER.debug('termsacceptpage')
 
     if request.method == 'POST': # If the form has been submitted...
         if request.user.is_authenticated():
@@ -66,7 +66,6 @@ def accept_view(request):
 
         form = TermsAndConditionsForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            #user = request.user
             form.clean()
             try:
                 terms = TermsAndConditions.objects.get(slug=form.cleaned_data['slug'], version_number=form.cleaned_data['version_number'])
@@ -81,7 +80,7 @@ def accept_view(request):
                 else:
                     return HttpResponseRedirect('/')
             except IntegrityError as err:
-                logger.error('Integrity Error Saving Terms and Conditions', err)
+                LOGGER.error('Integrity Error Saving Terms and Conditions: ' + str(err))
     else:
         form = TermsAndConditionsForm() # Pass in User to Pre-Populate with Current Values
         if request.GET.has_key('returnTo') :
@@ -104,7 +103,7 @@ def terms_required_view(request):
     template : templates/terms_required.html
     """
 
-    logger.debug('termsrequiredpage')
+    LOGGER.debug('termsrequiredpage')
 
     response_data = {}
 
