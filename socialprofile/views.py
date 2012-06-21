@@ -6,6 +6,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from forms import ProfileForm
+from django.views.generic import TemplateView
 import logging
 
 logger = logging.getLogger(name='socialprofile')
@@ -102,12 +103,23 @@ def profile_view(request):
 
     return render_to_response('profile.html', response_data, context_instance=RequestContext(request))
 
+
+class DeleteView(TemplateView):
+    """
+    Account Delete Confirm Modal View
+
+    url: /delete
+
+    template : templates/delete_success.html
+    """
+    template_name = "delete_account_modal.html"
+
 @login_required
-def delete_view(request):
+def delete_action_view(request):
     """
     Account Delete Action view
 
-    url: /delete
+    url: /delete/action
 
     template : templates/delete_success.html
     """

@@ -78,6 +78,8 @@ def accept_view(request):
                 userTerms.save()
                 if form.cleaned_data.has_key('returnTo'):
                     return HttpResponseRedirect(form.cleaned_data['returnTo'])
+                else:
+                    return HttpResponseRedirect('/')
             except IntegrityError as err:
                 logger.error('Integrity Error Saving Terms and Conditions', err)
     else:
