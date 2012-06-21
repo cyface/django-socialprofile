@@ -26,10 +26,10 @@
             </ul>
         </form>
     </section>
-    <h2>Social Authentication Connections</h2>
+    <h2 style="margin-left:10px;">Social Authentication Connections</h2>
     {% if user.social_auth.all.count == 1 %}
         {% with only_connection=user.social_auth.all|first %}
-            <p><em>{{ only_connection.provider|social_provider_name }} is your only connection, it cannot be removed.</em></p>
+            <p style="margin-left:20px;"><em>{{ only_connection.provider|social_provider_name }} is your only connection, it cannot be removed.</em></p>
         {% endwith %}
     {% else %}
         <ul>
