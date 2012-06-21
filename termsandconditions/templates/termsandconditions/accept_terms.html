@@ -30,7 +30,7 @@
         <div class="terms-html">
             {{ form.text.value|safe }}
         </div>
-        <form action="{%  url terms_accept_page %}" method="post" class="terms-form">
+        <form action="{%  url tc_accept_page %}" method="post" class="terms-form">
             {% csrf_token %}
             {{ form.slug }}
             {{ form.version_number }}

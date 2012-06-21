@@ -8,7 +8,7 @@
 {% block head %}{% endblock %}
 
 {% block header %}
-    <a href="{% url secure_page %}" data-role="button" data-icon="delete">Cancel</a>
+    <a href="{% url sp_demo_secure_page %}" data-role="button" data-icon="delete">Cancel</a>
     <h1 class="ui-title">Edit Profile</h1>
     <a href="#" data-role="button" data-icon="check" onclick="$('#profile-form').submit();">Save</a>
 {% endblock %}
@@ -19,7 +19,7 @@
             <img src="{{ user.get_profile.image_url }}"/>
         {% endif %}
         {{ form.errors }}
-        <form action="{%  url profile_page %}" method="post" id="profile-form">
+        <form action="{%  url sp_profile_page %}" method="post" id="profile-form">
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}
@@ -41,8 +41,8 @@
 
     {% endif %}
 
-    <a href="{% url select_page %}" data-rel="dialog" data-role="button">Add Social Connection</a>
+    <a href="{% url sp_select_page %}" data-rel="dialog" data-role="button">Add Social Connection</a>
     <br>
     <br>
-    <h2><a href="{% url delete_page %}" data-role="button" data-theme="e">Delete Account</a></h2>
+    <a href="{% url sp_delete_page %}" data-role="button" data-theme="e">Delete Account</a>
 {% endblock %}
