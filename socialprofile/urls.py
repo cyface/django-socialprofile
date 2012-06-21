@@ -27,8 +27,8 @@ urlpatterns = patterns('',
     # Delete
     url(r'^delete/action$', 'socialprofile.views.delete_action_view', name="sp_delete_action_page"),
 
-    # Social Registration
-    url(r'', include('social_auth.urls')),
+    # Social Auth
+    url(r'^socialauth/', include('social_auth.urls')),
     
     # Logout Page
     url(r'^logout/$', 'socialprofile.views.logout_view', name="sp_logout_page"),

@@ -5,11 +5,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from models import UserProfile
+from models import SocialProfile
 
 class UserProfileInline(admin.TabularInline):
     """Sets up UserProfile to be inline editable along with users"""
-    model = UserProfile
+    model = SocialProfile
     fk_name = 'user'
     max_num = 1
     
