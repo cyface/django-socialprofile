@@ -66,7 +66,7 @@ def profile_view(request):
     """
     Profile Editing Page
 
-    url: /profile
+    url: /
 
     template : templates/profile.html
     """
