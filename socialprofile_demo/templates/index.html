@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 
-{% block headtitle %}Django Social Profiles - Home{% endblock %}
+{% block headtitle %}Django Social Profiles Demo - Home{% endblock %}
 
 {% block body_class %}{% endblock %}
 
 {% block head %}{% endblock %}
 
-{% block content %}
-    {% if user.is_authenticated %}
-        <h2>Welcome to Social Profiles</h2>
-    {% else %}
-        <h2>Interested in interacting? Head over to the <a href="#" onclick="openLoginModal('/secure');">Secure area.</a></h2>
-        {% include "login_modal.html" %}
-    {% endif %}
-{% endblock %}
+{% block header %}{% endblock %}
 
+{% block content %}
+    {% if not user.is_authenticated %}
+        <h2><a href="{% url select_page %}" data-rel="dialog" data-role="button">Sign In</a></h2>
+    {% endif %}
+    <h2><a href="{% url secure_page %}" data-role="button">Secure Page</a></h2>
+    <br>
+    <br>
+    <br>
+{% endblock %}

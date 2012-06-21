@@ -1,15 +1,9 @@
-<nav>
-<ul id="sp_nav">
-    {% url home_page as home_page_url %}
-    {%  if request.path != home_page_url %}
-        <li><a href="{{ home_page_url }}">Home</a></li>
-    {% endif %}
+<nav data-role="navbar" data-iconpos="left">
+    <a href="{% url home_page %}" data-icon="home" data-role="button">Home</a>
     {% if user.is_authenticated %}
-        <li>Welcome {{ user.username }} ({{ user.email }})</li>
-        <li><a href="{% url profile_page %}">Edit Your Profile</a></li>
-        <li><a href="{% url logout_page %}">Sign Out</a></li>
+        <a href="{% url profile_page %}" data-role="button">{{ user.username }}'s Profile</a>
+        <a href="{% url logout_page %}" data-role="button">Sign Out</a>
     {% else %}
-        <li>Please <a href="{% url select_page %}">Sign In</a></li>
+        <a href="{% url select_page %}" data-role="button">Sign In</a>
     {% endif %}
-</ul>
 </nav>
