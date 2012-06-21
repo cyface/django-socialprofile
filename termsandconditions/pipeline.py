@@ -3,6 +3,7 @@ import urlparse
 from models import TermsAndConditions
 from django.http import HttpResponseRedirect, QueryDict
 from django.conf import settings
+from django.core.urlresolvers import reverse
 import logging
 
 ACCEPT_TERMS_PATH = getattr(settings, 'ACCEPT_TERMS_PATH', '/terms/accept/')
@@ -16,7 +17,8 @@ def user_accept_terms(backend, user, uid, social_user=None, *args, **kwargs):
     LOGGER.debug('user_accept_terms')
 
     if not TermsAndConditions.agreed_to_latest(user):
-        return redirect_to_terms_accept('/complete/{0}/'.format(backend.name))
+        complete_url = reverse('socialauth_complete',  args=[backend.name])
+        return redirect_to_terms_accept(complete_url)
     else:
         return {'social_user': social_user, 'user': user}
 
