@@ -7,6 +7,7 @@
 
 from django.conf.urls import *  #@UnusedWildImport
 from django.contrib import admin
+from django.contrib.auth.views import logout
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from socialprofile.views import DeleteView
@@ -31,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^socialauth/', include('social_auth.urls')),
     
     # Logout Page
-    url(r'^logout/$', 'socialprofile.views.logout_view', name="sp_logout_page"),
+    #url(r'^logout/$', 'socialprofile.views.logout_view', name="sp_logout_page"),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', name="sp_logout_page"),
       
 )

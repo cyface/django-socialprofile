@@ -26,23 +26,6 @@ def index(request):
 
     return render_to_response('index.html', response_data, context_instance=RequestContext(request))
 
-
-def logout_view(request):
-    """
-    Logout Page
-
-    url: /logout
-
-    template : templates/index.html
-    """
-
-    logger.debug('logoutpage')
-
-    logout(request)
-    response_data = {}
-    return render_to_response('index.html', response_data, context_instance=RequestContext(request))
-
-
 def select_view(request):
     """
     Lets users choose how they want to request access.
