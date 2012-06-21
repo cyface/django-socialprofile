@@ -8,9 +8,11 @@
 {% block head %}{% endblock %}
 
 {% block header %}
-    <a href="{% url sp_demo_secure_page %}" data-role="button" data-icon="delete">Cancel</a>
-    <h1 class="ui-title">Edit Profile</h1>
-    <a href="#" data-role="button" data-icon="check" onclick="$('#sp-profile-form').submit();">Save</a>
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <a href="{% url sp_demo_secure_page %}" data-role="button" data-icon="delete">Cancel</a>
+        <h1 class="ui-title">Edit Profile</h1>
+        <a href="#" data-role="button" data-icon="check" onclick="$('#sp-profile-form').submit();">Save</a>
+    </header>
 {% endblock %}
 
 {% block content %}

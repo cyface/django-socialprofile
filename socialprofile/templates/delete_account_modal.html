@@ -1,24 +1,12 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="initial-scale=1.0"/>
-    <link rel="stylesheet" href="{% static 'css/socialprofile.css' %}"/>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"/>
-    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-</head>
-<body>
-<div data-role="dialog" title="Delete Your Account?">
-    <div data-role="header" data-theme="b">
-        <h1>Really Delete?</h1>
+{% block content %}
+    <div data-role="dialog" title="Delete Your Account?">
+        <div data-role="header" data-theme="b">
+            <h1>Really Delete?</h1>
+        </div>
+        <div data-role="content" data-theme="c" title="Sign In">
+            <a href="{% url sp_profile_page %}" data-role="button" data-theme="b">No, Keep Account</a>
+            <br>
+            <a href="{% url sp_delete_action_page %}" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
+        </div>
     </div>
-    <div data-role="content" data-theme="c" title="Sign In">
-        <a href="{% url sp_profile_page %}" data-role="button" data-theme="b">No, Keep Account</a>
-        <br>
-        <a href="{% url sp_delete_action_page %}" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
-    </div>
-</div>
-</body>
-</html>
+{% endblock %}
