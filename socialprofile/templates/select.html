@@ -15,9 +15,9 @@
         <h1>Sign In</h1>
     </div>
     <div data-role="content" data-theme="c" title="Sign In">
-        <a href="{% url socialauth_begin 'google-oauth2' %}" data-ajax="false"><span id="sp-google-button">Google</span></a>
-        <a href="{% url socialauth_begin 'twitter' %}" data-ajax="false"><span id="sp-twitter-button">Twitter</span></a>
-        <a href="{% url socialauth_begin 'facebook' %}" data-ajax="false"><span id="sp-facebook-button">Facebook</span></a>
+        <a href="{% url socialauth_begin 'google-oauth2' %}" id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Google</a>
+        <a href="{% url socialauth_begin 'twitter' %}" id="sp-twitter-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Twitter</a>
+        <a href="{% url socialauth_begin 'facebook' %}" id="sp-facebook-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Facebook</a>
     </div>
 </div>
 </body>
