@@ -14,12 +14,12 @@ from socialprofile.views import DeleteView
 admin.autodiscover()
 
 urlpatterns = patterns('',
+
+    # Profile
+    url(r'^$', 'socialprofile.views.profile_view', name="sp_profile_page"),
     
     # Select Sign Up Method
     url(r'^select/$', 'socialprofile.views.select_view', name="sp_select_page"),
-
-    # Profile
-    url(r'^profile/$', 'socialprofile.views.profile_view', name="sp_profile_page"),
 
     # Delete Confirm Modal
     url(r'^delete/$', DeleteView.as_view(), name="sp_delete_page"),
