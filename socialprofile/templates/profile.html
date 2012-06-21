@@ -8,9 +8,9 @@
 {% block head %}{% endblock %}
 
 {% block header %}
-    <a href="{% url home_page %}" data-role="button" data-icon="delete">Cancel</a>
+    <a href="{% url secure_page %}" data-role="button" data-icon="delete">Cancel</a>
     <h1 class="ui-title">Edit Profile</h1>
-    <a href="#" data-role="button" data-icon="check" onclick="$('#profile_form').submit();">Save</a>
+    <a href="#" data-role="button" data-icon="check" onclick="$('#profile-form').submit();">Save</a>
 {% endblock %}
 
 {% block content %}
@@ -19,18 +19,17 @@
             <img src="{{ user.get_profile.image_url }}"/>
         {% endif %}
         {{ form.errors }}
-        <form action="{%  url profile_page %}" method="post" id="profile_form">
+        <form action="{%  url profile_page %}" method="post" id="profile-form">
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}
             </ul>
-            <p><input type="submit" value="Save Changes"></p>
         </form>
     </section>
     <h2>Social Authentication Connections</h2>
     {% if user.social_auth.all.count == 1 %}
         {% with only_connection=user.social_auth.all|first %}
-            <em>{{ only_connection.provider|social_provider_name }} is your only connection, it cannot be removed.</em>
+            <p><em>{{ only_connection.provider|social_provider_name }} is your only connection, it cannot be removed.</em></p>
         {% endwith %}
     {% else %}
         <ul>
@@ -46,5 +45,5 @@
        data-role="button">Add Social Authentication Connection</a>
     <br>
     <br>
-    <h2><a href="{% url delete_page %}" data-rel="dialog" data-role="button" data-theme="e">Delete Account</a></h2>
+    <h2><a href="{% url delete_page %}" data-role="button" data-theme="e">Delete Account</a></h2>
 {% endblock %}
