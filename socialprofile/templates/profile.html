@@ -15,8 +15,8 @@
 
 {% block content %}
     <section title="profile">
-        {% if user.get_profile.image_url %}
-            <img src="{{ user.get_profile.image_url }}"/>
+        {% if user.social_profile.image_url %}
+            <img src="{{ user.social_profile.image_url }}"/>
         {% endif %}
         {{ form.errors }}
         <form action="{%  url sp_profile_page %}" method="post" id="sp-profile-form">
