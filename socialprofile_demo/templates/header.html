@@ -1,9 +1,12 @@
-<nav data-role="navbar" data-iconpos="left">
-    <a href="{% url home_page %}" data-icon="home" data-role="button">Home</a>
-    {% if user.is_authenticated %}
-        <a href="{% url profile_page %}" data-role="button">{{ user.username }}'s Profile</a>
-        <a href="{% url logout_page %}" data-role="button">Sign Out</a>
-    {% else %}
-        <a href="{% url select_page %}" data-role="button">Sign In</a>
-    {% endif %}
-</nav>
+<div data-role="navbar">
+    <ul>
+        {% if user.is_authenticated %}
+            <li><a href="{% url home_page %}" data-icon="home">Home</a></li>
+            <li><a href="{% url profile_page %}" data-icon="gear">Edit Profile</a></li>
+            <li><a href="{% url logout_page %}" data-icon="delete">Sign Out</a></li>
+        {% else %}
+            <li><a href="{% url home_page %}" data-icon="home">Home</a></li>
+            <li><a href="{% url select_page %}" data-icon="save">Sign In</a></li>
+        {% endif %}
+    </ul>
+</div>
