@@ -32,7 +32,6 @@ urlpatterns = patterns('',
     url(r'^socialauth/', include('social_auth.urls')),
     
     # Logout Page
-    #url(r'^logout/$', 'socialprofile.views.logout_view', name="sp_logout_page"),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', name="sp_logout_page"),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', kwargs={'next_page':"/"},name="sp_logout_page"),
       
 )
