@@ -37,6 +37,16 @@
         {% block header %}{% include "header.html" %}{% endblock %}
     </header>
 
+    {% block messages %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
+
     {% block content %}<p>No Content Defined</p>{% endblock %}
 
     <footer>
