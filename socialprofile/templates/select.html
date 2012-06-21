@@ -1,22 +1,24 @@
-{% extends "base.html" %}
-
-{% block headtitle %}Select a Way To Sign In{% endblock %}
-
-{% block body_class %}{% endblock %}
-
-{% block head %}{% endblock %}
-
-{% block content %}
-    {% if user.is_authenticated %}
-        Thanks for visiting the site!
-    {% else %}
-        Please choose a method to get access to this site:
-        <div id="sp_login_modal" title="Select A Sign In Method">
-            <ul>
-                <li><a href="{% url socialauth_begin 'google-oauth2' %}"><span id="sp_google_button">Google</span></a></li>
-                <li><a href="{% url socialauth_begin 'twitter' %}"><span id="sp_twitter_button">Twitter</span></a></li>
-                <li><a href="{% url socialauth_begin 'facebook' %}"><span id="sp_facebook_button">Facebook</span></a></li>
-            </ul>
-        </div>
-    {% endif %}
-{% endblock %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'css/socialprofile.css' %}"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"/>
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head>
+<body>
+<div id="sp-login-modal" data-role="dialog">
+    <div data-role="header" data-theme="b">
+        <h1>Sign In</h1>
+    </div>
+    <div data-role="content" data-theme="c" title="Sign In">
+        <a href="{% url socialauth_begin 'google-oauth2' %}" data-ajax="false"><span id="sp-google-button">Google</span></a>
+        <a href="{% url socialauth_begin 'twitter' %}" data-ajax="false"><span id="sp-twitter-button">Twitter</span></a>
+        <a href="{% url socialauth_begin 'facebook' %}" data-ajax="false"><span id="sp-facebook-button">Facebook</span></a>
+    </div>
+</div>
+</body>
+</html>
