@@ -2,15 +2,13 @@
 {% block header %}{% endblock %}
 {% block page_role %}data-role="dialog"{% endblock %}
 {% block content %}
-    <div data-role="dialog" title="Delete Your Account?">
-        <div data-role="header" data-theme="b">
-            <h1>Really Delete?</h1>
-        </div>
-        <div data-role="content" data-theme="c" title="Sign In">
-            <a href="{% url sp_profile_page %}" data-role="button" data-theme="b">No, Keep Account</a>
-            <br>
-            <a href="{% url sp_delete_action_page %}" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
-        </div>
+    <div data-role="header" data-theme="b">
+        <h1>Really Delete?</h1>
+    </div>
+    <div data-role="content" data-theme="c" title="Sign In">
+        <a href="{% url sp_profile_page %}" data-role="button" data-theme="b">No, Keep Account</a>
+        <br>
+        <a href="{% url sp_delete_action_page %}" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
     </div>
 {% endblock %}
 {% block footer %}{% endblock %}
