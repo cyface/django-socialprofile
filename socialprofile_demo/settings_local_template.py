@@ -154,11 +154,11 @@ SOCIAL_AUTH_PIPELINE = (
 #    'social_auth.backends.pipeline.user.update_user_details'
 )
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/socialprofile/profile/'
 #SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
 #SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
 
-LOGIN_URL          = '/select/'
+LOGIN_URL          = '/socialprofile/select/'
 #LOGIN_REDIRECT_URL = '/logged-in/'
 #LOGIN_ERROR_URL    = '/'
 

@@ -23,13 +23,10 @@ urlpatterns = patterns('',
     url(r'^securetoo/$', 'socialprofile_demo.views.secure_view_too', name="sp_demo_secure_page_too"),
 
     # Social Profiles
-    url(r'', include('socialprofile.urls')),
+    url(r'^socialprofile/', include('socialprofile.urls')),
 
     # Terms and Conditions
     url(r'^terms/', include('termsandconditions.urls')),
-
-    # Social Registration
-    url(r'', include('social_auth.urls')),
     
     # Admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -38,13 +35,3 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
       
 )
-
-#Only hook up the static and media to run through Django in a dev environment...in prod, needs to be handled by web server
-# Staticfiles Setup
-#if settings.DEBUG:
-#    urlpatterns += staticfiles_urlpatterns()
-#    urlpatterns += patterns('',
-#        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-#            'document_root': settings.MEDIA_ROOT,
-#        }),
-#   )

@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from forms import ProfileForm
+from forms import SocialProfileForm
 from django.views.generic import TemplateView
 import logging
 
@@ -74,7 +74,7 @@ def profile_view(request):
     logger.debug('profilepage')
 
     if request.method == 'POST': # If the form has been submitted...
-        form = ProfileForm(request.POST) # A form bound to the POST data
+        form = SocialProfileForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             user = request.user
             form.clean()
@@ -82,7 +82,7 @@ def profile_view(request):
             user.email = form.cleaned_data['email']
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
-            profile = user.get_profile()
+            profile = user.social_profile
             profile.gender = form.cleaned_data['gender']
             profile.url = form.cleaned_data['url']
             profile.image_url = form.cleaned_data['image_url']
@@ -91,13 +91,13 @@ def profile_view(request):
                 user.save()
                 profile.save()
             except IntegrityError:
-                form = ProfileForm()
+                form = SocialProfileForm()
                 form._errors = {'username': [u'Your chosen username was not unique.'], }
 
             messages.add_message(request, messages.INFO, 'Your profile has been updated.')
 
     else:
-        form = ProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
+        form = SocialProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
