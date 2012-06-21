@@ -1,5 +1,6 @@
 #sp-login-modal .ui-dialog-contain {max-width: 273px;}
-#sp-google-button {width:244px; height:45px;display:block;background:url('../images/social_signin_buttons.png') 0 -90px no-repeat;text-indent:-9999em;margin-top:4px;}
-#sp-twitter-button {width:244px; height:45px;display:block;background:url('../images/social_signin_buttons.png') 0 0 no-repeat;text-indent:-9999em;margin-top:20px;}
-#sp-facebook-button {width:244px; height:45px;display:block;background:url('../images/social_signin_buttons.png') 0 -45px no-repeat;text-indent:-9999em;margin-top:20px;}
+#sp-google-button .ui-icon {width:44px; height:44px; margin-top:-22px; background:url('../images/google.jpg') 50% 50% no-repeat; background-size: 30px 30px;}
+#sp-twitter-button .ui-icon {width:44px; height:44px; margin-top:-22px; background:url('../images/twitter.png') 50% 50% no-repeat; background-size: 30px 30px;}
+#sp-facebook-button .ui-icon {width:44px; height:44px; margin-top:-22px; background:url('../images/facebook.jpg') 50% 50% no-repeat; background-size: 30px 30px;}
 #sp-terms {font-size: 12px;}
+#profile-form ul {list-style-type: none;}
