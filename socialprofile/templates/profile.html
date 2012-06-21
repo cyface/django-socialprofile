@@ -10,7 +10,7 @@
 {% block header %}
     <a href="{% url sp_demo_secure_page %}" data-role="button" data-icon="delete">Cancel</a>
     <h1 class="ui-title">Edit Profile</h1>
-    <a href="#" data-role="button" data-icon="check" onclick="$('#profile-form').submit();">Save</a>
+    <a href="#" data-role="button" data-icon="check" onclick="$('#sp-profile-form').submit();">Save</a>
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
             <img src="{{ user.get_profile.image_url }}"/>
         {% endif %}
         {{ form.errors }}
-        <form action="{%  url sp_profile_page %}" method="post" id="profile-form">
+        <form action="{%  url sp_profile_page %}" method="post" id="sp-profile-form">
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}

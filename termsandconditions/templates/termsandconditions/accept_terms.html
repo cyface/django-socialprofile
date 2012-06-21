@@ -5,32 +5,21 @@
 {% block body_class %}{% endblock %}
 
 {% block head %}
+    <!--suppress HtmlUnknownAttribute -->
     <style>
-        .title {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .terms-html {
-            width: 80%;
-            margin: auto;
-            border: 1px solid #666;
-            background-color: #ccc;
-            padding: 8px;
-        }
-        .terms-form {
-            text-align: center;
-        }
+
+
     </style>
 {% endblock %}
 
 {% block content %}
     <section title="termsandconditions">
-        <h1 class="title">Please Accept the Site Terms and Conditions</h1>
+        <h1>Please Accept the Site Terms and Conditions</h1>
         {{ form.errors }}
-        <div class="terms-html">
+        <div id="tc-terms-html">
             {{ form.text.value|safe }}
         </div>
-        <form action="{%  url tc_accept_page %}" method="post" class="terms-form">
+        <form action="{%  url tc_accept_page %}" method="post" id="tc-terms-form">
             {% csrf_token %}
             {{ form.slug }}
             {{ form.version_number }}

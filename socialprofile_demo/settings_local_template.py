@@ -68,7 +68,6 @@ DATABASES = {
     #        'SUPPORTS_TRANSACTIONS': 'true',
     #    },
     'default': {
-        'NAME': 'default',
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': PROJECT_ROOT + '/socialprofile.db',
         'SUPPORTS_TRANSACTIONS': 'false',
