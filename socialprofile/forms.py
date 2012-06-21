@@ -1,7 +1,7 @@
 """Django forms for the socialprofile application"""
 from django import forms
 from django.contrib.auth.models import User
-from models import UserProfile
+from models import SocialProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import strip_tags
 from django.forms.models import model_to_dict
@@ -10,13 +10,13 @@ import logging
 
 logger = logging.getLogger(name='socialprofile')
 
-class ProfileForm(forms.Form):
+class SocialProfileForm(forms.Form):
     """Master form for editing the user's profile"""
     username = forms.CharField(max_length=30, label='User Name')
     email = forms.EmailField(label="Email Address", widget=H5EmailInput())
     first_name = forms.CharField(max_length=30, required=False, label='First Name',)
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
-    gender = forms.CharField(max_length=10, required=False, widget=forms.Select(choices=UserProfile.GENDER_CHOICES))
+    gender = forms.CharField(max_length=10, required=False, widget=forms.Select(choices=SocialProfile.GENDER_CHOICES))
     url = forms.URLField(required=False, label='Homepage URL', widget=forms.TextInput(attrs={'size': '100', }))
     image_url = forms.URLField(required=False, label='Profile Picture URL', widget=forms.TextInput(attrs={'size': '100', }))
     description = forms.CharField(required=False, max_length=300, widget=forms.Textarea(attrs={'rows':'1', 'cols':'80'}))
@@ -45,5 +45,5 @@ class ProfileForm(forms.Form):
         self.user = user
         if initial is None and isinstance(user, User):
             initial = model_to_dict(user) # Set initial values for form to user object properties
-            initial.update( model_to_dict(user.get_profile())) # Add User Profile properties to initial values
-        super(ProfileForm, self).__init__(data=data, initial=initial)
+            initial.update( model_to_dict(user.social_profile)) # Add User Profile properties to initial values
+        super(SocialProfileForm, self).__init__(data=data, initial=initial)

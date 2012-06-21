@@ -45,5 +45,3 @@ INSTALLED_APPS = (
     'social_auth',
     'termsandconditions'
 )
-
-AUTH_PROFILE_MODULE = 'socialprofile.UserProfile'
