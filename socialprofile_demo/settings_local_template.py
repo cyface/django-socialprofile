@@ -153,7 +153,7 @@ SOCIAL_AUTH_PIPELINE = (
     'termsandconditions.pipeline.user_accept_terms',
 )
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/socialprofile/'
+#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/socialprofile/'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/socialprofile/'
 SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/socialprofile/'
 
