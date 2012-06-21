@@ -154,11 +154,11 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/socialprofile/'
-#SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/accept'
-#SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/socialprofile/'
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/socialprofile/'
 
 LOGIN_URL          = '/socialprofile/select/'
-#LOGIN_REDIRECT_URL = '/logged-in/'
+#LOGIN_REDIRECT_URL = '/socialprofile/'
 #LOGIN_ERROR_URL    = '/'
 
 ### django-registration Settings

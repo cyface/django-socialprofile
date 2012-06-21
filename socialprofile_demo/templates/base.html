@@ -31,17 +31,14 @@
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 
-    {% block head %}
-    {% endblock %}
+    {% block head %}{% endblock %}
 </head>
 
 <body class='{% block body_class %}{% endblock %}'>
 
 <div {% block page_role %}data-role="page" data-theme="b"{% endblock %}>
 
-    <header data-role="header" data-theme="b" data-position="fixed">
-        {% block header %}{% include "header.html" %}{% endblock %}
-    </header>
+    {% block header %}{% include "header.html" %}{% endblock %}
 
     {% block messages %}
         {% if messages %}
@@ -55,9 +52,7 @@
 
     {% block content %}<p>No Content Defined</p>{% endblock %}
 
-    <footer>
-        {% block footer %}{% include "footer.html" %}{% endblock %}
-    </footer>
+    {% block footer %}{% include "footer.html" %}{% endblock %}
 
     {% block bottom_js %}{% endblock %}
 

@@ -1,24 +1,14 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="initial-scale=1.0"/>
-    <link rel="stylesheet" href="{% static 'css/socialprofile.css' %}"/>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css"/>
-    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-</head>
-<body>
-<div id="sp-login-modal" data-role="dialog">
-    <div data-role="header" data-theme="b">
-        <h1>Sign In</h1>
+{% block header %}{% endblock %}
+{% block content %}
+    <div id="sp-login-modal" data-role="dialog">
+        <div data-role="header" data-theme="b">
+            <h1>Sign In</h1>
+        </div>
+        <div data-role="content" data-theme="c" title="Sign In">
+            <a href="{% url socialauth_begin 'google-oauth2' %}" id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Google</a>
+            <a href="{% url socialauth_begin 'twitter' %}" id="sp-twitter-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Twitter</a>
+            <a href="{% url socialauth_begin 'facebook' %}" id="sp-facebook-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Facebook</a>
+        </div>
     </div>
-    <div data-role="content" data-theme="c" title="Sign In">
-        <a href="{% url socialauth_begin 'google-oauth2' %}" id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Google</a>
-        <a href="{% url socialauth_begin 'twitter' %}" id="sp-twitter-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Twitter</a>
-        <a href="{% url socialauth_begin 'facebook' %}" id="sp-facebook-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Facebook</a>
-    </div>
-</div>
-</body>
-</html>
+{% endblock %}
+{% block footer %}{% endblock %}
