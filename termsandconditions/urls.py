@@ -16,13 +16,13 @@ terms_view = ViewTerms()
 
 urlpatterns = patterns('termsandconditions.views',
     # View Terms
-    url(r'', include(terms_view.urls)),
+    url(r'', include(terms_view.urls), name="tc_view_page"),
 
     # Accept Terms
-    url(r'^accept/$', 'accept_view', name="terms_accept_page"),
+    url(r'^accept/$', 'accept_view', name="tc_accept_page"),
 
     # Terms Required
-    url(r'^required', 'terms_required_view', name="terms_required_page"),
+    url(r'^required', 'terms_required_view', name="tc_required_page"),
 )
 
 
