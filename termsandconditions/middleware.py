@@ -8,7 +8,7 @@ ACCEPT_TERMS_PATH = getattr(settings, 'ACCEPT_TERMS_PATH', '/terms/accept/')
 TERMS_EXCLUDE_URL_PREFIX_LIST = getattr(settings, 'TERMS_EXCLUDE_URL_PREFIX_LIST', {'/admin/',})
 TERMS_EXCLUDE_URL_LIST = getattr(settings, 'TERMS_EXCLUDE_URL_LIST', {'/', '/terms/required/', '/socialprofile/logout/', '/securetoo/'})
 
-class TermsAndConditionslRedirectMiddleware:
+class TermsAndConditionsRedirectMiddleware:
     """
     This middleware checks to see if the user is logged in, and if so, if they have accepted the site terms.
     """
