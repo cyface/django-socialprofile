@@ -5,11 +5,12 @@ from django.template import RequestContext
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from forms import SocialProfileForm
 from django.views.generic import TemplateView
 import logging
 
-logger = logging.getLogger(name='socialprofile')
+LOGGER = logging.getLogger(name='socialprofile')
 
 def index(request):
     """
@@ -20,11 +21,12 @@ def index(request):
     template : templates/index.html
     """
 
-    logger.debug('indexpage')
+    LOGGER.debug('indexpage')
 
     response_data = {}
 
     return render_to_response('index.html', response_data, context_instance=RequestContext(request))
+
 
 def select_view(request):
     """
@@ -35,7 +37,7 @@ def select_view(request):
     template : templates/select.html
     """
 
-    logger.debug('selectpage')
+    LOGGER.debug('selectpage')
 
     nextPage = request.GET.get('next', '/')
 
@@ -54,7 +56,7 @@ def profile_view(request):
     template : templates/profile.html
     """
 
-    logger.debug('profilepage')
+    LOGGER.debug('profilepage')
 
     if request.method == 'POST': # If the form has been submitted...
         form = SocialProfileForm(request.POST) # A form bound to the POST data
@@ -79,6 +81,9 @@ def profile_view(request):
 
             messages.add_message(request, messages.INFO, 'Your profile has been updated.')
 
+            if form.cleaned_data.has_key('returnTo'):
+                return HttpResponseRedirect(form.cleaned_data['returnTo'])
+
     else:
         form = SocialProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
 
@@ -97,6 +102,7 @@ class DeleteView(TemplateView):
     """
     template_name = "delete_account_modal.html"
 
+
 @login_required
 def delete_action_view(request):
     """
@@ -107,10 +113,10 @@ def delete_action_view(request):
     template : templates/delete_success.html
     """
 
-    logger.debug('deletepage')
+    LOGGER.debug('deletepage')
 
-#    if request.method == 'POST': # If the form has been submitted...
-#        if request.POST.has_key('confirm'):
+    #    if request.method == 'POST': # If the form has been submitted...
+    #        if request.POST.has_key('confirm'):
     user_to_delete = request.user
     logout(request)
     user_to_delete.delete()

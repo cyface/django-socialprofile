@@ -10,7 +10,18 @@
 
 {% block content %}
     {% if not user.is_authenticated %}
-        <h2><a href="{% url sp_select_page %}" data-rel="dialog" data-role="button">Sign In</a></h2>
+        <section title="Welcome" id="sp-demo-welcome">
+            <h2>Click the button below to get started using this site.</h2>
+
+            <p>You'll be asked to sign in using your Google, Twitter, or Facebook credentials.</p>
+
+            <p>If you don't have an account yet, signing in with one of those methods will create one for you.</p>
+
+            <p>You can edit your profile or delete your account at any time.</p>
+            <a href="{% url sp_demo_secure_page %}" data-role="button">Get Started</a>
+        </section>
+    {% else %}
+        <h2>Thank you for signing in, {{ user.username }}.</h2>
+        <a href="{% url sp_demo_secure_page %}" data-role="button">Return to Secure Area</a>
     {% endif %}
-    <h2><a href="{% url sp_demo_secure_page %}" data-role="button">Secure Page</a></h2>
 {% endblock %}

@@ -8,4 +8,7 @@
 
 {% block content %}
 	<h1>Welcome to the secure area, {{ user.username }}.</h1>
+    <p>This is the area of the web site where the exciting stuff happens.</p>
+    <p>Click the "Edit Profile" button above to edit your profile.</p>
+    <p>There is <a href="{% url sp_demo_secure_page_too %}">another secure page</a> you can visit as well.</p>
 {% endblock %}
