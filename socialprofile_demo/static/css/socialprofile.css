@@ -1,8 +1,8 @@
 #sp-demo-welcome {margin:4%;}
 #sp-login-modal .ui-dialog-contain {max-width: 273px;}
-#sp-google-button .ui-icon {width:44px; height:44px; margin-top:-22px; background:url('../images/google.jpg') 50% 50% no-repeat; background-size: 30px 30px;}
-#sp-twitter-button .ui-icon {width:44px; height:44px; margin-top:-22px; background:url('../images/twitter.png') 50% 50% no-repeat; background-size: 30px 30px;}
-#sp-facebook-button .ui-icon {width:44px; height:44px; margin-top:-22px; background:url('../images/facebook.jpg') 50% 50% no-repeat; background-size: 30px 30px;}
+#sp-google-button .ui-icon {margin-top:-16px;width:34px; height:32px; background-image:url('../images/social_logo_strip_32.png');background-repeat:no-repeat;background-position: 0px 0px;background-color:transparent;border-radius:0;}
+#sp-twitter-button .ui-icon {margin-top:-16px;width:34px; height:35px; background-image:url('../images/social_logo_strip_32.png');background-repeat:no-repeat;background-position: -74px 0px;background-color:transparent;border-radius:0;}
+#sp-facebook-button .ui-icon {margin-top:-16px;width:34px; height:35px; background-image:url('../images/social_logo_strip_32.png');background-repeat:no-repeat;background-position: -36px 0px;background-color:transparent;border-radius:0;}
 #sp-terms {font-size: 12px;}
 #sp-profile-form ul {list-style-type: none;margin: 0 0 0 5px; padding: 0 0 0 0;width:97%;}
 #tc-terms-html {width: 80%;margin: auto;border: 1px solid #666;background-color: #ccc;padding: 8px;}
