@@ -75,7 +75,7 @@ DATABASES = {
 }
 
 # Python dotted path to the WSGI application used by Django's runserver.
-#WSGI_APPLICATION = 'socialprofile_demo.wsgi.application'
+WSGI_APPLICATION = 'socialprofile_demo.wsgi.application'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -111,14 +111,11 @@ EMAIL_HOST_PASSWORD = 'your_mailbox_password'
 DEFAULT_FROM_EMAIL = 'a real email address'
 SERVER_EMAIL = 'a real email address'
 
-### TESTS
-#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner' # Should work with Django 1.2.1
-
 ### Local add-ons to main inclusion variables
 # TEMPLATE_CONTEXT_PROCESSORS +=
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend', # Leave Enabled for Admin Access
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
     'social_auth.backends.google.GoogleOAuth2Backend',
@@ -153,38 +150,40 @@ SOCIAL_AUTH_PIPELINE = (
     'termsandconditions.pipeline.user_accept_terms',
 )
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/socialprofile/'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/socialprofile/'
-SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/socialprofile/'
+# Social Authentication (django-socialauth) Settings
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/secure/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/secure/'
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/secure/'
 
+# Core Authentication Settings
 LOGIN_URL          = '/socialprofile/select/'
-#LOGIN_REDIRECT_URL = '/socialprofile/'
-#LOGIN_ERROR_URL    = '/'
+LOGIN_REDIRECT_URL = '/secure/'
+LOGIN_ERROR_URL    = '/socialprofile/select/'
 
-### django-registration Settings
-ACCOUNT_ACTIVATION_DAYS = 14
-
-### TermsAndConditions
+# Terms & Conditions (termsandconditions) Settings
 DEFAULT_TERMS_SLUG = 'site-terms'
+ACCEPT_TERMS_PATH = '/terms/accept/'
+TERMS_EXCLUDE_URL_PREFIX_LIST =  {'/admin/',}
+TERMS_EXCLUDE_URL_LIST = {'/', '/terms/required/', '/socialprofile/logout/', '/securetoo/'}
 
 ### DEBUG TOOLBAR
-if DEBUG:
-    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    INSTALLED_APPS += ('debug_toolbar',)
-
-    DEBUG_TOOLBAR_PANELS = (
-        'debug_toolbar.panels.timer.TimerDebugPanel',
-        'debug_toolbar.panels.headers.HeaderDebugPanel',
-        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-        'debug_toolbar.panels.template.TemplateDebugPanel',
-        'debug_toolbar.panels.sql.SQLDebugPanel',
-        'debug_toolbar.panels.signals.SignalDebugPanel',
-        'debug_toolbar.panels.logger.LoggingPanel',
-        )
-
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False
-    }
+#if DEBUG:
+#    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+#    INSTALLED_APPS += ('debug_toolbar',)
+#
+#    DEBUG_TOOLBAR_PANELS = (
+#        'debug_toolbar.panels.timer.TimerDebugPanel',
+#        'debug_toolbar.panels.headers.HeaderDebugPanel',
+#        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+#        'debug_toolbar.panels.template.TemplateDebugPanel',
+#        'debug_toolbar.panels.sql.SQLDebugPanel',
+#        'debug_toolbar.panels.signals.SignalDebugPanel',
+#        'debug_toolbar.panels.logger.LoggingPanel',
+#        )
+#
+#    DEBUG_TOOLBAR_CONFIG = {
+#        'INTERCEPT_REDIRECTS': False
+#    }
 
 #### LOGGING
 # A sample logging configuration. The only tangible logging
