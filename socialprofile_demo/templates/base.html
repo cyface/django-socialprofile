@@ -30,23 +30,20 @@
 
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-
     {% block head %}{% endblock %}
 </head>
-
 <body {% block body_class %}{% endblock %}>
-
 <div {% block page_role %}data-role="page" data-theme="b"{% endblock %}>
 
     {% block header %}{% include "header.html" %}{% endblock %}
 
     {% block messages %}
         {% if messages %}
-            <ul class="messages">
+            <div class="ui-bar ui-bar-e">
                 {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    <h3>{{ message }}</h3>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
     {% endblock %}
 
@@ -55,8 +52,6 @@
     {% block footer %}{% include "footer.html" %}{% endblock %}
 
     {% block bottom_js %}{% endblock %}
-
 </div>
-
 </body>
 </html>
