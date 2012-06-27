@@ -1,4 +1,5 @@
 """Django Views for the socialprofile module"""
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.db import IntegrityError
 from django.template import RequestContext
@@ -57,11 +58,14 @@ def profile_view(request):
 
     LOGGER.debug('profileviewpage')
 
-    form = SocialProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
+    returnTo = request.GET.get('returnTo', '/')
+
+    form = SocialProfileForm(user=request.user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
     return render_to_response('profile.html', response_data, context_instance=RequestContext(request))
+
 
 @login_required
 def profile_edit(request):
@@ -98,11 +102,12 @@ def profile_edit(request):
 
             messages.add_message(request, messages.INFO, 'Your profile has been updated.')
 
-            if form.cleaned_data.has_key('returnTo'):
-                return HttpResponseRedirect(form.cleaned_data['returnTo'])
+            returnTo = form.cleaned_data.get('returnTo', '/')
+            return HttpResponseRedirect(reverse('sp_profile_view_page') + '?returnTo=' + returnTo)
 
     else:
-        form = SocialProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
+        returnTo = request.GET.get('returnTo', "/")
+        form = SocialProfileForm(user=request.user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 

@@ -5,5 +5,10 @@
 #sp-facebook-button .ui-icon {margin-top:-16px;width:34px; height:35px; background-image:url('../images/social_logo_strip_32.png');background-repeat:no-repeat;background-position: -36px 0px;background-color:transparent;border-radius:0;}
 #sp-terms {font-size: 12px;}
 #sp-profile-form ul {list-style-type: none;margin: 0 0 0 5px; padding: 0 0 0 0;width:97%;}
-#tc-terms-html {width: 80%;margin: auto;border: 1px solid #666;background-color: #ccc;padding: 8px;}
+#tc-terms-html {width:80%;margin: auto;border: 1px solid #666;background-color: #ccc;padding: 8px;}
 #tc-terms-form {text-align: center;}
+#sp-profile-img {height:80px;width:80px;margin-top:18px;margin-left: 18px;}
+#sp-profile-name {float: right; margin-right:82%;margin-top: 40px;}
+#sp-profile-block {margin-top: 14px; margin-left:8px; margin-right: 10px;}
+#sp-profile-block label {float:left;width:100px;text-align:right;font-weight:normal;margin-right: 10px;}
+#sp-profile-block value {float:left;font-weight:bold;margin-right:10px;}
