@@ -5,23 +5,32 @@
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="/" data-role="button" data-icon="arrow-l" data-mini="true">Back</a>
+        <a href="{{ form.returnTo.value|default:'/' }}" data-role="button" data-icon="arrow-l" data-mini="true">Back</a>
 
-        <h1 class="ui-title">{{ user.username }}'s Profile</h1>
-        <a href="{% url sp_profile_edit_page %}" data-role="button" data-mini="true">Edit</a>
+        <h1>Profile</h1>
+        <a href="{% url sp_profile_edit_page %}?returnTo={{ form.returnTo.value }}" data-role="button" data-mini="true">Edit</a>
     </header>
 {% endblock %}
 
 {% block content %}
     <section title="profile">
-        {% if user.social_profile.image_url %}
-            <img src="{{ user.social_profile.image_url }}"/>
-        {% endif %}
-        {% for field in form %}
-            <div class="fieldWrapper">
-                {{ field.errors }}
-                {{ field.label_tag }}: {{ field.value }}
-            </div>
-        {% endfor %}
+
+        <h2 id="sp-profile-name">Tim White</h2>
+
+        <img id="sp-profile-img" src="{{ user.social_profile.image_url|default:"http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm" }}">
+
+        <ul id="sp-profile-block" data-role="listview" data-inset="true">
+            <li><label>User Name</label><span>{{ form.username.value|default:"&nbsp;" }}</span></li>
+
+            <li><label>Email</label><span>{{ form.email.value|default:"&nbsp;" }}</span></li>
+
+            <li><label>Gender</label><span>{{ form.gender.value|default:"&nbsp;" }}</span></li>
+
+            <li><label>Homepage URL</label><span>{{ form.homepage_url.value|default:"&nbsp;" }}</span></li>
+
+            <li><label>Description</label><span>{{ form.description.value|default:"&nbsp;" }}</span></li>
+        </ul>
+
     </section>
 {% endblock %}
+
