@@ -20,7 +20,7 @@ class SocialProfileForm(forms.Form):
     url = forms.URLField(required=False, label='Homepage URL', widget=forms.TextInput(attrs={'size': '100', }))
     image_url = forms.URLField(required=False, label='Profile Picture URL', widget=forms.TextInput(attrs={'size': '100', }))
     description = forms.CharField(required=False, max_length=300, widget=forms.Textarea(attrs={'rows':'1', 'cols':'80'}))
-    returnTo = forms.CharField(widget=forms.HiddenInput, required=False) #URI to Return to after save
+    returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/') #URI to Return to after save
 
     def clean_username(self):
         """Automatically called by Django, this method 'cleans' the username, which means making sure it's unique"""
@@ -41,10 +41,11 @@ class SocialProfileForm(forms.Form):
         """Strip HTML out of description"""
         return strip_tags(self.cleaned_data['description'])
 
-    def __init__(self, data=None, user=None, initial=None, *args, **kwargs):
+    def __init__(self, data=None, user=None, initial=None, returnTo='/'):
         """Lets you pass in a user= to bind this form from"""
         self.user = user
         if initial is None and isinstance(user, User):
             initial = model_to_dict(user) # Set initial values for form to user object properties
             initial.update( model_to_dict(user.social_profile)) # Add User Profile properties to initial values
+            initial.update({'returnTo': returnTo})
         super(SocialProfileForm, self).__init__(data=data, initial=initial)
