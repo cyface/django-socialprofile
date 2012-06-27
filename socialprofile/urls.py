@@ -16,8 +16,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    # Profile View
+    # Profile Self View
     url(r'^$', 'socialprofile.views.profile_view', name="sp_profile_view_page"),
+
+    # Profile Other View
+    url(r'^view/(?P<username>\w+)/$', 'socialprofile.views.profile_view', name="sp_profile_other_view_page"),
 
     # Profile Edit
     url(r'^edit/$', 'socialprofile.views.profile_edit', name="sp_profile_edit_page"),
