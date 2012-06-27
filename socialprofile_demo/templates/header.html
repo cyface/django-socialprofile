@@ -3,7 +3,7 @@
         <ul>
             {% if user.is_authenticated %}
                 <li><a href="{% url sp_demo_home_page %}" data-icon="home">Home</a></li>
-                <li><a href="{% url sp_profile_page %}" data-icon="gear">Edit Profile</a></li>
+                <li><a href="{% url sp_profile_edit_page %}" data-icon="gear">Edit Profile</a></li>
                 <li><a href="{% url sp_logout_page %}" data-icon="delete">Sign Out</a></li>
             {% else %}
                 <li><a href="{% url sp_demo_home_page %}" data-icon="home">Home</a></li>

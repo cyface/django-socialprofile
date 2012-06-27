@@ -16,8 +16,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    # Profile
-    url(r'^$', 'socialprofile.views.profile_view', name="sp_profile_page"),
+    # Profile View
+    url(r'^$', 'socialprofile.views.profile_view', name="sp_profile_view_page"),
+
+    # Profile Edit
+    url(r'^edit/$', 'socialprofile.views.profile_edit', name="sp_profile_edit_page"),
     
     # Select Sign Up Method
     url(r'^select/$', 'socialprofile.views.select_view', name="sp_select_page"),
@@ -26,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^delete/$', DeleteView.as_view(), name="sp_delete_page"),
 
     # Delete
-    url(r'^delete/action$', 'socialprofile.views.delete_action_view', name="sp_delete_action_page"),
+    url(r'^delete/action/$', 'socialprofile.views.delete_action_view', name="sp_delete_action_page"),
 
     # Social Auth
     url(r'^socialauth/', include('social_auth.urls')),

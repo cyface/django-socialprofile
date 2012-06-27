@@ -46,17 +46,34 @@ def select_view(request):
     return render_to_response('select.html', response_data, context_instance=RequestContext(request))
 
 
-@login_required
 def profile_view(request):
     """
-    Profile Editing Page
+    Profile View Page
 
     url: /
 
     template : templates/profile.html
     """
 
-    LOGGER.debug('profilepage')
+    LOGGER.debug('profileviewpage')
+
+    form = SocialProfileForm(user=request.user) # Pass in User to Pre-Populate with Current Values
+
+    response_data = {'form': form}
+
+    return render_to_response('profile.html', response_data, context_instance=RequestContext(request))
+
+@login_required
+def profile_edit(request):
+    """
+    Profile Editing Page
+
+    url: /
+
+    template : templates/profile_edit.html
+    """
+
+    LOGGER.debug('profileeditpage')
 
     if request.method == 'POST': # If the form has been submitted...
         form = SocialProfileForm(request.POST) # A form bound to the POST data
@@ -89,7 +106,7 @@ def profile_view(request):
 
     response_data = {'form': form}
 
-    return render_to_response('profile.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('profile_edit.html', response_data, context_instance=RequestContext(request))
 
 
 class DeleteView(TemplateView):
