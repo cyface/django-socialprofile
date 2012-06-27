@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load socialprofile_tags %}
+
+{% block headtitle %}Profile{% endblock %}
+
+{% block header %}
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <a href="#" data-role="button" data-icon="arrow-l" onclick="$('#sp-profile-form').submit();">Done</a>
+
+        <h1 class="ui-title">Edit Profile</h1>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <section title="profile">
+        {% if user.social_profile.image_url %}
+            <img src="{{ user.social_profile.image_url }}"/>
+        {% endif %}
+        {{ form.errors }}
+        <form action="{%  url sp_profile_edit_page %}" method="post" id="sp-profile-form" data-ajax="false">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field.label_tag }}: {{ field }}
+                </div>
+            {% endfor %}
+            <input type="hidden" name="returnTo" value="{% url sp_demo_secure_page %}">
+        </form>
+    </section>
+    <h3 style="margin-left:10px;">Social Connections</h3>
+    {% if user.social_auth.all.count == 1 %}
+        {% with only_connection=user.social_auth.all|first %}
+            <p style="margin-left:20px;"><em>{{ only_connection.provider|social_provider_name }} is your only connection, it cannot be removed.</em></p>
+        {% endwith %}
+    {% else %}
+        <ul>
+            {% for user_social_auth in user.social_auth.all %}
+                <a href="{% url socialauth_disconnect user_social_auth.provider %}"
+                   data-role="button">Disconnect {{ user_social_auth.provider|social_provider_name }}</a>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    <a href="{% url sp_select_page %}" data-rel="dialog" data-role="button">Add Social Connection</a>
+    <br>
+    <br>
+    <a href="{% url sp_delete_page %}" data-role="button" data-theme="e">Delete Account</a>
+{% endblock %}
