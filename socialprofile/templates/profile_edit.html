@@ -5,9 +5,10 @@
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="#" data-role="button" data-icon="arrow-l" onclick="$('#sp-profile-form').submit();">Done</a>
+        <a href="{% url sp_profile_view_page %}" data-role="button">Cancel</a>
 
-        <h1 class="ui-title">Edit Profile</h1>
+        <h1 class="ui-title">Profile</h1>
+        <a href="#" data-role="button" onclick="$('#sp-profile-form').submit();">Done</a>
     </header>
 {% endblock %}
 
