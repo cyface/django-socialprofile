@@ -8,14 +8,16 @@
         <a href="{{ form.returnTo.value|default:'/' }}" data-role="button" data-icon="arrow-l" data-mini="true">Back</a>
 
         <h1>Profile</h1>
+        {% if request.user.username == form.username.value %}
         <a href="{% url sp_profile_edit_page %}?returnTo={{ form.returnTo.value }}" data-role="button" data-mini="true">Edit</a>
+        {% endif %}
     </header>
 {% endblock %}
 
 {% block content %}
     <section title="profile">
 
-        <h2 id="sp-profile-name">Tim White</h2>
+        <h2 id="sp-profile-name">{{ form.first_name.value|default:"&nbsp;" }} {{ form.last_name.value|default:"&nbsp;" }}</h2>
 
         <img id="sp-profile-img" src="{{ user.social_profile.image_url|default:"http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm" }}">
 
