@@ -1,10 +1,12 @@
 """Django Views for the socialprofile module"""
+from django.conf import settings
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.db import IntegrityError
 from django.template import RequestContext
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from forms import SocialProfileForm
@@ -12,6 +14,8 @@ from django.views.generic import TemplateView
 import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
+
+DEFAULT_RETURN_TO_PATH = getattr(settings, 'DEFAULT_RETURN_TO_PATH', '/')
 
 def index(request):
     """
@@ -40,14 +44,14 @@ def select_view(request):
 
     LOGGER.debug('selectpage')
 
-    nextPage = request.GET.get('next', '/')
+    nextPage = request.GET.get('next', DEFAULT_RETURN_TO_PATH)
 
     response_data = {'next': nextPage}
 
     return render_to_response('select.html', response_data, context_instance=RequestContext(request))
 
 
-def profile_view(request):
+def profile_view(request, username=None):
     """
     Profile View Page
 
@@ -58,9 +62,15 @@ def profile_view(request):
 
     LOGGER.debug('profileviewpage')
 
-    returnTo = request.GET.get('returnTo', '/')
+    if username:
+        LOGGER.debug("non-default user:{0}".format(username))
+        user = get_object_or_404(User, username=username)
+    else:
+        user = request.user
 
-    form = SocialProfileForm(user=request.user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
+    returnTo = request.GET.get('returnTo', DEFAULT_RETURN_TO_PATH)
+
+    form = SocialProfileForm(user=user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
@@ -102,11 +112,11 @@ def profile_edit(request):
 
             messages.add_message(request, messages.INFO, 'Your profile has been updated.')
 
-            returnTo = form.cleaned_data.get('returnTo', '/')
+            returnTo = form.cleaned_data.get('returnTo', DEFAULT_RETURN_TO_PATH)
             return HttpResponseRedirect(reverse('sp_profile_view_page') + '?returnTo=' + returnTo)
 
     else:
-        returnTo = request.GET.get('returnTo', "/")
+        returnTo = request.GET.get('returnTo', DEFAULT_RETURN_TO_PATH)
         form = SocialProfileForm(user=request.user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
