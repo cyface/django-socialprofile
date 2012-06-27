@@ -5,7 +5,7 @@
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="{% url sp_profile_view_page %}" data-role="button">Cancel</a>
+        <a href="{% url sp_profile_view_page %}?returnTo={{ form.returnTo.value }}" data-role="button">Cancel</a>
 
         <h1 class="ui-title">Profile</h1>
         <a href="#" data-role="button" onclick="$('#sp-profile-form').submit();">Done</a>
@@ -20,13 +20,9 @@
         {{ form.errors }}
         <form action="{%  url sp_profile_edit_page %}" method="post" id="sp-profile-form" data-ajax="false">
             {% csrf_token %}
-            {% for field in form %}
-                <div class="fieldWrapper">
-                    {{ field.errors }}
-                    {{ field.label_tag }}: {{ field }}
-                </div>
-            {% endfor %}
-            <input type="hidden" name="returnTo" value="{% url sp_demo_secure_page %}">
+            <ul>
+                {{ form.as_ul }}
+            </ul>
         </form>
     </section>
     <h3 style="margin-left:10px;">Social Connections</h3>
