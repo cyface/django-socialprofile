@@ -23,7 +23,7 @@ This module is meant to be as quick to integrate as possible, and thus extensive
 a fork. That said, a number of options are available.
 
 - The core features:
-    * _`Login Modal Layer`:
+    * `Login Modal Layer`_
     * _`Self Profile View`:
     * _`Other Profile View`:
     * _`Profile Edit View`:
@@ -107,21 +107,21 @@ Configuration
 
 - All of the configuration for django-socialauth applies to this module, especially the API keys and such.
 
-- You should set up all the redirects for post-authentication:
+- You should set up all the redirects for post-authentication::
 
     # Social Authentication (django-socialauth) Settings
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/secure/'
     SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/secure/'
     SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/secure/'
 
-- And set up the redirects for forcing auth on the way to other pages:
+- And set up the redirects for forcing auth on the way to other pages::
 
     # Core Authentication Settings
     LOGIN_URL          = '/socialprofile/select/'
     LOGIN_REDIRECT_URL = '/secure/'
     LOGIN_ERROR_URL    = '/socialprofile/select/'
 
-- In your urls.py, you need to pull in the socialprofile urls:
+- In your urls.py, you need to pull in the socialprofile urls::
 
     # Social Profiles
     url(r'^socialprofile/', include('socialprofile.urls')),
@@ -131,29 +131,33 @@ Configuration
 
 - The django-socialauth urls get pulled in by socialprofile as /socialprofile/socialauth/.
 
-- Setup your backends:
+- Setup your backends::
 
     # Django Socialauth Settings
     SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook', 'google-oauth2', 'twitter')
 
 
-- Register for your API Keys:
+Register for your API Keys
+``````````````````````````
 
-- Google
+Google
+^^^^^^
 
 https://code.google.com/apis/console/
 
 Set the return URL to http://localhost:8000/socialprofile/socialauth/complete/google-oauth2/ for development when you
 set up the API key.
 
-- Twitter
+Twitter
+^^^^^^^
 
 https://dev.twitter.com/apps/new
 
 Set the callback URL to http://profile.stepweaver.com/socialprofile/socialauth/complete/twitter/ for development when
 you set up the API key.
 
-- Facebook
+Facebook
+^^^^^^^^
 
 Facebook is a bit of a pain, since you can only have one URL per API key.
 
@@ -161,7 +165,7 @@ https://developers.facebook.com/apps
 
 Set the site URL http://localhost:8000/ for local development.
 
-Take the keys from your APIs and add them to your settings:
+Take the keys from your APIs and add them to your settings::
 
     TWITTER_CONSUMER_KEY         = ''
     TWITTER_CONSUMER_SECRET      = ''
@@ -176,9 +180,10 @@ Note that the extended permissions and such there are typical, you may want to r
 and so forth.
 
 Views and Layers
-^^^^^^^^^^^^^^^^
+----------------
 
-- `Login Modal Layer`_
+`Login Modal Layer`_
+^^^^^^^^^^^^^^^^^^^^^
 
 The 'socialprofile/select' view provides a login modal that you can use to both force existing users to sign in
 as well as to enable new users to select how they want to authenticate to the site.
@@ -188,7 +193,8 @@ If you have LOGIN_URL set to '/socialprofile/select/', this will work automatica
 The default template has attributes to make this a nice modal using jQueryMobile, but the HTML is straightforward,
 and a custom template should be simple to create.
 
-- `Self Profile View`_
+`Self Profile View`_
+^^^^^^^^^^^^^^^^^^^^^
 
 The 'socialprofile/' view lets a user see their own profile. The default template checks to see if they profile is
 indeed theirs, and displays an 'edit' button taking them to the 'socialprofile/edit/' view.
@@ -196,7 +202,8 @@ indeed theirs, and displays an 'edit' button taking them to the 'socialprofile/e
 This view supports a ?returnTo= parameter to specify a URL path to return to once the user is done. The default template
 uses this for the '< Return' button.
 
-- `Other Profile View`_
+`Other Profile View`_
+^^^^^^^^^^^^^^^^^^^^^
 
 The 'socialprofile/view/<username>' view lets a user see any profile. You may want to adjust the template to hide any
 profile fields that should not be public.
@@ -204,7 +211,8 @@ profile fields that should not be public.
 This view supports a ?returnTo= parameter to specify a URL path to return to once the user is done. The default template
 uses this for the '< Return' button.
 
-- `Profile Edit View`_
+`Profile Edit View`_
+^^^^^^^^^^^^^^^^^^^^^
 
 The 'socialprofile/edit/' view lets a user edit their own profile. In typical Django fashion, a GET request to this view
 will display the form, while a POST request to this view will try and save the changes.
@@ -212,7 +220,8 @@ will display the form, while a POST request to this view will try and save the c
 This view supports a ?returnTo= parameter to specify a URL path to return to once the user is done. The default template
 uses this for the 'Cancel' and 'Done' button. When the form returns to the Self Profile View, it passes returnTo.
 
-- `Profile Add Auth Type`_
+`Profile Add Auth Type`_
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 A user can add an additional social authentication type to their existing profile. If they originally created their
 profile using Google auth, then they could add Facebook and Twitter, enabling them to sign in with any of those services
@@ -220,15 +229,17 @@ and access the same account.
 
 To do this, just have the customer log in with their new auth type, and django-socialauth will do the rest.
 
-- `Profile Delete Auth Type`_
+`Profile Delete Auth Type`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is a default feature of django-socialauth, and is available using:
+This is a default feature of django-socialauth, and is available using::
 
     {% url socialauth_disconnect user_social_auth.provider %}
 
 ... in a template.
 
-- `Delete Account`_
+`Delete Account`_
+^^^^^^^^^^^^^^^^^
 
 It is important to let customers remove their accounts, and the /socialprofile/delete view prompts them to ensure they
 really want to delete their account before sending them to /socialprofile/delete/action?confirm=true.
@@ -236,7 +247,7 @@ really want to delete their account before sending them to /socialprofile/delete
 You may want to provide your own function to do this, that perhaps only deactivates their account.
 
 `Terms and Conditions`_
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 You will need to set up a Terms and Conditions entry in the admin (or via direct DB load) for users to accept if
 you want to use the T&C module.
@@ -245,21 +256,25 @@ The default Terms and Conditions entry has a slug of 'site-terms'.
 
 If you don't create one, the first time a user is forced to accept the terms, it will create a default entry for you.
 
-- `Terms and Conditions Versioning`_
+`Terms and Conditions Versioning`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Note that the versions and dates of T&Cs are important. You can create a new version of a T&C with a future date,
 and once that date is in the past, it will force users to accept that new version of the T&Cs.
 
-- `Terms and Conditions Middleware`_
+`Terms and Conditions Middleware`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 You can force protection of your whole site by using the T&C middleware. Once activated, any attempt to access an
 authenticated page will first check to see if the user has accepted the active T&Cs. This can be a performance impact,
 so you can also use the _TermsAndConditionsDecorator to protect specific views, or the pipeline setup to only check on
 account creation.
 
+Here is the middleware configuration::
+
     MIDDLEWARE_CLASSES = (
         ...
         'termsandconditions.middleware.TermsAndConditionsRedirectMiddleware',
 
-By default, some pages are excluded from the middleware, you can configure exclusions with these settings:
+By default, some pages are excluded from the middleware, you can configure exclusions with these settings::
 
     ACCEPT_TERMS_PATH = '/terms/accept/'
     TERMS_EXCLUDE_URL_PREFIX_LIST = {'/admin/',})
@@ -269,7 +284,9 @@ TERMS_EXCLUDE_URL_PREFIX_LIST is a list of 'starts with' strings to exclude, whi
 explicit full paths to exclude.
 
 - `Terms and Conditions View Decorator`_
-You can protect only specific views with T&Cs using the @terms_required() decorator at the top of a function like this:
+You can protect only specific views with T&Cs using the @terms_required() decorator at the top of a function like this::
+
+    from termsandconditions.decorators import terms_required
 
     @login_required
     @terms_required
@@ -281,7 +298,7 @@ Note that you can skip @login_required only if you are forcing auth on that view
 Requiring T&Cs for Anonymous Users is not supported.
 
 - `Terms and Conditions Pipeline`_
-You can force T&C acceptance when a new user account is created using the django-socialauth pipeline:
+You can force T&C acceptance when a new user account is created using the django-socialauth pipeline::
 
     SOCIAL_AUTH_PIPELINE = (
         'social_auth.backends.pipeline.social.social_auth_user',
@@ -291,11 +308,11 @@ You can force T&C acceptance when a new user account is created using the django
         'social_auth.backends.pipeline.social.associate_user',
         'social_auth.backends.pipeline.social.load_extra_data',
         'social_auth.backends.pipeline.misc.save_status_to_session',
-        *'termsandconditions.pipeline.user_accept_terms',*
+        'termsandconditions.pipeline.user_accept_terms',
     )
 
 Note that the configuration above also prevents django-socialauth from updating profile data from the social backends
-once a profile is created, due to:
+once a profile is created, due to::
 
     'social_auth.backends.pipeline.user.update_user_details'
 
