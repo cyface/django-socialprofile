@@ -74,7 +74,7 @@ The socialprofile_demo app is included to quickly let you see how to get a worki
 The demo is built as a mobile app using `jQueryMobile <http://jquerymobile.com/>`_ loaded from the jQuery CDN.
 
 Take a look at the ``requirements.txt`` file in the ``socialprofile_demo`` directory for a quick way to use pip to install
-all the needed dependencies:
+all the needed dependencies::
 
     $ pip install -r requirements.txt
 
