@@ -5,4 +5,4 @@ REM This should be run from the project directory, not inside the socialprofile 
 
 virtualenv --system-site-packages django-socialprofile-env
 call django-socialprofile-env\Scripts\activate.bat
-pip install -r socialprofile/requirements_dev.txt
+pip install -r socialprofile_demo/requirements_dev.txt
