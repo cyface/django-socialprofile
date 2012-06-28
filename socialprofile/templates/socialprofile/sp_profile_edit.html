@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "socialprofile_demo/base.html" %}
 {% load socialprofile_tags %}
 
 {% block headtitle %}Profile{% endblock %}
@@ -43,5 +43,5 @@
     <a href="{% url sp_select_page %}" data-rel="dialog" data-role="button">Add Social Connection</a>
     <br>
     <br>
-    <a href="{% url sp_delete_page %}" data-role="button" data-theme="e">Delete Account</a>
+    <a href="{% url sp_delete_confirm_page %}" data-role="button" data-theme="e">Delete Account</a>
 {% endblock %}

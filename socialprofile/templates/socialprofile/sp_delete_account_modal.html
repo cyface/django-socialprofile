@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "socialprofile_demo/base.html" %}
 {% block header %}{% endblock %}
 {% block page_role %}data-role="dialog"{% endblock %}
 {% block content %}
@@ -8,7 +8,7 @@
     <div data-role="content" data-theme="c" title="Sign In">
         <a href="{% url sp_profile_edit_page %}" data-role="button" data-theme="b">No, Keep Account</a>
         <br>
-        <a href="{% url sp_delete_action_page %}" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
+        <a href="{% url sp_delete_action_page %}?confirm=true" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
     </div>
 {% endblock %}
 {% block footer %}{% endblock %}

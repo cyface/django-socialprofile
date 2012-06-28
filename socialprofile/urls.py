@@ -10,7 +10,7 @@ from django.contrib import admin
 from django.contrib.auth.views import logout
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
-from socialprofile.views import DeleteView
+from socialprofile.views import DeleteConfirmView
 
 admin.autodiscover()
 
@@ -24,12 +24,12 @@ urlpatterns = patterns('',
 
     # Profile Edit
     url(r'^edit/$', 'socialprofile.views.profile_edit', name="sp_profile_edit_page"),
-    
+
     # Select Sign Up Method
     url(r'^select/$', 'socialprofile.views.select_view', name="sp_select_page"),
 
     # Delete Confirm Modal
-    url(r'^delete/$', DeleteView.as_view(), name="sp_delete_page"),
+    url(r'^delete/$', DeleteConfirmView.as_view(), name="sp_delete_confirm_page"),
 
     # Delete
     url(r'^delete/action/$', 'socialprofile.views.delete_action_view', name="sp_delete_action_page"),
