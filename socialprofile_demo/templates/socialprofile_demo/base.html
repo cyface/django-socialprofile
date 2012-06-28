@@ -33,7 +33,7 @@
     {% block head %}{% endblock %}
 </head>
 <body {% block body_class %}{% endblock %}>
-<div {% block page_role %}data-role="page" data-theme="b"{% endblock %}>
+<section {% block page_role %}data-role="page" data-theme="b"{% endblock %}>
 
     {% block header %}{% include "socialprofile_demo/header.html" %}{% endblock %}
 
@@ -52,6 +52,6 @@
     {% block footer %}{% include "socialprofile_demo/footer.html" %}{% endblock %}
 
     {% block bottom_js %}{% endblock %}
-</div>
+</section>
 </body>
 </html>
