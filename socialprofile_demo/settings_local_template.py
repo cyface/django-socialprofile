@@ -123,7 +123,7 @@ AUTHENTICATION_BACKENDS = (
 
 ##### Custom Variables Below Here #######
 
-# Django SocialRegistration Settings
+# Django Socialauth Settings
 SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook', 'google-oauth2', 'twitter')
 
 TWITTER_CONSUMER_KEY         = 'gvlRdtanILw15YXxKGIA'
