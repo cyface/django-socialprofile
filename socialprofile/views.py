@@ -15,23 +15,7 @@ import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
 
-DEFAULT_RETURN_TO_PATH = getattr(settings, 'DEFAULT_RETURN_TO_PATH', '/')
-
-def index(request):
-    """
-    Main site page page.
-
-    url: /
-    
-    template : templates/index.html
-    """
-
-    LOGGER.debug('indexpage')
-
-    response_data = {}
-
-    return render_to_response('index.html', response_data, context_instance=RequestContext(request))
-
+DEFAULT_RETURNTO_PATH = getattr(settings, 'DEFAULT_RETURNTO_PATH', '/')
 
 def select_view(request):
     """
@@ -39,16 +23,16 @@ def select_view(request):
 
     url: /select
     
-    template : templates/select.html
+    template : socialprofile/sp_account_select.html
     """
 
     LOGGER.debug('selectpage')
 
-    nextPage = request.GET.get('next', DEFAULT_RETURN_TO_PATH)
+    nextPage = request.GET.get('next', DEFAULT_RETURNTO_PATH)
 
     response_data = {'next': nextPage}
 
-    return render_to_response('select.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('socialprofile/sp_account_select.html', response_data, context_instance=RequestContext(request))
 
 
 def profile_view(request, username=None):
@@ -57,7 +41,7 @@ def profile_view(request, username=None):
 
     url: /
 
-    template : templates/profile.html
+    template : socialprofile/sp_profile_view.html
     """
 
     LOGGER.debug('profileviewpage')
@@ -68,13 +52,13 @@ def profile_view(request, username=None):
     else:
         user = request.user
 
-    returnTo = request.GET.get('returnTo', DEFAULT_RETURN_TO_PATH)
+    returnTo = request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
 
     form = SocialProfileForm(user=user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
-    return render_to_response('profile.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('socialprofile/sp_profile_view.html', response_data, context_instance=RequestContext(request))
 
 
 @login_required
@@ -84,7 +68,7 @@ def profile_edit(request):
 
     url: /
 
-    template : templates/profile_edit.html
+    template : socialprofile/sp_profile_edit.html
     """
 
     LOGGER.debug('profileeditpage')
@@ -112,27 +96,30 @@ def profile_edit(request):
 
             messages.add_message(request, messages.INFO, 'Your profile has been updated.')
 
-            returnTo = form.cleaned_data.get('returnTo', DEFAULT_RETURN_TO_PATH)
+            returnTo = form.cleaned_data.get('returnTo', DEFAULT_RETURNTO_PATH)
             return HttpResponseRedirect(reverse('sp_profile_view_page') + '?returnTo=' + returnTo)
 
     else:
-        returnTo = request.GET.get('returnTo', DEFAULT_RETURN_TO_PATH)
+        returnTo = request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
         form = SocialProfileForm(user=request.user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
-    return render_to_response('profile_edit.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('socialprofile/sp_profile_edit.html', response_data, context_instance=RequestContext(request))
 
 
-class DeleteView(TemplateView):
+class DeleteConfirmView(TemplateView):
     """
     Account Delete Confirm Modal View
 
     url: /delete
 
-    template : templates/delete_success.html
+    template : socialprofile/sp_delete_account_modal.html
     """
-    template_name = "delete_account_modal.html"
+
+    LOGGER.debug('deleteconfirmpage')
+
+    template_name = "socialprofile/sp_delete_account_modal.html"
 
 
 @login_required
@@ -142,17 +129,18 @@ def delete_action_view(request):
 
     url: /delete/action
 
-    template : templates/delete_success.html
+    template : socialprofile/sp_delete_success.html
     """
 
-    LOGGER.debug('deletepage')
+    LOGGER.debug('deleteactionpage')
 
-    #    if request.method == 'POST': # If the form has been submitted...
-    #        if request.POST.has_key('confirm'):
-    user_to_delete = request.user
-    logout(request)
-    user_to_delete.delete()
+    if request.GET.has_key('confirm'):
+        user_to_delete = request.user
+        user_to_delete.delete()
+        logout(request)
 
-    response_data = {}
+        response_data = {}
 
-    return render_to_response('delete_success.html', response_data, context_instance=RequestContext(request))
+        return render_to_response('socialprofile/sp_delete_success.html', response_data, context_instance=RequestContext(request))
+    else:
+        return HttpResponseRedirect(reverse('sp_delete_confirm_view'))
