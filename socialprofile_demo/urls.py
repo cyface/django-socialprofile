@@ -14,7 +14,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     # Home Page
-    url(r'^$', 'socialprofile.views.index', name="sp_demo_home_page"),
+    url(r'^$', 'socialprofile_demo.views.index', name="sp_demo_home_page"),
 
     # Secure Page
     url(r'^secure/$', 'socialprofile_demo.views.secure_view', name="sp_demo_secure_page"),
