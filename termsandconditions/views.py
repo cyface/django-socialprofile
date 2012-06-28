@@ -15,7 +15,7 @@ import logging
 LOGGER = logging.getLogger(name='termsandconditions')
 
 class ViewTerms(TemplateView):
-    template_name = 'termsandconditions/view_terms.html'
+    template_name = 'termsandconditions/tc_view_terms.html'
 
     LOGGER.debug('termsviewpage')
 
@@ -49,7 +49,7 @@ def accept_view(request):
 
     url: /terms/accept
 
-    template : templates/accept_terms.html
+    template : termsandconditions/tc_accept_terms.html
     """
 
     LOGGER.debug('termsacceptpage')
@@ -89,7 +89,7 @@ def accept_view(request):
     response_data = {'form': form, }
 
 
-    return render_to_response('termsandconditions/accept_terms.html', response_data,
+    return render_to_response('termsandconditions/tc_accept_terms.html', response_data,
         context_instance=RequestContext(request))
 
 @login_required
@@ -107,4 +107,4 @@ def terms_required_view(request):
 
     response_data = {}
 
-    return render_to_response('termsandconditions/terms_required.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('termsandconditions/tc_terms_required.html', response_data, context_instance=RequestContext(request))
