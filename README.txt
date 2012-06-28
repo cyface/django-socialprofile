@@ -1,1 +1,0 @@
-django-socialprofile uses django-socialauth to enable people to log in with their social network credentials, and then edit a typical user profile afterwards.
