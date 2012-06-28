@@ -12,14 +12,14 @@ def index(request):
 
     url: /
     
-    template : templates/index.html
+    template : socialprofile_demo/index.html
     """
 
     logger.debug('demo_indexpage')
 
     response_data = {}
 
-    return render_to_response('index.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('socialprofile_demo/index.html', response_data, context_instance=RequestContext(request))
 
 @login_required
 def secure_view(request):
@@ -28,14 +28,14 @@ def secure_view(request):
 
     url: /secure
 
-    template : templates/secure.html
+    template : socialprofile_demo/secure.html
     """
 
     logger.debug('securepage')
 
     response_data = {}
 
-    return render_to_response('secure.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('socialprofile_demo/secure.html', response_data, context_instance=RequestContext(request))
 
 @login_required
 def secure_view_too(request):
@@ -44,11 +44,11 @@ def secure_view_too(request):
 
     url: /securetoo
 
-    template : templates/securetoo.html
+    template : socialprofile_demo/securetoo.html
     """
 
     logger.debug('securepagetoo')
 
     response_data = {}
 
-    return render_to_response('securetoo.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('socialprofile_demo/securetoo.html', response_data, context_instance=RequestContext(request))
