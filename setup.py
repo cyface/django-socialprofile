@@ -1,8 +1,4 @@
-import os
 from setuptools import setup, find_packages
-
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name = "django-socialprofile",
@@ -10,15 +6,16 @@ setup(
     url = 'http://timlwhite.com',
     license = 'GPL',
     description = "django-socialprofile enables users to manage their social profile.",
-    long_description = read('README.rst'),
+    long_description = open('README.rst').read(),
 
     author = 'Tim White',
     author_email = 'tim@cyface.com',
-
-    packages = find_packages('socialprofile'),
-    package_dir = {'': 'socialprofile'},
-
-    install_requires = ['setuptools'],
+    
+    packages = find_packages(exclude=('socialprofile_demo', 'tests', )),
+    include_package_data = True,
+    zip_safe = False,
+    
+    
 
     classifiers = [
         'Development Status :: 4 - Beta',
