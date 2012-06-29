@@ -15,12 +15,13 @@ setup(
     author = 'Tim White',
     author_email = 'tim@cyface.com',
 
+#    install_requires = ['setuptools', 'django', ],
     
-    packages = find_packages(exclude=('socialprofile_demo')),
-    include_package_data=True,
+    packages = find_packages(exclude=('socialprofile_demo', )),
+    include_package_data = True,
     zip_safe = False,
     
-    install_requires = ['setuptools', 'django', ],
+    
 
     classifiers = [
         'Development Status :: 4 - Beta',
