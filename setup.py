@@ -5,7 +5,7 @@ setup(
     version = ".1",
     url = 'http://timlwhite.com',
     license = 'GPL',
-    description = "django-socialprofile enables users to manage their social profile.",
+    description = "django-socialprofile enables users to manage their user profile built by logging in via a social service such as Google, Twitter, or Facebook.",
     long_description = open('README.rst').read(),
 
     author = 'Tim White',
@@ -14,8 +14,6 @@ setup(
     packages = find_packages(exclude=('socialprofile_demo', 'tests', )),
     include_package_data = True,
     zip_safe = False,
-    
-    
 
     classifiers = [
         'Development Status :: 4 - Beta',
