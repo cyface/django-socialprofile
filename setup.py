@@ -16,7 +16,7 @@ setup(
     author_email = 'tim@cyface.com',
 
     packages = find_packages(exclude=["socialprofile_demo", ]),
-
+    zip_safe = False,
     install_requires = ['setuptools', 'django', ],
 
     classifiers = [
