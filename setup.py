@@ -15,10 +15,9 @@ setup(
     author = 'Tim White',
     author_email = 'tim@cyface.com',
 
-    packages = find_packages('socialprofile'),
-    package_dir = {'': 'socialprofile'},
+    packages = find_packages(exclude=["socialprofile_demo", ]),
 
-    install_requires = ['setuptools'],
+    install_requires = ['setuptools', 'django', ],
 
     classifiers = [
         'Development Status :: 4 - Beta',
