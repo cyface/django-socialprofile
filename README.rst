@@ -34,7 +34,7 @@ Dependencies
 
 Dependencies that **must** be meet to use the application:
 
-- `django-socialauth: <https://github.com/omab/django-social-auth>`_
+- `django-social-auth: <https://github.com/omab/django-social-auth>`_
 
 - `python-openid <http://pypi.python.org/pypi/python-openid/>`_
 
