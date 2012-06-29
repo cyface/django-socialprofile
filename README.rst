@@ -38,7 +38,7 @@ Dependencies that **must** be meet to use the application:
 
 - `python-openid <http://pypi.python.org/pypi/python-openid/>`_
 
-- `python-oauth2 <http://pypi.python.org/pypi/oauth2>`_
+- `oauth2 <http://pypi.python.org/pypi/oauth2>`_
 
 - You will need API Keys from Google, Facebook, and Twitter.
 
