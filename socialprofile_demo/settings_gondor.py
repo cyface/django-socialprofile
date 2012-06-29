@@ -31,8 +31,8 @@ if "GONDOR_REDIS_URL" in os.environ:
 
 SITE_ID = 1 # set this to match your Sites setup
 
-MEDIA_ROOT = os.path.join(os.environ["GONDOR_DATA_DIR"], "site_media", "media")
-STATIC_ROOT = os.path.join(os.environ["GONDOR_DATA_DIR"], "site_media", "static")
+MEDIA_ROOT = os.path.join(os.environ["GONDOR_DATA_DIR"], "site_media", "mediaroot")
+STATIC_ROOT = os.path.join(os.environ["GONDOR_DATA_DIR"], "site_media", "staticroot")
 
 MEDIA_URL = "/site_media/media/" # make sure this maps inside of a static_urls URL
 STATIC_URL = "/site_media/static/" # make sure this maps inside of a static_urls URL
