@@ -10,7 +10,7 @@ setup(
     url = 'http://timlwhite.com',
     license = 'GPL',
     description = "django-socialprofile enables users to manage their social profile.",
-    long_description = read('README.txt'),
+    long_description = read('README.rst'),
 
     author = 'Tim White',
     author_email = 'tim@cyface.com',
