@@ -17,7 +17,7 @@ setup(
 
     packages = find_packages(exclude=["socialprofile_demo", ]),
 
-    install_requires = ['setuptools', 'django', 'django-social-auth', 'python-openid', 'oauth2', ],
+    install_requires = ['setuptools', 'django', ],
 
     classifiers = [
         'Development Status :: 4 - Beta',
