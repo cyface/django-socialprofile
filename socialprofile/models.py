@@ -8,7 +8,7 @@ from social_auth.backends.google import GoogleOAuth2Backend
 from social_auth.backends.twitter import TwitterBackend
 from django.db import models
 from django.contrib.auth.models import User
-from social_auth.signals import socialauth_registered
+from social_auth.signals import socialauth_registered, pre_update
 from urllib import urlencode
 from urllib2 import Request, urlopen
 from django.utils import simplejson
@@ -46,6 +46,7 @@ def facebook_extra_values(sender, user, response, details, **kwargs):
     profile.gender = response.get('gender', '')
     if response.get('username') is not None:
         profile.image_url = 'https://graph.facebook.com/' + response.get('username') + '/picture'
+        profile.homepage_url = 'http://facebook.com/' + response.get('username')
     profile.url = response.get('link', '')
     if response.get('hometown') is not None:
         profile.description = response.get('hometown').get('name')
@@ -58,7 +59,7 @@ socialauth_registered.connect(facebook_extra_values, sender=FacebookBackend)
 
 def google_extra_values(sender, user, response, details, **kwargs):
     """Populates a UserProfile Object when a new User is created via Google Auth"""
-#    log.debug('Inside Google Extra Values Handler')
+    LOGGER.debug('socialprofile.models.google_extra_values')
     user_info_url = "https://www.googleapis.com/oauth2/v1/userinfo"
 
     data = {'access_token': response.get('access_token', ''), 'alt': 'json'}
@@ -102,3 +103,23 @@ def twitter_extra_values(sender, user, response, details, **kwargs):
     return True
 
 socialauth_registered.connect(twitter_extra_values, sender=TwitterBackend)
+
+def update_user_details(backend, details, response, user, is_new=False, *args,
+                        **kwargs):
+    """Override of social_auth method, to prevent details from getting updated."""
+    LOGGER.debug("socialprofile.models.update_user_details")
+    changed = False  # flag to track changes
+
+    signal_response = lambda (receiver, response): response
+    signal_kwargs = {'sender': backend.__class__, 'user': user,
+                     'response': response, 'details': details}
+
+    changed |= any(filter(signal_response, pre_update.send(**signal_kwargs)))
+
+    # Fire socialauth_registered signal on new user registration
+    if is_new:
+        changed |= any(filter(signal_response,
+            socialauth_registered.send(**signal_kwargs)))
+
+    if changed:
+        user.save()
