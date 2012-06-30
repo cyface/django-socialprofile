@@ -6,6 +6,9 @@ from .settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+FACEBOOK_APP_ID              = '295912813778057'
+FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
+
 if "GONDOR_DATABASE_URL" in os.environ:
     urlparse.uses_netloc.append("postgres")
     url = urlparse.urlparse(os.environ["GONDOR_DATABASE_URL"])
