@@ -23,6 +23,7 @@ static_urls:
         root: site_media/
     - /favicon.ico:
         root: site_media/
+        location: site_media/favicon.ico
 
 wsgi:
     # The WSGI entry point of your application in two parts separated by a
