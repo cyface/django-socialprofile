@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 
@@ -30,7 +30,7 @@ def select_view(request):
     template : socialprofile/sp_account_select.html
     """
 
-    LOGGER.debug('selectpage')
+    LOGGER.debug('socialprofile.views.select_view')
 
     nextPage = request.GET.get('next', DEFAULT_RETURNTO_PATH)
 
@@ -48,13 +48,15 @@ def profile_view(request, username=None):
     template : socialprofile/sp_profile_view.html
     """
 
-    LOGGER.debug('profileviewpage')
+    LOGGER.debug('socialprofile.views.profile_view')
 
     if username:
         LOGGER.debug("non-default user:{0}".format(username))
         user = get_object_or_404(User, username=username)
-    else:
+    elif request.user.is_authenticated():
         user = request.user
+    else:
+        raise Http404 #Case where user gets to this view anonymously
 
     returnTo = request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
 
@@ -76,7 +78,7 @@ def profile_edit(request):
     template : socialprofile/sp_profile_edit.html
     """
 
-    LOGGER.debug('profileeditpage')
+    LOGGER.debug('socialprofile.views.profile_edit')
 
     if request.method == 'POST': # If the form has been submitted...
         form = SocialProfileForm(request.POST) # A form bound to the POST data
@@ -121,7 +123,7 @@ class DeleteConfirmView(TemplateView):
     template : socialprofile/sp_delete_account_modal.html
     """
 
-    LOGGER.debug('deleteconfirmpage')
+    LOGGER.debug('socialprofile.views.DeleteConfirmView')
 
     template_name = "socialprofile/sp_delete_account_modal.html"
 
@@ -137,7 +139,7 @@ def delete_action_view(request):
     template : socialprofile/sp_delete_success.html
     """
 
-    LOGGER.debug('deleteactionpage')
+    LOGGER.debug('socialprofile.views.delete_action_view')
 
     if request.GET.has_key('confirm'):
         user_to_delete = request.user
