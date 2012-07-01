@@ -17,7 +17,7 @@ def index(request):
     template : socialprofile_demo/index.html
     """
 
-    logger.debug('demo_indexpage')
+    logger.debug('socialprofile_demo.views.index')
 
     response_data = {}
 
@@ -34,7 +34,7 @@ def secure_view(request):
     template : socialprofile_demo/secure.html
     """
 
-    logger.debug('securepage')
+    logger.debug('socialprofile_demo.views.secure_view')
 
     response_data = {}
 
@@ -51,7 +51,7 @@ def secure_view_too(request):
     template : socialprofile_demo/securetoo.html
     """
 
-    logger.debug('securepagetoo')
+    logger.debug('socialprofile_demo.views.secure_view_too')
 
     response_data = {}
 
