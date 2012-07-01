@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
-{% block heading %}Error!{% endblock %}
+{% block headtitle %}Login Error{% endblock %}
 
 {% block content %}
-    <div>
-        <p>Sorry but some error made you impossible to login.</p>
-
+    <section title="Login Error" data-role="content" data-theme="e">
+        <h2><span class="ui-icon ui-icon-alert ui-icon-shadow" style="display:inline-block;margin-right:20px;">&nbsp;</span>I'm sorry, an error prevented you from logging in, please try again.</h2>
         {% if messages %}
             {% for msg in messages %}
                 <p class="error">{{ msg.message }} ({{ msg.extra_tags }})</p>
@@ -15,7 +14,5 @@
             <p>Details:</p>
             <p class="error">{{ error_msg }}</p>
         {% endif %}
-
-        <p>Please try again <a href="/">Home</a></p>
-    </div>
+    </section>
 {% endblock %}
