@@ -21,7 +21,7 @@ def index(request):
 
     response_data = {}
 
-    return render_to_response('socialprofile_demo/index.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('index.html', response_data, context_instance=RequestContext(request))
 
 @login_required
 @never_cache
@@ -38,7 +38,7 @@ def secure_view(request):
 
     response_data = {}
 
-    return render_to_response('socialprofile_demo/secure.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('secure.html', response_data, context_instance=RequestContext(request))
 
 @login_required
 @never_cache
@@ -55,4 +55,4 @@ def secure_view_too(request):
 
     response_data = {}
 
-    return render_to_response('socialprofile_demo/securetoo.html', response_data, context_instance=RequestContext(request))
+    return render_to_response('securetoo.html', response_data, context_instance=RequestContext(request))
