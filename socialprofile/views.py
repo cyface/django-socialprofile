@@ -9,8 +9,7 @@ from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.views.decorators.vary import vary_on_cookie
-from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 
 from forms import SocialProfileForm
@@ -21,6 +20,7 @@ LOGGER = logging.getLogger(name='socialprofile')
 
 DEFAULT_RETURNTO_PATH = getattr(settings, 'DEFAULT_RETURNTO_PATH', '/')
 
+@never_cache
 def select_view(request):
     """
     Lets users choose how they want to request access.
@@ -38,7 +38,7 @@ def select_view(request):
 
     return render_to_response('socialprofile/sp_account_select.html', response_data, context_instance=RequestContext(request))
 
-@vary_on_cookie
+@never_cache
 def profile_view(request, username=None):
     """
     Profile View Page
@@ -66,7 +66,7 @@ def profile_view(request, username=None):
 
 
 @login_required
-@cache_control(private=True)
+@never_cache
 def profile_edit(request):
     """
     Profile Editing Page
@@ -127,7 +127,7 @@ class DeleteConfirmView(TemplateView):
 
 
 @login_required
-@vary_on_cookie
+@never_cache
 def delete_action_view(request):
     """
     Account Delete Action view
