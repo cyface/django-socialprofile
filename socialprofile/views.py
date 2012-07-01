@@ -112,7 +112,6 @@ def profile_edit(request):
 
     return render_to_response('socialprofile/sp_profile_edit.html', response_data, context_instance=RequestContext(request))
 
-@vary_on_cookie
 class DeleteConfirmView(TemplateView):
     """
     Account Delete Confirm Modal View
