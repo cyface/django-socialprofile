@@ -34,7 +34,7 @@
 <body {% block body_class %}{% endblock %}>
 <section {% block page_role %}data-role="page" data-theme="b"{% endblock %}>
 
-    {% block header %}{% include "socialprofile_demo/header.html" %}{% endblock %}
+    {% block header %}{% include "header.html" %}{% endblock %}
 
     {% block messages %}
         {% if messages %}
@@ -48,7 +48,7 @@
 
     {% block content %}<p>No Content Defined</p>{% endblock %}
 
-    {% block footer %}{% include "socialprofile_demo/footer.html" %}{% endblock %}
+    {% block footer %}{% include "footer.html" %}{% endblock %}
 
     {% block bottom_js %}{% endblock %}
 </section>
