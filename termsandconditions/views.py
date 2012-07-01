@@ -17,7 +17,7 @@ LOGGER = logging.getLogger(name='termsandconditions')
 class ViewTerms(TemplateView):
     template_name = 'termsandconditions/tc_view_terms.html'
 
-    LOGGER.debug('termsviewpage')
+    LOGGER.debug('termsandconditions.views.ViewTerms')
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -52,7 +52,7 @@ def accept_view(request):
     template : termsandconditions/tc_accept_terms.html
     """
 
-    LOGGER.debug('termsacceptpage')
+    LOGGER.debug('termsandconditions.views.accept_view')
 
     if request.method == 'POST': # If the form has been submitted...
         if request.user.is_authenticated():
@@ -103,7 +103,7 @@ def terms_required_view(request):
     template : templates/terms_required.html
     """
 
-    LOGGER.debug('termsrequiredpage')
+    LOGGER.debug('termsandconditions.views.terms_required_view')
 
     response_data = {}
 
