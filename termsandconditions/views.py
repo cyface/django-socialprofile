@@ -15,7 +15,6 @@ import logging
 
 LOGGER = logging.getLogger(name='termsandconditions')
 
-@never_cache
 class ViewTerms(TemplateView):
     """
     Terms and Conditions View view
