@@ -9,8 +9,12 @@ from django.db import IntegrityError
 from django.template import RequestContext
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from forms import SocialProfileForm
+from django.views.decorators.vary import vary_on_cookie
+from django.views.decorators.cache import cache_control
 from django.views.generic import TemplateView
+
+from forms import SocialProfileForm
+
 import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
@@ -34,7 +38,7 @@ def select_view(request):
 
     return render_to_response('socialprofile/sp_account_select.html', response_data, context_instance=RequestContext(request))
 
-
+@vary_on_cookie
 def profile_view(request, username=None):
     """
     Profile View Page
@@ -62,6 +66,7 @@ def profile_view(request, username=None):
 
 
 @login_required
+@cache_control(private=True)
 def profile_edit(request):
     """
     Profile Editing Page
@@ -107,7 +112,7 @@ def profile_edit(request):
 
     return render_to_response('socialprofile/sp_profile_edit.html', response_data, context_instance=RequestContext(request))
 
-
+@vary_on_cookie
 class DeleteConfirmView(TemplateView):
     """
     Account Delete Confirm Modal View
@@ -123,6 +128,7 @@ class DeleteConfirmView(TemplateView):
 
 
 @login_required
+@vary_on_cookie
 def delete_action_view(request):
     """
     Account Delete Action view
