@@ -31,7 +31,7 @@
 
             <li><label>Gender</label><span>{{ form.gender.value|default:"&nbsp;" }}</span></li>
 
-            <li><label>Homepage URL</label><span>{{ form.homepage_url.value|default:"&nbsp;" }}</span></li>
+            <li><label>Homepage URL</label><span><a href="{{ form.url.value }}">{{ form.url.value|default:"&nbsp;" }}</a></span></li>
 
             <li><label>Description</label><span>{{ form.description.value|default:"&nbsp;" }}</span></li>
         </ul>
