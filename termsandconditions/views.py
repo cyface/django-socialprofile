@@ -2,6 +2,7 @@
 from django.shortcuts import render_to_response
 from django.db import IntegrityError
 from django.template import RequestContext
+from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from forms import TermsAndConditionsForm
@@ -14,10 +15,19 @@ import logging
 
 LOGGER = logging.getLogger(name='termsandconditions')
 
+@never_cache
 class ViewTerms(TemplateView):
-    template_name = 'termsandconditions/tc_view_terms.html'
+    """
+    Terms and Conditions View view
+
+    url: /terms/, /terms/view/
+
+    template : termsandconditions/tc_view_terms.html
+    """
 
     LOGGER.debug('termsandconditions.views.ViewTerms')
+
+    template_name = 'termsandconditions/tc_view_terms.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -42,7 +52,7 @@ class ViewTerms(TemplateView):
 
     urls = property(get_urls)
 
-
+@never_cache
 def accept_view(request):
     """
     Terms and Conditions Acceptance view
@@ -94,13 +104,14 @@ def accept_view(request):
 
 @login_required
 @terms_required
+@never_cache
 def terms_required_view(request):
     """
     Terms Required testing page.
 
     url: /terms_required
 
-    template : templates/terms_required.html
+    template : termsandconditions/terms_required.html
     """
 
     LOGGER.debug('termsandconditions.views.terms_required_view')
