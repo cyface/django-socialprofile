@@ -25,6 +25,8 @@ def user_accept_terms(backend, user, uid, social_user=None, *args, **kwargs):
 
 def redirect_to_terms_accept(currentPath='/', slug='default'):
     redirect_url_parts = list(urlparse.urlparse(ACCEPT_TERMS_PATH))
+    if slug != 'default':
+        redirect_url_parts[2] += slug
     querystring = QueryDict(redirect_url_parts[4], mutable=True)
     querystring[TERMS_RETURNTO_PARAM] = currentPath
     redirect_url_parts[4] = querystring.urlencode(safe='/')
