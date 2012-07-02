@@ -37,6 +37,11 @@ class TermsAndConditionsTests(TestCase):
         TermsAndConditions.objects.all().delete()
         UserTermsAndConditions.objects.all().delete()
 
+    def test_get_active_list(self):
+        active_list = TermsAndConditions.get_active_list()
+        print (active_list)
+        self.fail()
+
     def test_terms_and_conditions_models(self):
         """Various tests of the TermsAndConditions Module"""
 

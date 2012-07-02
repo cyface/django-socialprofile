@@ -5,6 +5,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
+from django.db.models import Max
 import datetime
 import logging
 
@@ -50,6 +51,16 @@ class TermsAndConditions(models.Model):
         return "{0}-{1:.2f}".format(self.slug, self.version_number)
 
     @staticmethod
+    def create_default_terms():
+        default_terms = TermsAndConditions.objects.create(
+            slug=DEFAULT_TERMS_SLUG,
+            name=DEFAULT_TERMS_SLUG,
+            date_active=datetime.datetime.now(),
+            version_number=1,
+            text='SITE TERMS')
+        return default_terms
+
+    @staticmethod
     def get_active(slug='default'):
         """Finds the latest of a particular terms and conditions"""
         if slug == 'default':
@@ -61,14 +72,23 @@ class TermsAndConditions(models.Model):
                 date_active__lte=datetime.datetime.now(),
                 slug=slug).latest('date_active')
         except TermsAndConditions.DoesNotExist:
-            activeTerms = TermsAndConditions.objects.create(
-                slug=DEFAULT_TERMS_SLUG,
-                name=DEFAULT_TERMS_SLUG,
-                date_active=datetime.datetime.now(),
-                version_number=1,
-                text='SITE TERMS')
+            activeTerms = create_default_terms()
 
         return activeTerms
+
+    @staticmethod
+    def get_active_list():
+        """Finds the latest of a particular terms and conditions"""
+        terms_list = []
+        try:
+            terms_list = TermsAndConditions.objects.filter(
+                date_active__isnull=False,
+                date_active__lte=datetime.datetime.now(),
+                ).annotate(Max('date_active')).latest('date_active')
+        except TermsAndConditions.DoesNotExist:
+            terms_list.append(create_default_terms())
+
+        return terms_list
 
     @staticmethod
     def agreed_to_latest(user, slug='default'):
