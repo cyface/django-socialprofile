@@ -29,7 +29,7 @@
 
             <li><label>Email</label><span>{{ form.email.value|default:"&nbsp;" }}</span></li>
 
-            <li><label>Gender</label><span>{{ form.gender.value|default:"&nbsp;"|title }}</span></li>
+            <li><label>Gender</label><span>{{ form.gender.value|title|default:"&nbsp;" }}</span></li>
 
             <li><label>Homepage URL</label><span style="overflow-x:hidden;"><a
                     href="{{ form.url.value }}">{{ form.url.value|default:"&nbsp;"|truncatechars:20 }}</a></span></li>
