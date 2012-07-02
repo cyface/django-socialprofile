@@ -94,17 +94,15 @@ def profile_edit(request):
             profile.url = form.cleaned_data['url']
             profile.image_url = form.cleaned_data['image_url']
             profile.description = form.cleaned_data['description']
+            returnTo = form.cleaned_data.get('returnTo', DEFAULT_RETURNTO_PATH)
             try:
                 user.save()
                 profile.save()
+                messages.add_message(request, messages.INFO, 'Your profile has been updated.')
+                return HttpResponseRedirect(reverse('sp_profile_view_page') + '?returnTo=' + returnTo)
             except IntegrityError:
-                form = SocialProfileForm()
-                form._errors = {'username': [u'Your chosen username was not unique.'], }
-
-            messages.add_message(request, messages.INFO, 'Your profile has been updated.')
-
-            returnTo = form.cleaned_data.get('returnTo', DEFAULT_RETURNTO_PATH)
-            return HttpResponseRedirect(reverse('sp_profile_view_page') + '?returnTo=' + returnTo)
+                form._errors = {'username': [u'Your chosen username was not unique, please choose another username.'], }
+                messages.add_message(request, messages.ERROR, 'Your chosen username was not unique.')
 
     else:
         returnTo = request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)

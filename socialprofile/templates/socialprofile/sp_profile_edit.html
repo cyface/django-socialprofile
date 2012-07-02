@@ -17,7 +17,6 @@
         {% if user.social_profile.image_url %}
             <img src="{{ user.social_profile.image_url }}"/>
         {% endif %}
-        {{ form.errors }}
         <form action="{%  url sp_profile_edit_page %}" method="post" id="sp-profile-form" data-ajax="false">
             {% csrf_token %}
             <ul>
