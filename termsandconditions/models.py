@@ -5,7 +5,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
-from django.db.models import Max
+from django.db.models import Count
+from django.http import Http404
 import datetime
 import logging
 
@@ -35,7 +36,7 @@ class TermsAndConditions(models.Model):
     Active one for a given slug is: date_active is not Null and is latest not in future"""
     slug = models.SlugField(default='site-terms')
     name = models.TextField(max_length=255)
-    users = models.ManyToManyField(User, through=UserTermsAndConditions, blank=True, null=True,)
+    users = models.ManyToManyField(User, through=UserTermsAndConditions, blank=True, null=True, )
     version_number = models.DecimalField(default=1.0, decimal_places=2, max_digits=6)
     text = models.TextField(null=True, blank=True)
     date_active = models.DateTimeField(blank=True, null=True, help_text="Leave Null To Never Make Active")
@@ -72,21 +73,25 @@ class TermsAndConditions(models.Model):
                 date_active__lte=datetime.datetime.now(),
                 slug=slug).latest('date_active')
         except TermsAndConditions.DoesNotExist:
-            activeTerms = create_default_terms()
+            if slug == DEFAULT_TERMS_SLUG:
+                activeTerms = TermsAndConditions.create_default_terms()
+            else:
+                raise Http404
 
         return activeTerms
 
     @staticmethod
     def get_active_list():
         """Finds the latest of a particular terms and conditions"""
-        terms_list = []
+        terms_list = {}
         try:
-            terms_list = TermsAndConditions.objects.filter(
+            all_terms_list = TermsAndConditions.objects.filter(
                 date_active__isnull=False,
-                date_active__lte=datetime.datetime.now(),
-                ).annotate(Max('date_active')).latest('date_active')
+                date_active__lte=datetime.datetime.now())
+            for term in all_terms_list:
+                terms_list.update({term.slug: TermsAndConditions.get_active(slug=term.slug)})
         except TermsAndConditions.DoesNotExist:
-            terms_list.append(create_default_terms())
+            terms_list.append(TermsAndConditions.create_default_terms())
 
         return terms_list
 
@@ -95,13 +100,11 @@ class TermsAndConditions(models.Model):
         """Checks to see if a specified user has agreed to the latest of a particular terms and conditions"""
         if slug == 'default':
             slug = DEFAULT_TERMS_SLUG
+
         try:
             UserTermsAndConditions.objects.get(user=user, terms=TermsAndConditions.get_active(slug))
-
             return True
-
         except UserTermsAndConditions.MultipleObjectsReturned:
             return True
-
         except UserTermsAndConditions.DoesNotExist:
             return False

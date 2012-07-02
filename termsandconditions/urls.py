@@ -21,6 +21,9 @@ urlpatterns = patterns('termsandconditions.views',
     # Accept Terms
     url(r'^accept/$', 'accept_view', name="tc_accept_page"),
 
+    # Accept Terms
+    url(r'^accept/(?P<slug>[a-zA-Z0-9_.-]+)$', 'accept_view', name="tc_accept_specific_page"),
+
     # Terms Required
     url(r'^required/$', 'terms_required_view', name="tc_required_page"),
 )
