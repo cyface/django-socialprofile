@@ -6,7 +6,7 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from forms import TermsAndConditionsForm
-from models import TermsAndConditions, UserTermsAndConditions
+from models import TermsAndConditions, UserTermsAndConditions, DEFAULT_TERMS_SLUG
 from decorators import terms_required
 from django.http import Http404, HttpResponseRedirect
 from django.views.generic import TemplateView
@@ -51,8 +51,9 @@ class ViewTerms(TemplateView):
 
     urls = property(get_urls)
 
+
 @never_cache
-def accept_view(request):
+def accept_view(request, slug='default'):
     """
     Terms and Conditions Acceptance view
 
@@ -66,7 +67,7 @@ def accept_view(request):
     if request.method == 'POST': # If the form has been submitted...
         if request.user.is_authenticated():
             user = request.user
-        else:
+        else: #Get user out of saved pipeline from django-socialauth
             if request.session.has_key('partial_pipeline'):
                 user_pk = request.session['partial_pipeline']['kwargs']['user']['pk']
                 user = User.objects.get(id=user_pk)
@@ -79,10 +80,10 @@ def accept_view(request):
             try:
                 terms = TermsAndConditions.objects.get(slug=form.cleaned_data['slug'], version_number=form.cleaned_data['version_number'])
                 userTerms = UserTermsAndConditions()
-                userTerms.terms=terms
-                userTerms.user=user
-                userTerms.date_accepted=datetime.datetime.now()
-                userTerms.ip_address=request.META['REMOTE_ADDR']
+                userTerms.terms = terms
+                userTerms.user = user
+                userTerms.date_accepted = datetime.datetime.now()
+                userTerms.ip_address = request.META['REMOTE_ADDR']
                 userTerms.save()
                 if form.cleaned_data.has_key('returnTo'):
                     return HttpResponseRedirect(form.cleaned_data['returnTo'])
@@ -91,15 +92,17 @@ def accept_view(request):
             except IntegrityError as err:
                 LOGGER.error('Integrity Error Saving Terms and Conditions: ' + str(err))
     else:
-        form = TermsAndConditionsForm() # Pass in User to Pre-Populate with Current Values
-        if request.GET.has_key('returnTo') :
+        if slug == 'default':
+            slug = DEFAULT_TERMS_SLUG
+        form = TermsAndConditionsForm(slug=slug) # Pass in User to Pre-Populate with Current Values
+        if request.GET.has_key('returnTo'):
             form.initial['returnTo'] = request.GET['returnTo']
 
     response_data = {'form': form, }
 
-
     return render_to_response('termsandconditions/tc_accept_terms.html', response_data,
         context_instance=RequestContext(request))
+
 
 @login_required
 @terms_required

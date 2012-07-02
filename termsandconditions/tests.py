@@ -22,13 +22,13 @@ class TermsAndConditionsTests(TestCase):
         self.user1 = User.objects.create_user('user1', 'user1@user1.com', 'user1password')
         self.user2 = User.objects.create_user('user2', 'user2@user2.com', 'user2password')
         self.terms1 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms",
-            text="Terms and Conditions1", version_number=1.0, date_active="2012-01-01")
+            text="Site Terms and Conditions 1", version_number=1.0, date_active="2012-01-01")
         self.terms2 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms",
-            text="Terms and Conditions2", version_number=2.0, date_active="2012-01-05")
+            text="Site Terms and Conditions 2", version_number=2.0, date_active="2012-01-05")
         self.terms3 = TermsAndConditions.objects.create(slug="contrib-terms", name="Contributor Terms",
-            text="Terms and Conditions1", version_number=1.5, date_active="2012-01-01")
+            text="Contributor Terms and Conditions 1.5", version_number=1.5, date_active="2012-01-01")
         self.terms4 = TermsAndConditions.objects.create(slug="contrib-terms", name="Contributor Terms",
-            text="Terms and Conditions1", version_number=2.0, date_active="2100-01-01")
+            text="Contributor Terms and Conditions 2", version_number=2.0, date_active="2100-01-01")
 
     def tearDown(self):
         """Teardown for each test"""
@@ -39,8 +39,8 @@ class TermsAndConditionsTests(TestCase):
 
     def test_get_active_list(self):
         active_list = TermsAndConditions.get_active_list()
-        print (active_list)
-        self.fail()
+        LOGGER.debug('Active Terms: ' + str(active_list))
+        self.assertEqual(2, len(active_list))
 
     def test_terms_and_conditions_models(self):
         """Various tests of the TermsAndConditions Module"""
@@ -77,7 +77,7 @@ class TermsAndConditionsTests(TestCase):
 
         LOGGER.debug('Test /secure/ after login')
         logged_in_response = self.c.get('/secure/', follow=True)
-        self.assertRedirects(logged_in_response, "http://testserver/terms/accept/?returnTo=/secure/")
+        self.assertRedirects(logged_in_response, "http://testserver/terms/accept/site-terms?returnTo=/secure/")
 
     def test_terms_required_redirect(self):
         """Validate that a user is redirected to the terms accept page if they are logged in, and decorator is on method"""
@@ -108,7 +108,8 @@ class TermsAndConditionsTests(TestCase):
         LOGGER.debug('Test /terms/accept/ post')
         logged_in_response = self.c.post('/terms/accept/',
                 {'slug': 'site-terms', 'version_number': '2.00', 'returnTo': '/secure/'}, follow=True)
-        self.assertContains(logged_in_response, "Secure")
+        LOGGER.debug(logged_in_response)
+        self.assertContains(logged_in_response, "Contributor")
 
         self.assertEquals(True, TermsAndConditions.agreed_to_latest(user=self.user1, slug='site-terms'))
 
@@ -148,7 +149,7 @@ class TermsAndConditionsTests(TestCase):
 
         LOGGER.debug('Test user1 not redirected after login')
         logged_in_response = self.c.get('/secure/', follow=True)
-        self.assertContains(logged_in_response, "Secure")
+        self.assertContains(logged_in_response, "Contributor")
 
         LOGGER.debug('Test upgrade terms')
         self.terms5 = TermsAndConditions.objects.create(slug="site-terms", name="Site Terms",
@@ -156,7 +157,7 @@ class TermsAndConditionsTests(TestCase):
 
         LOGGER.debug('Test user1 is redirected when changing pages')
         post_upgrade_response = self.c.get('/secure/', follow=True)
-        self.assertRedirects(post_upgrade_response, "http://testserver/terms/accept/?returnTo=/secure/")
+        self.assertRedirects(post_upgrade_response, "http://testserver/terms/accept/site-terms?returnTo=/secure/")
 
     def test_no_middleware(self):
         """Test a secure page with the middleware excepting it"""
