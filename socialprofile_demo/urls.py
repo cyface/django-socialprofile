@@ -33,5 +33,8 @@ urlpatterns = patterns('',
 
     # Admin Site:
     (r'^admin/', include(admin.site.urls)),
-      
+
+    # Robots and Favicon
+    (r'^robots\.txt$', 'django.views.generic.simple.direct_to_template', {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': settings.STATIC_URL + 'images/favicon.ico'}),
 )
