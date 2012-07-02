@@ -2,11 +2,13 @@
 
 # pylint: disable=R0904
 
-import unittest
-from urllib import urlencode
-from urllib2 import Request, urlopen
-from django.utils import simplejson
+from django.test import TestCase
 
+from django.test.client import Client
+
+#from urllib import urlencode
+#from urllib2 import Request, urlopen
+#from django.utils import simplejson
 #class OauthGoogleTestCase(unittest.TestCase):
 #    """Tests Google Oauth for extra values, you need to look in user_auth tables for an access_token"""
 #    def testGetUserData(self):
@@ -24,8 +26,11 @@ from django.utils import simplejson
 #
 #        print result['family_name']
 
-class SocialProfileUrlsTestCase(unittest.TestCase):
+class SocialProfileUrlsTestCase(TestCase):
+
+    def setUp(self):
+        self.c = Client()
+
     def test_redirect_urls(self):
-        def testLoginRequiredRedirect(self):
-            response = self.c.get('/secure/', follow=True)
-            self.assertRedirects(response, "http://testserver/select/?next=/secure/")
+        response = self.c.get('/secure/', follow=True)
+        self.assertRedirects(response, "http://testserver/socialprofile/select/?next=/secure/")

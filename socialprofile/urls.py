@@ -7,9 +7,6 @@
 
 from django.conf.urls import *  #@UnusedWildImport
 from django.contrib import admin
-from django.contrib.auth.views import logout
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf import settings
 from socialprofile.views import DeleteConfirmView
 
 admin.autodiscover()
