@@ -166,6 +166,7 @@ DEFAULT_TERMS_SLUG = 'site-terms'
 ACCEPT_TERMS_PATH = '/terms/accept/'
 TERMS_EXCLUDE_URL_PREFIX_LIST =  {'/admin/',}
 TERMS_EXCLUDE_URL_LIST = {'/', '/terms/required/', '/socialprofile/logout/', '/securetoo/'}
+MULTIPLE_ACTIVE_TERMS = True # Multiple kinds of T&Cs active at once (like site-terms, and contributor-terms).
 
 ### DEBUG TOOLBAR
 #if DEBUG:
