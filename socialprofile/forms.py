@@ -19,7 +19,7 @@ class SocialProfileForm(forms.Form):
     gender = forms.CharField(max_length=10, required=False, widget=forms.Select(choices=SocialProfile.GENDER_CHOICES))
     url = forms.URLField(required=False, label='Homepage URL', widget=forms.TextInput(attrs={'size': '100', }))
     image_url = forms.URLField(required=False, label='Profile Picture URL', widget=forms.TextInput(attrs={'size': '100', }))
-    description = forms.CharField(required=False, max_length=300, widget=forms.Textarea(attrs={'rows':'1', 'cols':'80'}))
+    description = forms.CharField(required=False, max_length=3000, widget=forms.Textarea(attrs={'rows':'1', 'cols':'80'}))
     returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/') #URI to Return to after save
 
     def clean_username(self):
