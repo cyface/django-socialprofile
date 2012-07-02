@@ -29,11 +29,19 @@
 
             <li><label>Email</label><span>{{ form.email.value|default:"&nbsp;" }}</span></li>
 
-            <li><label>Gender</label><span>{{ form.gender.value|default:"&nbsp;" }}</span></li>
+            <li><label>Gender</label><span>{{ form.gender.value|default:"&nbsp;"|title }}</span></li>
 
-            <li><label>Homepage URL</label><span><a href="{{ form.url.value }}">{{ form.url.value|default:"&nbsp;" }}</a></span></li>
+            <li><label>Homepage URL</label><span style="overflow-x:hidden;"><a
+                    href="{{ form.url.value }}">{{ form.url.value|default:"&nbsp;"|truncatechars:20 }}</a></span></li>
 
             <li><label>Description</label><span>{{ form.description.value|default:"&nbsp;" }}</span></li>
+            {% if request.user.username == form.username.value %}
+                <li><label>Authentication</label>
+                    {% for user_social_auth in user.social_auth.all %}
+                        {{ user_social_auth.provider|social_provider_name }}{% if not forloop.last %},&nbsp;{% endif %}
+                    {% endfor %}
+                </li>
+            {% endif %}
         </ul>
 
     </section>
