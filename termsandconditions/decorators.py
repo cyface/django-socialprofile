@@ -4,16 +4,8 @@ from django.http import HttpResponseRedirect, QueryDict
 from django.conf import settings
 from django.utils.decorators import available_attrs
 from models import TermsAndConditions
+from middleware import ACCEPT_TERMS_PATH
 
-if hasattr(settings, 'ACCEPT_TERMS_PATH'):
-    ACCEPT_TERMS_PATH = settings.ACCEPT_TERMS_PATH
-else:
-    ACCEPT_TERMS_PATH = '/terms/accept/'
-
-if hasattr(settings, 'TERMS_RETURNTO_PARAM'):
-    TERMS_RETURNTO_PARAM = settings.TERMS_RETURNTO_PARAM
-else:
-    TERMS_RETURNTO_PARAM = 'returnTo'
 
 def terms_required(view_func):
     """
