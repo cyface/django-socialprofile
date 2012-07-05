@@ -4,7 +4,7 @@ setup(
     name = "django-socialprofile",
     version = ".1",
     url = 'http://timlwhite.com',
-    license = 'GPL',
+    license = 'BSD',
     description = "django-socialprofile enables users to manage their user profile built by logging in via a social service such as Google, Twitter, or Facebook. It relies on django-socialauth.",
     long_description = open('README.rst').read(),
 
@@ -19,7 +19,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Framework :: Django',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GPL License',
+        'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
