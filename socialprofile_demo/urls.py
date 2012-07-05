@@ -24,9 +24,6 @@ urlpatterns = patterns('',
 
     # Social Profiles
     url(r'^socialprofile/', include('socialprofile.urls')),
-
-    # Terms and Conditions
-    url(r'^terms/', include('termsandconditions.urls')),
     
     # Admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

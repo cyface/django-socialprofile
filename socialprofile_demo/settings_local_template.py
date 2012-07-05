@@ -31,7 +31,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'sp'
 
 # List of Admin users to be emailed by error system
 MANAGERS = (
-# ('Tim White', 'tim@cyface.com'),
+# ('Your Name', 'you@you.com'),
 )
 ADMINS = MANAGERS
 
@@ -102,7 +102,7 @@ USE_L10N = False
 USE_TZ = False
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'zv$+w7juz@(g!^53o0ai1u082)=jkz9my_r=3)fglrj5t8l$2#'
+SECRET_KEY = 'zv$+w7juz@(g!^53o0ai1u082)=jkz9mT_r=3)fglrj5t8l$2#'
 
 # Email Settings
 EMAIL_HOST = 'a real smtp server'
@@ -126,17 +126,13 @@ AUTHENTICATION_BACKENDS = (
 # Django Socialauth Settings
 SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook', 'google-oauth2', 'twitter')
 
-TWITTER_CONSUMER_KEY         = 'gvlRdtanILw15YXxKGIA'
-TWITTER_CONSUMER_SECRET      = 'acw6IiDtt5kJrmUI8WJVHAENmnCSllpqlM13dQPI'
-# Below is the main facebook key
-#FACEBOOK_APP_ID              = '295912813778057'
-#FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
-#Below is localhost facebook key
-FACEBOOK_APP_ID              = '316069408433708'
-FACEBOOK_API_SECRET          = '9b1d6707b2d709c6282fa65ec54fb0af'
+TWITTER_CONSUMER_KEY         = ''
+TWITTER_CONSUMER_SECRET      = ''
+#FACEBOOK_APP_ID              = ''
+#FACEBOOK_API_SECRET          = ''
 FACEBOOK_EXTENDED_PERMISSIONS = ['email',]
-GOOGLE_OAUTH2_CLIENT_ID      = '349612856343.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET  = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
+GOOGLE_OAUTH2_CLIENT_ID      = 'xxxxxxxxx.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET  = ''
 GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',] # Note that this extra scope is not the same as the API URL we use
 
 SOCIAL_AUTH_PIPELINE = (
@@ -147,8 +143,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.social.load_extra_data',
     'socialprofile.models.update_user_details',
-    'social_auth.backends.pipeline.misc.save_status_to_session',
-    'termsandconditions.pipeline.user_accept_terms',
 )
 
 # Social Authentication (django-socialauth) Settings
@@ -160,13 +154,6 @@ SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/secure/'
 LOGIN_URL          = '/socialprofile/select/'
 LOGIN_REDIRECT_URL = '/secure/'
 LOGIN_ERROR_URL    = '/socialprofile/select/'
-
-# Terms & Conditions (termsandconditions) Settings
-DEFAULT_TERMS_SLUG = 'site-terms'
-ACCEPT_TERMS_PATH = '/terms/accept/'
-TERMS_EXCLUDE_URL_PREFIX_LIST =  {'/admin/',}
-TERMS_EXCLUDE_URL_LIST = {'/', '/terms/required/', '/socialprofile/logout/', '/securetoo/'}
-MULTIPLE_ACTIVE_TERMS = True # Multiple kinds of T&Cs active at once (like site-terms, and contributor-terms).
 
 ### DEBUG TOOLBAR
 #if DEBUG:
@@ -242,11 +229,6 @@ LOGGING = {
             'propagate': True,
             },
         'socialprofile': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-            },
-        'termsandconditions': {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
