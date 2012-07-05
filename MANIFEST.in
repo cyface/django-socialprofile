@@ -1,2 +1,6 @@
 include README.rst
 recursive-include socialprofile/templates *
+recursive-include socialprofile_demo/templates *
+recursive-include socialprofile_demo/staticroot *
+recursive-include socialprofile_demo/mediaroot *
+recursive-include socialprofile_demo/static *

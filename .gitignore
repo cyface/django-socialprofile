@@ -16,7 +16,9 @@
 .tmp_*
 .tox
 coverage.xml
+build/*
 css-*_.css
+dist/*
 js-*_.js
 local_settings.py
 nosetests.xml
