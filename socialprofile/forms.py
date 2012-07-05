@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 from widgets import H5EmailInput
 import logging
 
-logger = logging.getLogger(name='socialprofile')
+LOGGER = logging.getLogger(name='socialprofile')
 
 class SocialProfileForm(forms.Form):
     """Master form for editing the user's profile"""
@@ -24,6 +24,9 @@ class SocialProfileForm(forms.Form):
 
     def clean_username(self):
         """Automatically called by Django, this method 'cleans' the username, which means making sure it's unique"""
+
+        LOGGER.debug("socialprofile.forms.clean_username")
+
         working_username = self.cleaned_data.get('username')
 
         # Check Username for Uniqueness
@@ -39,13 +42,19 @@ class SocialProfileForm(forms.Form):
 
     def clean_description(self):
         """Strip HTML out of description"""
+
+        LOGGER.debug("socialprofile.forms.clean_description")
+
         return strip_tags(self.cleaned_data['description'])
 
-    def __init__(self, data=None, user=None, initial=None, returnTo='/'):
+    def __init__(self, data=None, user=None, initial=None, return_to='/'):
         """Lets you pass in a user= to bind this form from"""
+
+        LOGGER.debug("socialprofile.forms.init")
+
         self.user = user
         if initial is None and isinstance(user, User):
             initial = model_to_dict(user) # Set initial values for form to user object properties
             initial.update( model_to_dict(user.social_profile)) # Add User Profile properties to initial values
-            initial.update({'returnTo': returnTo})
+            initial.update({'returnTo': return_to})
         super(SocialProfileForm, self).__init__(data=data, initial=initial)

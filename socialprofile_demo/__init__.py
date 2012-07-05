@@ -1,1 +1,1 @@
-__author__ = 'tlwhit2'
+"""Socialprofile Demo Application"""

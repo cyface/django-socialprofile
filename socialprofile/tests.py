@@ -1,6 +1,6 @@
 """Unit Tests for the socialprofile module"""
 
-# pylint: disable=R0904
+# pylint: disable=R0904, C0103
 
 from django.test import TestCase
 
@@ -27,10 +27,13 @@ from django.test.client import Client
 #        print result['family_name']
 
 class SocialProfileUrlsTestCase(TestCase):
+    """Test Case for Social Profile URLs"""
 
     def setUp(self):
+        """Set up common assets for tests"""
         self.c = Client()
 
     def test_redirect_urls(self):
+        """Test that redirects kicking in when trying to go to secure page."""
         response = self.c.get('/secure/', follow=True)
         self.assertRedirects(response, "http://testserver/socialprofile/select/?next=/secure/")

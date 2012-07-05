@@ -8,6 +8,7 @@ register = template.Library()
 @register.filter
 @stringfilter
 def social_provider_name(provider_slug):
+    """Decode name of Social Auth Provider to Friendly Name"""
     if provider_slug == 'google-oauth2':
         return "Google"
 

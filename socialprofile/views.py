@@ -60,7 +60,7 @@ def profile_view(request, username=None):
 
     returnTo = request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
 
-    form = SocialProfileForm(user=user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
+    form = SocialProfileForm(user=user, return_to=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 
@@ -106,7 +106,7 @@ def profile_edit(request):
 
     else:
         returnTo = request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
-        form = SocialProfileForm(user=request.user, returnTo=returnTo) # Pass in User to Pre-Populate with Current Values
+        form = SocialProfileForm(user=request.user, return_to=returnTo) # Pass in User to Pre-Populate with Current Values
 
     response_data = {'form': form}
 

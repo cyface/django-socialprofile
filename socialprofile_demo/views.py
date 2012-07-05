@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 import logging
 
-logger = logging.getLogger(name='socialprofile')
+LOGGER = logging.getLogger(name='socialprofile')
 
 @never_cache
 def index(request):
@@ -17,7 +17,7 @@ def index(request):
     template : index.html
     """
 
-    logger.debug('socialprofile_demo.views.index')
+    LOGGER.debug('socialprofile_demo.views.index')
 
     response_data = {}
 
@@ -34,7 +34,7 @@ def secure_view(request):
     template : secure.html
     """
 
-    logger.debug('socialprofile_demo.views.secure_view')
+    LOGGER.debug('socialprofile_demo.views.secure_view')
 
     response_data = {}
 
@@ -51,7 +51,7 @@ def secure_view_too(request):
     template : securetoo.html
     """
 
-    logger.debug('socialprofile_demo.views.secure_view_too')
+    LOGGER.debug('socialprofile_demo.views.secure_view_too')
 
     response_data = {}
 
