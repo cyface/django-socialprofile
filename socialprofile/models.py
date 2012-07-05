@@ -1,6 +1,6 @@
 """Django Models for SocialProfile App"""
 
-# pylint: disable=W0613
+# pylint: disable=W0613, W0401
 
 from django.db.models.signals import post_save
 from social_auth.backends.facebook import FacebookBackend
