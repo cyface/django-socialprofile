@@ -1,6 +1,6 @@
 """Django Views for the socialprofile module"""
 from django.conf import settings
-from django.contrib.auth import logout
+from django.contrib.auth import logout, REDIRECT_FIELD_NAME
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -32,9 +32,9 @@ def select_view(request):
 
     LOGGER.debug('socialprofile.views.select_view')
 
-    nextPage = request.GET.get('next', DEFAULT_RETURNTO_PATH)
-
-    response_data = {'next': nextPage}
+    nextPage = request.GET.get(REDIRECT_FIELD_NAME, DEFAULT_RETURNTO_PATH)
+    
+    response_data = {'next_param': REDIRECT_FIELD_NAME, 'next_url': nextPage}
 
     return render_to_response('socialprofile/sp_account_select.html', response_data, context_instance=RequestContext(request))
 
