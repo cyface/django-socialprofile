@@ -6,9 +6,9 @@
             <h1>Sign In</h1>
         </div>
         <div data-role="content" data-theme="c" title="Sign In">
-            <a href="{% url socialauth_begin 'google-oauth2' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}" id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom" data-iconshadow="false">Google</a>
-            <a href="{% url socialauth_begin 'twitter' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}" id="sp-twitter-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Twitter</a>
-            <a href="{% url socialauth_begin 'facebook' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}" id="sp-facebook-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Facebook</a>
+            <a href="{% url socialauth_begin 'google-oauth2' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}" id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom" data-iconshadow="false">Google</a>
+            <a href="{% url socialauth_begin 'twitter' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}" id="sp-twitter-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Twitter</a>
+            <a href="{% url socialauth_begin 'facebook' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}" id="sp-facebook-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom">Facebook</a>
         </div>
 {% endblock %}
 {% block footer %}{% endblock %}
