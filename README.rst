@@ -123,7 +123,12 @@ Google, Facebook, and Twitter.
 - Setup your backends::
 
     # Django Socialauth Settings
-    SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook', 'google-oauth2', 'twitter')
+    AUTHENTICATION_BACKENDS = (
+	    'django.contrib.auth.backends.ModelBackend',
+	    'social_auth.backends.twitter.TwitterBackend',
+	    'social_auth.backends.facebook.FacebookBackend',
+	    'social_auth.backends.google.GoogleOAuth2Backend',
+	)
 
 - Set up what page to go to post-authentication::
 
