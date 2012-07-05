@@ -77,7 +77,7 @@ all the needed dependencies::
 
 The ``settings_main.py``, and ``settings_local_template.py`` files have a working configuration you can crib from.
 
-The templates in the ``socialprofile/templates``, ``termsandconditions/templates``, and ``socialprofile_demo/templates`` directories
+The templates in the ``socialprofile/templates`` and ``socialprofile_demo/templates`` directories
 give you a good idea of the kinds of things you will need to do if you want to provide a custom interface.
 
 Configuration
@@ -100,7 +100,7 @@ Add social_auth and socialprofile to installed applications::
 Add urls to urls.py
 --------------------
 
-In your urls.py, you need to pull in the socialprofile and/or termsandconditions urls::
+In your urls.py, you need to pull in the socialprofile urls::
 
     # Social Profiles
     url(r'^socialprofile/', include('socialprofile.urls')),
