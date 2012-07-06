@@ -1,5 +1,5 @@
 #sp-login-modal .ui-dialog-contain {max-width: 273px;}
-#sp-google-button .ui-icon, #sp-twitter-button .ui-icon, #sp-facebook-button .ui-icon {margin-top:-16px;width:34px;height:34px;background:transparent url('../images/social_logo_strip_32.png') no-repeat;border-radius:0;box-shadow:none;}
+#sp-google-button .ui-icon, #sp-twitter-button .ui-icon, #sp-facebook-button .ui-icon {margin-top:-16px;width:34px;height:34px;background:transparent url('../images/social_logo_strip_32.png') no-repeat;border-radius:0;}
 #sp-twitter-button .ui-icon {background-position: -74px 0;}
 #sp-facebook-button .ui-icon {background-position: -36px 0;}
 #sp-profile-form ul {list-style-type: none;margin: 0 0 0 5px;padding: 0 0 0 0;width:97%;}
