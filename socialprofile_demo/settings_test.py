@@ -14,9 +14,10 @@ import tempfile
 # Test DB settings. (SQLLite)
 DATABASES = {
     'default': {
+        'NAME': 'default',
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_ROOT, 'test_sqlite.db'),
-        'TEST_NAME': os.path.join(PROJECT_ROOT, 'test_sqlite.db'),
+#        'NAME': # DO NOT SPECIFY A NAME SO THAT TEST RUNNER WILL USE IN-MEMORY DB
+        'SUPPORTS_TRANSACTIONS': 'false',
     }
 }
 
