@@ -181,7 +181,10 @@ LOGIN_ERROR_URL    = '/socialprofile/select/'
 # more details on how to customize your logging configuration.
 
 # Catch Python warnings (e.g. deprecation warnings) into the logger
-logging.captureWarnings(True)
+try:
+    logging.captureWarnings(True)
+except AttributeError: #python 2.6 does not do this
+    pass
 
 LOGGING = {
     'version': 1,
