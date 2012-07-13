@@ -7,29 +7,28 @@
 
 from django.conf.urls import *  #@UnusedWildImport
 from django.contrib import admin
-from socialprofile.views import DeleteConfirmView
+from socialprofile.views import SelectAuthView, SocialProfileView, SocialProfileEditView, DeleteSocialProfileView
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
 
     # Profile Self View
-    url(r'^$', 'socialprofile.views.profile_view', name="sp_profile_view_page"),
+    url(r'^$', never_cache(SocialProfileView.as_view()), name="sp_profile_view_page"),
 
     # Profile Other View
-    url(r'^view/(?P<username>\w+)/$', 'socialprofile.views.profile_view', name="sp_profile_other_view_page"),
+    url(r'^view/(?P<username>\w+)/$', SocialProfileView.as_view(), name="sp_profile_other_view_page"),
 
     # Profile Edit
-    url(r'^edit/$', 'socialprofile.views.profile_edit', name="sp_profile_edit_page"),
+    url(r'^edit/$', never_cache(login_required(SocialProfileEditView.as_view())), name="sp_profile_edit_page"),
 
     # Select Sign Up Method
-    url(r'^select/$', 'socialprofile.views.select_view', name="sp_select_page"),
-
-    # Delete Confirm Modal
-    url(r'^delete/$', DeleteConfirmView.as_view(), name="sp_delete_confirm_page"),
+    url(r'^select/$', never_cache(SelectAuthView.as_view()), name="sp_select_page"),
 
     # Delete
-    url(r'^delete/action/$', 'socialprofile.views.delete_action_view', name="sp_delete_action_page"),
+    url(r'^delete/$', login_required(DeleteSocialProfileView.as_view()), name="sp_delete_page"),
 
     # Social Auth
     url(r'^socialauth/', include('social_auth.urls')),
