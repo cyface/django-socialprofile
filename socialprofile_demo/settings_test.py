@@ -7,7 +7,7 @@ from settings_local_template import * #@UnusedWildImport
 
 try:
     from socialprofile_demo.settings_test_local import * #@UnusedWildImport
-except:
+except ImportError:
     pass
 import tempfile
 
