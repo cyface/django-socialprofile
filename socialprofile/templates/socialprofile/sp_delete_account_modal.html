@@ -6,9 +6,13 @@
         <h1>Really Delete?</h1>
     </div>
     <div data-role="content" data-theme="c" title="Sign In">
-        <a href="{% url sp_profile_edit_page %}" data-role="button" data-theme="b">No, Keep Account</a>
+        <a href="{% url sp_profile_edit_page %}" data-role="button" data-theme="b">Keep Account</a>
         <br>
-        <a href="{% url sp_delete_action_page %}?confirm=true" data-role="button" data-theme="e" data-mini="true">Delete Account & All Data</a>
+
+        <form action="{% url sp_delete_page %}" method="post" data-ajax="false">
+            {{ crsf_token }}
+            <input type="submit" data-theme="e" data-mini="true" value="Delete Account & All Data">
+        </form>
     </div>
 {% endblock %}
 {% block footer %}{% endblock %}
