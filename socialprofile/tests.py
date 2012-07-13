@@ -11,7 +11,7 @@ import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
 
-class SocialProfileUrlsTestCase(TestCase):
+class SocialProfileTestCase(TestCase):
     """Test Case for Social Profile URLs"""
 
     def setUp(self):
@@ -103,4 +103,22 @@ class SocialProfileUrlsTestCase(TestCase):
         logged_in_edit_response_2 = self.client.post('/socialprofile/edit/', post_data, follow=True)
         LOGGER.debug(logged_in_edit_response_2)
         self.assertContains(logged_in_edit_response_2, "updated")
+
+    def test_delete_user(self):
+        LOGGER.debug("Test GET /socialprofile/delete/ for logged in user")
+        self.client.login(username='user1', password='user1password')
+        logged_in_delete_response = self.client.get('/socialprofile/delete/')
+        self.assertContains(logged_in_delete_response, "Really Delete")
+
+        LOGGER.debug("Test POST to /socialprofile/delete/ for logged in user")
+        logged_in_delete_post_response = self.client.post('/socialprofile/delete/', {'user': 1}, follow=True)
+        self.assertRedirects(logged_in_delete_post_response, '/')
+
+        LOGGER.debug("Test GET /socialprofile/view/user1/ for deleted user")
+        deleted_response = self.client.get('/socialprofile/view/user1/')
+        self.assertEqual(404, deleted_response.status_code)
+
+
+
+
 
