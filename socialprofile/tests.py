@@ -4,7 +4,6 @@
 
 from django.test import TestCase
 
-from django.test.client import Client
 from django.contrib.auth.models import User
 from models import SocialProfile
 import logging
@@ -105,6 +104,7 @@ class SocialProfileTestCase(TestCase):
         self.assertContains(logged_in_edit_response_2, "updated")
 
     def test_delete_user(self):
+        """Test the views that enable deleting users/socialprofiles"""
         LOGGER.debug("Test GET /socialprofile/delete/ for logged in user")
         self.client.login(username='user1', password='user1password')
         logged_in_delete_response = self.client.get('/socialprofile/delete/')
