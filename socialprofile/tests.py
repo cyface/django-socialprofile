@@ -99,9 +99,9 @@ class SocialProfileTestCase(TestCase):
             'image_url': 'http://foo.com',
             'url': 'http://user1.com',
             'returnTo': '/secure/'
-            }
+        }
         logged_in_edit_response_2 = self.client.post('/socialprofile/edit/', post_data, follow=True)
-        LOGGER.debug(logged_in_edit_response_2)
+        # LOGGER.debug(logged_in_edit_response_2)
         self.assertContains(logged_in_edit_response_2, "updated")
 
     def test_delete_user(self):
@@ -116,6 +116,7 @@ class SocialProfileTestCase(TestCase):
 
         LOGGER.debug("Test GET /socialprofile/view/user1/ for deleted user")
         deleted_response = self.client.get('/socialprofile/view/user1/')
+        # LOGGER.debug(deleted_response)
         self.assertEqual(404, deleted_response.status_code)
 
 

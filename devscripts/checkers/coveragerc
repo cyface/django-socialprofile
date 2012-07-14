@@ -6,6 +6,8 @@ omit =
 	*/settings*
 	*/tests*
 	*/manage.py
+	*/devscripts*
+	*/docs/*
 
 [report]
 # Regexes for lines to exclude from consideration

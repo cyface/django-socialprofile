@@ -1,6 +1,6 @@
 -r requirements.txt
 coverage
-django-nose
+django-jenkins
 nose
 nosexcover
 pylint

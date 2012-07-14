@@ -4,7 +4,7 @@
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-)
+    )
 
 # List of callables that add their data to each template
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -15,7 +15,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'social_auth.context_processors.social_auth_by_type_backends',
-)
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
@@ -27,12 +27,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
-)
+    )
 
 ROOT_URLCONF = 'socialprofile_demo.urls'
 
-INSTALLED_APPS = (   
-    'socialprofile',
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -41,5 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django_jenkins',
+    'socialprofile',
     'social_auth',
-)
+    )

@@ -48,7 +48,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'mediaroot')
 #Staticfiles Config
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticroot')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(PROJECT_ROOT, 'static')  ]
+STATICFILES_DIRS = [os.path.join(PROJECT_ROOT, 'static')]
 TEMPLATE_DIRS = [os.path.join(PROJECT_ROOT, 'templates')]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -125,14 +125,15 @@ AUTHENTICATION_BACKENDS = (
 
 # Django Socialauth Settings
 
-TWITTER_CONSUMER_KEY         = ''
-TWITTER_CONSUMER_SECRET      = ''
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
 #FACEBOOK_APP_ID              = ''
 #FACEBOOK_API_SECRET          = ''
-FACEBOOK_EXTENDED_PERMISSIONS = ['email',]
-GOOGLE_OAUTH2_CLIENT_ID      = 'xxxxxxxxx.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET  = ''
-GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.googleapis.com/auth/userinfo.profile',] # Note that this extra scope is not the same as the API URL we use
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', ]
+GOOGLE_OAUTH2_CLIENT_ID = 'xxxxxxxxx.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = ''
+GOOGLE_OAUTH_EXTRA_SCOPE = ['https://www.googleapis.com/auth/userinfo.profile'
+    , ] # Note that this extra scope is not the same as the API URL we use
 
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
@@ -150,9 +151,9 @@ SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/secure/'
 SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/secure/'
 
 # Core Authentication Settings
-LOGIN_URL          = '/socialprofile/select/'
+LOGIN_URL = '/socialprofile/select/'
 LOGIN_REDIRECT_URL = '/secure/'
-LOGIN_ERROR_URL    = '/socialprofile/select/'
+LOGIN_ERROR_URL = '/socialprofile/select/'
 
 ### DEBUG TOOLBAR
 #if DEBUG:
@@ -209,8 +210,8 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'console': {
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
         },
@@ -237,3 +238,13 @@ LOGGING = {
             },
         }
 }
+
+# JENKINS REPORTS
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pylint',
+    'django_jenkins.tasks.with_coverage',
+    'django_jenkins.tasks.django_tests',
+    'django_jenkins.tasks.run_jslint',
+    'django_jenkins.tasks.run_csslint',
+    'django_jenkins.tasks.run_sloccount',
+    )
