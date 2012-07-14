@@ -1,6 +1,9 @@
 """Django Views for the socialprofile module"""
+
+# pylint: disable=R0901
+
 from django.conf import settings
-from django.contrib.auth import logout, REDIRECT_FIELD_NAME
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
@@ -126,5 +129,6 @@ class DeleteSocialProfileView(DeleteView):
 
     model = User
 
-    def get_object(self):
+    def get_object(self, queryset=None):
+        """Get the object that we are going to delete"""
         return self.request.user

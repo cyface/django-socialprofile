@@ -3,8 +3,9 @@
     pass-offs to sub-modules, who will have their own urls.py defining actions within.
 """
 
-# pylint: disable=W0401, W0614
-from django.conf.urls import *  #@UnusedWildImport
+# pylint: disable=E1120
+
+from django.conf.urls import patterns, url, include
 from django.contrib import admin
 from django.conf import settings
 from views import IndexView, SecureView
@@ -22,11 +23,12 @@ urlpatterns = patterns('',
     url(r'^secure/$', never_cache((login_required(SecureView.as_view()))), name="sp_demo_secure_page"),
 
     # Secure Page Too
-    url(r'^securetoo/$', never_cache(login_required(SecureView.as_view(template_name="securetoo.html"))), name="sp_demo_secure_page_too"),
+    url(r'^securetoo/$', never_cache(login_required(SecureView.as_view(template_name="securetoo.html"))),
+        name="sp_demo_secure_page_too"),
 
     # Social Profiles
     url(r'^socialprofile/', include('socialprofile.urls')),
-    
+
     # Admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -34,6 +36,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 
     # Robots and Favicon
-    (r'^robots\.txt$', 'django.views.generic.simple.direct_to_template', {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^robots\.txt$', 'django.views.generic.simple.direct_to_template',
+         {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': settings.STATIC_URL + 'images/favicon.ico'}),
 )

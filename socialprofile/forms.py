@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from models import SocialProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import strip_tags
-from django.forms.models import model_to_dict
 from widgets import H5EmailInput
 import logging
 
@@ -48,22 +47,21 @@ class SocialProfileForm(forms.ModelForm):
             if self.instance.user.id != existingUser.id:
                 raise forms.ValidationError([u"Your new username is not unique!"])
 
+        # Check for any other user changes and save them.
         user_dirty = False
-        if self.instance.user.username != self.cleaned_data.get('username'): user_dirty = True
-        if self.instance.user.email != self.cleaned_data.get('email'): user_dirty = True
-        if self.instance.user.first_name != self.cleaned_data.get('first_name'): user_dirty = True
-        if self.instance.user.last_name != self.cleaned_data.get('last_name'): user_dirty = True
-
-        if user_dirty:
+        if self.instance.user.username != self.cleaned_data.get('username'):
+            user_dirty = True
             self.instance.user.username = self.cleaned_data.get('username')
+        if self.instance.user.email != self.cleaned_data.get('email'):
+            user_dirty = True
             self.instance.user.email = self.cleaned_data.get('email')
+        if self.instance.user.first_name != self.cleaned_data.get('first_name'):
+            user_dirty = True
             self.instance.user.first_name = self.cleaned_data.get('first_name')
+        if self.instance.user.last_name != self.cleaned_data.get('last_name'):
+            user_dirty = True
             self.instance.user.last_name = self.cleaned_data.get('last_name')
+        if user_dirty:
             self.instance.user.save()
 
         return self.cleaned_data
-
-#    def __init__(self, *args, **kwargs):
-#        if hasattr(self, 'user') and self.username:
-#            LOGGER.debug ('HAVE NO USER, BUT DO HAVE USERNAME')
-#        super(SocialProfileForm, self).__init__(args, kwargs)
