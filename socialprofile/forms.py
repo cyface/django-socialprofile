@@ -36,33 +36,29 @@ class SocialProfileForm(forms.ModelForm):
 
         LOGGER.debug("socialprofile.forms.SocialProfileForm.clean")
 
-        working_username = self.cleaned_data.get('username')
+        changed_data = self.changed_data
 
-        # Check Username for Uniqueness
-        try:
-            existingUser = User.objects.get(username=working_username)
-        except ObjectDoesNotExist:
-            existingUser = None
+        user_field_objects = User._meta.fields
 
-        if existingUser is not None and self.instance.user is not None:
-            if self.instance.user.id != existingUser.id:
-                raise forms.ValidationError([_("Your new username is not available!")])
+        user_fields = []
+        for field_object in user_field_objects:
+            user_fields.append(field_object.name)
 
-            #        # Check for any other user changes and save them.
-            #        user_dirty = False
-            #        if self.instance.user.username != self.cleaned_data.get('username'):
-            #            user_dirty = True
-            #            self.instance.user.username = self.cleaned_data.get('username')
-            #        if self.instance.user.email != self.cleaned_data.get('email'):
-            #            user_dirty = True
-            #            self.instance.user.email = self.cleaned_data.get('email')
-            #        if self.instance.user.first_name != self.cleaned_data.get('first_name'):
-            #            user_dirty = True
-            #            self.instance.user.first_name = self.cleaned_data.get('first_name')
-            #        if self.instance.user.last_name != self.cleaned_data.get('last_name'):
-            #            user_dirty = True
-            #            self.instance.user.last_name = self.cleaned_data.get('last_name')
-            #        if user_dirty:
-            #            self.instance.user.save()
+        user_dirty = False
+
+        for changed_field in changed_data:
+            if changed_field in user_fields:
+                user_dirty = True
+                setattr(self.instance.user, changed_field, self.cleaned_data.get(changed_field))
+
+            if changed_field == 'username': # Check Username for Uniqueness
+                try:
+                    User.objects.get(username=self.cleaned_data.get('username'))
+                    raise forms.ValidationError([_("Your new username is not available!")])
+                except ObjectDoesNotExist:
+                    pass # good news, the new username is available
+
+            if user_dirty:
+                self.instance.user.save()
 
         return self.cleaned_data
