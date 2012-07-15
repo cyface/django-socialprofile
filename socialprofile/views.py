@@ -12,6 +12,7 @@ from django.http import Http404
 from django.views.generic import TemplateView, FormView, UpdateView, DeleteView
 from models import SocialProfile
 from django.forms.models import model_to_dict
+from django.utils.translation import ugettext_lazy as _
 
 from forms import SocialProfileForm
 
@@ -107,12 +108,12 @@ class SocialProfileEditView(UpdateView):
         return initial_data
 
     def form_valid(self, form):
-        messages.add_message(self.request, messages.INFO, 'Your profile has been updated.')
+        messages.add_message(self.request, messages.INFO, _('Your profile has been updated.'))
         self.success_url = form.cleaned_data.get('returnTo')
         return super(SocialProfileEditView, self).form_valid(form)
 
     def form_invalid(self, form):
-        messages.add_message(self.request, messages.INFO, 'Your profile has NOT been updated.')
+        messages.add_message(self.request, messages.INFO, _('Your profile has NOT been updated.'))
         return super(SocialProfileEditView, self).form_invalid(form)
 
 

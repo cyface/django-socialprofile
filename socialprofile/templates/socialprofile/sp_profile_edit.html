@@ -1,14 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load socialprofile_tags %}
 
-{% block headtitle %}Profile{% endblock %}
+{% block headtitle %}{% trans "Profile for " %}{{ user.username }}{% endblock %}
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="{% url sp_profile_view_page %}?returnTo={{ form.returnTo.value }}" data-role="button">Cancel</a>
+        <a href="{% url sp_profile_view_page %}?returnTo={{ form.returnTo.value }}"
+           data-role="button">{% trans "Cancel" %}</a>
 
-        <h1 class="ui-title">Profile</h1>
-        <a href="#" data-role="button" onclick="$('#sp-profile-form').submit();">Done</a>
+        <h1 class="ui-title">{% trans "Profile" %}</h1>
+        <a href="#" data-role="button" onclick="$('#sp-profile-form').submit();">{% trans "Done" %}</a>
     </header>
 {% endblock %}
 
@@ -23,25 +25,27 @@
                 {{ form.as_ul }}
             </ul>
         </form>
-        <h3 style="margin-left:10px;">Social Connections</h3>
+        <h3 style="margin-left:10px;">{% trans "Social Connections" %}</h3>
         {% if user.social_auth.all.count == 1 %}
             {% with only_connection=user.social_auth.all|first %}
-                <p style="margin-left:20px;"><em>{{ only_connection.provider|social_provider_name }} is your only
-                    means of authentication, it cannot be removed.</em></p>
+                <p style="margin-left:20px;"><em>{{ only_connection.provider|social_provider_name }}
+                    {% trans "is your only means of authentication, it cannot be removed." %}</em></p>
             {% endwith %}
         {% else %}
             <ul>
                 {% for user_social_auth in user.social_auth.all %}
                     <a href="{% url socialauth_disconnect user_social_auth.provider %}"
-                       data-role="button">Disconnect {{ user_social_auth.provider|social_provider_name }}</a>
+                       data-role="button">{% trans "Disconnect" %} {{ user_social_auth.provider|social_provider_name }}</a>
                 {% endfor %}
+                <li><a href="{% url sp_select_page %}" data-theme="a" data-rel="dialog"
+                       data-role="button">{% trans "Add Social Connection" %}</a></li>
             </ul>
 
         {% endif %}
 
-        <a href="{% url sp_select_page %}" data-rel="dialog" data-role="button">Add Social Connection</a>
         <br>
         <br>
-        <a href="{% url sp_delete_page %}" data-role="button" data-theme="e">Delete Account</a>
+        <br>
+        <a href="{% url sp_delete_page %}" data-role="button" data-theme="e">{% trans "Delete Account" %}</a>
     </section>
 {% endblock %}

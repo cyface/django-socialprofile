@@ -1,17 +1,18 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block header %}{% endblock %}
 {% block page_role %}data-role="dialog"{% endblock %}
 {% block content %}
     <div data-role="header" data-theme="b">
-        <h1>Really Delete?</h1>
+        <h1>{% trans 'Really Delete?' %}</h1>
     </div>
-    <div data-role="content" data-theme="c" title="Sign In">
-        <a href="{% url sp_profile_edit_page %}" data-role="button" data-theme="b">Keep Account</a>
+    <div data-role="content" data-theme="c" title="{% trans 'Really Delete?' %}">
+        <a href="{% url sp_profile_edit_page %}" data-role="button" data-theme="b">{% trans "Keep Account" %}</a>
         <br>
 
         <form action="{% url sp_delete_page %}" method="post" data-ajax="false">
             {{ crsf_token }}
-            <input type="submit" data-theme="e" data-mini="true" value="Delete Account & All Data">
+            <input type="submit" data-theme="e" data-mini="true" value="{% trans 'Delete Account & All Data' %}">
         </form>
     </div>
 {% endblock %}

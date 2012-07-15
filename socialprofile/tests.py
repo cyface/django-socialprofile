@@ -65,6 +65,15 @@ class SocialProfileTestCase(TestCase):
         logged_in_view_post_response = self.client.post('/socialprofile/', {'user': 1}, follow=True)
         self.assertEqual(405, logged_in_view_post_response.status_code) #HTTP POST Not Allowed
 
+    def test_socialprofile_permalink(self):
+        """Test the permalink method of SocialProfile"""
+        LOGGER.debug("Test SocialProfile Permalink")
+        profile = SocialProfile.objects.get(user=self.user1)
+        permalink = profile.get_absolute_url()
+        self.assertEqual("/socialprofile/view/user1/", permalink)
+        anon_view_response = self.client.get(permalink)
+        self.assertContains(anon_view_response, "Test User 1")
+
     def test_edit_profile(self):
         """Test to see if profile for user1 can be edited anon and logged in"""
         LOGGER.debug("Test GET /socialprofile/edit/user1/ for anon user")

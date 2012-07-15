@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from models import SocialProfile
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.html import strip_tags
+from django.utils.translation import ugettext_lazy as _
 from widgets import H5EmailInput
 import logging
 
@@ -45,23 +46,23 @@ class SocialProfileForm(forms.ModelForm):
 
         if existingUser is not None and self.instance.user is not None:
             if self.instance.user.id != existingUser.id:
-                raise forms.ValidationError([u"Your new username is not unique!"])
+                raise forms.ValidationError([_("Your new username is not available!")])
 
-        # Check for any other user changes and save them.
-        user_dirty = False
-        if self.instance.user.username != self.cleaned_data.get('username'):
-            user_dirty = True
-            self.instance.user.username = self.cleaned_data.get('username')
-        if self.instance.user.email != self.cleaned_data.get('email'):
-            user_dirty = True
-            self.instance.user.email = self.cleaned_data.get('email')
-        if self.instance.user.first_name != self.cleaned_data.get('first_name'):
-            user_dirty = True
-            self.instance.user.first_name = self.cleaned_data.get('first_name')
-        if self.instance.user.last_name != self.cleaned_data.get('last_name'):
-            user_dirty = True
-            self.instance.user.last_name = self.cleaned_data.get('last_name')
-        if user_dirty:
-            self.instance.user.save()
+            #        # Check for any other user changes and save them.
+            #        user_dirty = False
+            #        if self.instance.user.username != self.cleaned_data.get('username'):
+            #            user_dirty = True
+            #            self.instance.user.username = self.cleaned_data.get('username')
+            #        if self.instance.user.email != self.cleaned_data.get('email'):
+            #            user_dirty = True
+            #            self.instance.user.email = self.cleaned_data.get('email')
+            #        if self.instance.user.first_name != self.cleaned_data.get('first_name'):
+            #            user_dirty = True
+            #            self.instance.user.first_name = self.cleaned_data.get('first_name')
+            #        if self.instance.user.last_name != self.cleaned_data.get('last_name'):
+            #            user_dirty = True
+            #            self.instance.user.last_name = self.cleaned_data.get('last_name')
+            #        if user_dirty:
+            #            self.instance.user.save()
 
         return self.cleaned_data

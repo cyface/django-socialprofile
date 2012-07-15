@@ -12,6 +12,7 @@ from social_auth.signals import socialauth_registered, pre_update
 from urllib import urlencode
 from urllib2 import Request, urlopen
 from django.utils import simplejson
+from django.utils.translation import ugettext_lazy as _
 import logging
 
 LOGGER = logging.getLogger(name='socialprofile.models')
@@ -19,16 +20,28 @@ LOGGER = logging.getLogger(name='socialprofile.models')
 class SocialProfile(models.Model):
     """Main SocialProfile Object - Holds extra profile data retrieved from auth providers"""
     GENDER_CHOICES = (
-        ('male', 'Male'),
-        ('female', 'Female'),
-        ('other', 'Other'),
+        (_('male'), _('Male')),
+        (_('female'), _('Female')),
+        (_('other'), _('Other')),
         ('', '')
         )
-    user = models.OneToOneField(User, related_name='social_profile')
-    gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES)
-    url = models.URLField(blank=True)
-    image_url = models.URLField(blank=True)
-    description = models.TextField(blank=True)
+    user = models.OneToOneField(User, related_name='social_profile', verbose_name=_("Social Profile"))
+    gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES, verbose_name=_("Gender"))
+    url = models.URLField(blank=True, verbose_name=_("Homepage"), help_text=_("Where can we find out more about you?"))
+    image_url = models.URLField(blank=True, verbose_name=_("Avatar Picture"))
+    description = models.TextField(blank=True, verbose_name=_("Description"), help_text=_("Tell us about yourself!"))
+
+    class Meta:
+        verbose_name = _("Social Profile")
+        verbose_name_plural = _("Social Profiles")
+        ordering = ['user__username']
+
+    def __unicode__(self):
+        return self.user.username
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'sp_profile_other_view_page', [self.user.username]
 
 
 def create_user_profile(sender, instance, created, **kwargs):

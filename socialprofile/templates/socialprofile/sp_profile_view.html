@@ -1,44 +1,49 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load socialprofile_tags %}
 
-{% block headtitle %}Profile{% endblock %}
+{% block headtitle %}{% trans "Profile for " %}{{ user.username }}{% endblock %}
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="{{ form.returnTo.value|default:'/' }}" data-role="button" data-icon="arrow-l" data-mini="true">Back</a>
+        <a href="{{ form.returnTo.value|default:'/' }}" data-role="button" data-icon="arrow-l"
+           data-mini="true">{% trans "Back" %}</a>
 
-        <h1>Profile</h1>
+        <h1>{% trans "Profile" %}</h1>
         {% if request.user.username == form.username.value %}
             <a href="{% url sp_profile_edit_page %}?returnTo={{ form.returnTo.value }}" data-role="button"
-               data-mini="true">Edit</a>
+               data-mini="true" data-ajax="false">{% trans "Edit" %}</a>
         {% endif %}
     </header>
 {% endblock %}
 
 {% block content %}
-    <section title="profile">
+    <section title="profile" data-role="content">
 
 
-        <section title="Picture" id="sp-profile-img">
+        <section title="{% trans 'Picture' %}" class="sp-profile-img">
             <img src="{{ form.image_url.value|default:"http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm" }}">
 
-            <h2 id="sp-profile-name">{{ form.first_name.value|default:"&nbsp;" }} {{ form.last_name.value|default:"&nbsp;" }}</h2>
+            <h2 class="sp-profile-name">{{ form.first_name.value|default:"&nbsp;" }} {{ form.last_name.value|default:"&nbsp;" }}</h2>
         </section>
-        <ul id="sp-profile-block" data-role="listview" data-inset="true">
-            <li><label>User Name</label><span>{{ form.username.value|default:"&nbsp;" }}</span></li>
+        <ul class="sp-profile-block" data-role="listview" data-inset="true" data-theme="b">
+            <li>{{ form.username.label_tag }}{{ form.username.value|default:"&nbsp;" }}</li>
 
-            <li><label>Email</label><span>{{ form.email.value|default:"&nbsp;" }}</span></li>
+            <li>{{ form.email.label_tag }}{{ form.email.value|default:"&nbsp;" }}</li>
 
-            <li><label>Gender</label><span>{{ form.gender.value|title|default:"&nbsp;" }}</span></li>
+            <li>{{ form.gender.label_tag }}{{ form.gender.value|title|default:"&nbsp;" }}</li>
 
-            <li><label>Homepage URL</label><span style="overflow-x:hidden;"><a
-                    href="{{ form.url.value }}">{{ form.url.value|default:"&nbsp;"|truncatechars:20 }}</a></span></li>
+            <li>{{ form.url.label_tag }}&nbsp;
+                <div>{{ form.url.value|urlize }}</div>
+            </li>
 
-            <li><label>Description</label><span>{{ form.description.value|default:"&nbsp;" }}</span></li>
+            <li>{{ form.description.label_tag }}{{ form.description.value|default:"&nbsp;" }}</li>
             {% if request.user.username == form.username.value %}
-                <li><label>Authentication</label>
+                <li><label>{% trans "Authentication" %}</label>
                     {% for user_social_auth in user.social_auth.all %}
                         {{ user_social_auth.provider|social_provider_name }}{% if not forloop.last %},&nbsp;{% endif %}
+                    {% empty %}
+                        {% trans "No Social Authentications." %}
                     {% endfor %}
                 </li>
             {% endif %}
