@@ -11,7 +11,7 @@
         <br>
 
         <form action="{% url sp_delete_page %}" method="post" data-ajax="false">
-            {{ crsf_token }}
+            {% csrf_token %}
             <input type="submit" data-theme="e" data-mini="true" value="{% trans 'Delete Account & All Data' %}">
         </form>
     </div>

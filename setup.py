@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-socialprofile",
-    version=".1.6",
+    version="0.1.6",
     url='http://timlwhite.com',
     license='BSD',
     description="django-socialprofile enables users to manage their user profile built by logging in via a social service such as Google, Twitter, or Facebook. It relies on django-socialauth."
