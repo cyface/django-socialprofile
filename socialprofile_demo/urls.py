@@ -16,7 +16,6 @@ from django.views.generic import RedirectView, TemplateView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
                        # Home Page
                        url(r'^$', never_cache(IndexView.as_view()), name="sp_demo_home_page"),
 
