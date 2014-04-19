@@ -3,7 +3,6 @@ python:
   - "2.7"
 # command to install dependencies
 install:
-  - "pip install ."
   - "pip install -r socialprofile_demo/requirements_dev.txt --download-cache $HOME/.pip-cache"
 # command to run tests
 script: "python manage.py jenkins socialprofile --coverage-rcfile=devscripts/checkers/coveragerc"
