@@ -5,7 +5,7 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
-from models import SocialProfile
+from socialprofile.models import SocialProfile
 import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
