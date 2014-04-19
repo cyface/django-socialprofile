@@ -6,7 +6,7 @@
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="{% url sp_profile_view_page %}?returnTo={{ form.returnTo.value }}"
+        <a href="{% url "sp_profile_view_page" %}?returnTo={{ form.returnTo.value }}"
            data-role="button">{% trans "Cancel" %}</a>
 
         <h1 class="ui-title">{% trans "Profile" %}</h1>
@@ -19,7 +19,7 @@
         {% if user.social_profile.image_url %}
             <img src="{{ user.social_profile.image_url }}"/>
         {% endif %}
-        <form action="{%  url sp_profile_edit_page %}" method="post" id="sp-profile-form" data-ajax="false">
+        <form action="{% url "sp_profile_edit_page" %}" method="post" id="sp-profile-form" data-ajax="false">
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}
@@ -34,10 +34,10 @@
         {% else %}
             <ul>
                 {% for user_social_auth in user.social_auth.all %}
-                    <a href="{% url socialauth_disconnect user_social_auth.provider %}"
+                    <a href="{% url "socialauth_disconnect" user_social_auth.provider %}"
                        data-role="button">{% trans "Disconnect" %} {{ user_social_auth.provider|social_provider_name }}</a>
                 {% endfor %}
-                <li><a href="{% url sp_select_page %}" data-theme="a" data-rel="dialog"
+                <li><a href="{% url "sp_select_page" %}" data-theme="a" data-rel="dialog"
                        data-role="button">{% trans "Add Social Connection" %}</a></li>
             </ul>
 
@@ -46,6 +46,6 @@
         <br>
         <br>
         <br>
-        <a href="{% url sp_delete_page %}" data-role="button" data-theme="e">{% trans "Delete Account" %}</a>
+        <a href="{% url "sp_delete_page" %}" data-role="button" data-theme="e">{% trans "Delete Account" %}</a>
     </section>
 {% endblock %}

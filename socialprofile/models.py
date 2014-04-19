@@ -11,11 +11,12 @@ from django.contrib.auth.models import User
 from social_auth.signals import socialauth_registered, pre_update
 from urllib import urlencode
 from urllib2 import Request, urlopen
-from django.utils import simplejson
 from django.utils.translation import ugettext_lazy as _
+import json
 import logging
 
 LOGGER = logging.getLogger(name='socialprofile.models')
+
 
 class SocialProfile(models.Model):
     """Main SocialProfile Object - Holds extra profile data retrieved from auth providers"""
@@ -24,7 +25,7 @@ class SocialProfile(models.Model):
         (_('female'), _('Female')),
         (_('other'), _('Other')),
         ('', '')
-        )
+    )
     user = models.OneToOneField(User, related_name='social_profile', verbose_name=_("Social Profile"))
     gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES, verbose_name=_("Gender"))
     url = models.URLField(blank=True, verbose_name=_("Homepage"), help_text=_("Where can we find out more about you?"))
@@ -49,7 +50,9 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         SocialProfile.objects.create(user=instance)
 
+
 post_save.connect(create_user_profile, sender=User)
+
 
 def facebook_extra_values(sender, user, response, details, **kwargs):
     """Populates a UserProfile Object when a new User is created via Facebook Auth"""
@@ -68,7 +71,9 @@ def facebook_extra_values(sender, user, response, details, **kwargs):
 
     return True
 
+
 socialauth_registered.connect(facebook_extra_values, sender=FacebookBackend)
+
 
 def google_extra_values(sender, user, response, details, **kwargs):
     """Populates a UserProfile Object when a new User is created via Google Auth"""
@@ -79,7 +84,7 @@ def google_extra_values(sender, user, response, details, **kwargs):
     params = urlencode(data)
     try:
         request = Request(user_info_url + '?' + params, headers={'Authorization': params})
-        result = simplejson.loads(urlopen(request).read())
+        result = json.loads(urlopen(request).read())
 
         user.last_name = result.get('family_name', '')
         user.first_name = result.get('given_name', '')
@@ -94,7 +99,9 @@ def google_extra_values(sender, user, response, details, **kwargs):
 
     return True
 
+
 socialauth_registered.connect(google_extra_values, sender=GoogleOAuth2Backend)
+
 
 def twitter_extra_values(sender, user, response, details, **kwargs):
     """Populates a UserProfile Object when a new User is created via Twitter Auth"""
@@ -115,7 +122,9 @@ def twitter_extra_values(sender, user, response, details, **kwargs):
 
     return True
 
+
 socialauth_registered.connect(twitter_extra_values, sender=TwitterBackend)
+
 
 def update_user_details(backend, details, response, user, is_new=False, *args,
                         **kwargs):
@@ -132,7 +141,7 @@ def update_user_details(backend, details, response, user, is_new=False, *args,
     # Fire socialauth_registered signal on new user registration
     if is_new:
         changed |= any(filter(signal_response,
-            socialauth_registered.send(**signal_kwargs)))
+                              socialauth_registered.send(**signal_kwargs)))
 
     if changed:
         user.save()

@@ -22,6 +22,7 @@ LOGGER = logging.getLogger(name='socialprofile')
 
 DEFAULT_RETURNTO_PATH = getattr(settings, 'DEFAULT_RETURNTO_PATH', '/')
 
+
 class SelectAuthView(TemplateView):
     """
     Lets users choose how they want to request access.
@@ -34,11 +35,11 @@ class SelectAuthView(TemplateView):
         """Ensure that 'next' gets passed along"""
         LOGGER.debug('socialprofile.views.SelectAuthView.get_context_data')
 
-        nextPage = self.request.GET.get(REDIRECT_FIELD_NAME, DEFAULT_RETURNTO_PATH)
+        next_url = self.request.GET.get(REDIRECT_FIELD_NAME, DEFAULT_RETURNTO_PATH)
 
         context = super(SelectAuthView, self).get_context_data(**kwargs)
         context['next_param'] = REDIRECT_FIELD_NAME
-        context['next_url'] = nextPage
+        context['next_url'] = next_url
         return context
 
 
@@ -52,7 +53,7 @@ class SocialProfileView(FormView):
 
     form_class = SocialProfileForm
 
-    http_method_names = ['get'] #Limit to get for security reasons
+    http_method_names = ['get']  # Limit to get for security reasons
 
     def get_initial(self):
         """Load up the default data to show in the display form."""
@@ -63,9 +64,9 @@ class SocialProfileView(FormView):
         elif self.request.user.is_authenticated():
             user = self.request.user
         else:
-            raise Http404 #Case where user gets to this view anonymously for non-existent user
+            raise Http404  # Case where user gets to this view anonymously for non-existent user
 
-        returnTo = self.request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
+        return_to = self.request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
 
         social_profile = SocialProfile.objects.get(user=user)
 
@@ -73,7 +74,7 @@ class SocialProfileView(FormView):
 
         initial_data = model_to_dict(social_profile)
         initial_data.update(model_to_dict(user))
-        initial_data.update({'returnTo': returnTo})
+        initial_data.update({'returnTo': return_to})
 
         return initial_data
 
@@ -92,18 +93,18 @@ class SocialProfileEditView(UpdateView):
     model = SocialProfile
 
     def get_object(self, queryset=None):
-        return SocialProfile.objects.get(user=self.request.user) #Force get from current user for security
+        return SocialProfile.objects.get(user=self.request.user)  # Force get from current user for security
 
     def get_initial(self):
         """Load up the default data to show in the form."""
         LOGGER.debug("socialprofile.views.SocialProfileEditView.get_initial")
 
-        returnTo = self.request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
-        self.success_url = returnTo
+        return_to = self.request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
+        self.success_url = return_to
 
-        initial_data = self.initial.copy() #Copy data loaded automatically to start with
-        initial_data.update(model_to_dict(self.request.user)) # Add current user data
-        initial_data.update({'returnTo': returnTo})
+        initial_data = self.initial.copy()  # Copy data loaded automatically to start with
+        initial_data.update(model_to_dict(self.request.user))  # Add current user data
+        initial_data.update({'returnTo': return_to})
 
         return initial_data
 

@@ -98,7 +98,7 @@ Add social_auth and socialprofile to installed applications::
     )
 
 Add urls to urls.py
---------------------
+-------------------
 
 In your urls.py, you need to pull in the socialprofile urls::
 
@@ -120,8 +120,8 @@ Google, Facebook, and Twitter.
 	    'django.contrib.auth.backends.ModelBackend',
 	    'social_auth.backends.twitter.TwitterBackend',
 	    'social_auth.backends.facebook.FacebookBackend',
-	    'social_auth.backends.google.GoogleOAuth2Backend',
-	)
+        'social_auth.backends.google.GoogleOAuth2Backend',
+    )
 
 - Set up what page to go to post-authentication::
 
@@ -172,7 +172,7 @@ See https://developers.facebook.com/docs/authentication/permissions/#extended_pe
 on other permissions you can request.
 
 Add API Keys to Settings
-^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Take the keys from your APIs and add them to your settings::
 
@@ -192,7 +192,7 @@ Views and Layers
 ================
 
 Login Modal Layer
---------------------
+-----------------
 
 The 'socialprofile/select' view provides a login modal that you can use to both force existing users to sign in
 as well as to enable new users to select how they want to authenticate to the site.
@@ -203,7 +203,7 @@ The default template has attributes to make this a nice modal using jQueryMobile
 and a custom template should be simple to create.
 
 Self Profile View
---------------------
+-----------------
 
 The ``socialprofile/`` view lets a user see their own profile. The default template checks to see if they profile is
 indeed theirs, and displays an 'edit' button taking them to the ``socialprofile/edit/`` view.
@@ -212,7 +212,7 @@ This view supports a ``?returnTo=`` parameter to specify a URL path to return to
 uses this for the ``< Return`` button.
 
 Other Profile View
----------------------
+------------------
 
 The ``socialprofile/view/<username>`` view lets a user see any profile. You may want to adjust the template to hide any
 profile fields that should not be public.
@@ -221,7 +221,7 @@ This view supports a ``?returnTo=`` parameter to specify a URL path to return to
 uses this for the ``< Return`` button.
 
 Profile Edit View
---------------------
+-----------------
 
 The ``socialprofile/edit/`` view lets a user edit their own profile. In typical Django fashion, a GET request to this view
 will display the form, while a POST request to this view will try and save the changes.
@@ -230,7 +230,7 @@ This view supports a ``?returnTo=`` parameter to specify a URL path to return to
 uses this for the ``Cancel`` and ``Done`` button. When the form returns to the Self Profile View, it passes ``returnTo``.
 
 Profile Add Auth Type
-------------------------
+---------------------
 
 A user can add an additional social authentication type to their existing profile. If they originally created their
 profile using Google auth, then they could add Facebook and Twitter, enabling them to sign in with any of those services
@@ -239,16 +239,16 @@ and access the same account.
 To do this, just have the customer log in with their new auth type, and django-socialauth will do the rest.
 
 Profile Delete Auth Type
-----------------------------
+------------------------
 
 This is a default feature of django-socialauth, and is available using::
 
-    {% url socialauth_disconnect user_social_auth.provider %}
+    {% url "socialauth_disconnect" user_social_auth.provider %}
 
 ... in a template.
 
 Delete Account
-------------------
+--------------
 
 It is important to let customers remove their accounts, and the /socialprofile/delete view prompts them to ensure they
 really want to delete their account before sending them to /socialprofile/delete/action?confirm=true.

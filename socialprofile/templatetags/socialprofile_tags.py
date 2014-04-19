@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 
 register = template.Library()
 
+
 @register.filter
 @stringfilter
 def social_provider_name(provider_slug):

@@ -10,6 +10,7 @@ import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
 
+
 class SocialProfileTestCase(TestCase):
     """Test Case for Social Profile URLs"""
 
@@ -18,11 +19,16 @@ class SocialProfileTestCase(TestCase):
         LOGGER.debug("SocialProfile Tests setUp")
         self.user1 = User.objects.create_user('user1', 'user1@user1.com', 'user1password')
         self.sp1 = SocialProfile.objects.update(user=self.user1,
-            gender="Male",
-            url="http://test.com",
-            description="Test User 1",
-            image_url="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm"
+                                                gender="Male",
+                                                url="http://test.com",
+                                                description="Test User 1",
+                                                image_url="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm"
         )
+
+    def tearDown(self):
+        """Remove Test Data"""
+        LOGGER.debug("SocialProfile Tests tearDown")
+        self.user1.delete()
 
     def test_redirect_urls(self):
         """Test that redirects kicking in when trying to go to secure page."""
@@ -63,7 +69,7 @@ class SocialProfileTestCase(TestCase):
 
         LOGGER.debug("Test POST to /socialprofile/view/ for logged in user")
         logged_in_view_post_response = self.client.post('/socialprofile/', {'user': 1}, follow=True)
-        self.assertEqual(405, logged_in_view_post_response.status_code) #HTTP POST Not Allowed
+        self.assertEqual(405, logged_in_view_post_response.status_code)  #HTTP POST Not Allowed
 
     def test_socialprofile_permalink(self):
         """Test the permalink method of SocialProfile"""
