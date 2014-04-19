@@ -22,7 +22,7 @@ class SocialProfileForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
     returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/')  #URI to Return to after save
 
-    class Meta(forms.ModelForm):
+    class Meta:
         """Configuration for the ModelForm"""
         model = SocialProfile
         exclude = {'user'}  # Don't let through for security reasons, user should be based on logged in user only
