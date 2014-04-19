@@ -1,6 +1,6 @@
 """Django Views for the socialprofile module"""
 
-# pylint: disable=R0901
+# pylint: disable=R0901,R0904
 
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME

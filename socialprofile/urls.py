@@ -15,25 +15,28 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    # Profile Self View
-    url(r'^$', never_cache(SocialProfileView.as_view()), name="sp_profile_view_page"),
+                       # Profile Self View
+                       url(r'^$', never_cache(SocialProfileView.as_view()), name="sp_profile_view_page"),
 
-    # Profile Other View
-    url(r'^view/(?P<username>\w+)/$', SocialProfileView.as_view(), name="sp_profile_other_view_page"),
+                       # Profile Other View
+                       url(r'^view/(?P<username>\w+)/$', SocialProfileView.as_view(),
+                           name="sp_profile_other_view_page"),
 
-    # Profile Edit
-    url(r'^edit/$', never_cache(login_required(SocialProfileEditView.as_view())), name="sp_profile_edit_page"),
+                       # Profile Edit
+                       url(r'^edit/$', never_cache(login_required(SocialProfileEditView.as_view())),
+                           name="sp_profile_edit_page"),
 
-    # Select Sign Up Method
-    url(r'^select/$', never_cache(SelectAuthView.as_view()), name="sp_select_page"),
+                       # Select Sign Up Method
+                       url(r'^select/$', never_cache(SelectAuthView.as_view()), name="sp_select_page"),
 
-    # Delete
-    url(r'^delete/$', login_required(DeleteSocialProfileView.as_view()), name="sp_delete_page"),
+                       # Delete
+                       url(r'^delete/$', login_required(DeleteSocialProfileView.as_view()), name="sp_delete_page"),
 
-    # Social Auth
-    url(r'^socialauth/', include('social_auth.urls')),
+                       # Social Auth
+                       url(r'^socialauth/', include('social_auth.urls')),
 
-    # Logout Page
-    url(r'^logout/$', 'django.contrib.auth.views.logout', kwargs={'next_page': "/"}, name="sp_logout_page"),
+                       # Logout Page
+                       url(r'^logout/$', 'django.contrib.auth.views.logout', kwargs={'next_page': "/"},
+                           name="sp_logout_page"),
 
 )

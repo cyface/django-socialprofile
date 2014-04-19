@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from widgets import H5EmailInput
 import logging
 
+# pylint: disable=E1120,W0212
+
 LOGGER = logging.getLogger(name='socialprofile')
 
 
@@ -20,13 +22,13 @@ class SocialProfileForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
     returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/')  #URI to Return to after save
 
-    class Meta():
+    class Meta(forms.ModelForm):
         """Configuration for the ModelForm"""
         model = SocialProfile
-        exclude = {'user'}  #Don't let through for security reasons, user should be based on logged in user only
+        exclude = {'user'}  # Don't let through for security reasons, user should be based on logged in user only
 
     def clean_description(self):
-        """Automatically called by Django, this method 'cleans' the description, in our case stripping HTML out of description"""
+        """Automatically called by Django, this method 'cleans' the description, e.g. stripping HTML out of desc"""
 
         LOGGER.debug("socialprofile.forms.SocialProfileForm.clean_description")
 

@@ -1,6 +1,6 @@
 """Django Admin Site configuration for socialprofiles"""
 
-# pylint: disable=R0904
+# pylint: disable=R0901,R0904
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
