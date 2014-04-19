@@ -6,4 +6,4 @@ install:
   - "pip install ."
   - "pip install -r socialprofile_demo/requirements_dev.txt"
 # command to run tests
-script: jenkins
+script: python manage.py jenkins
