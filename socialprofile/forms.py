@@ -10,6 +10,7 @@ import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
 
+
 class SocialProfileForm(forms.ModelForm):
     """Master form for editing the user's profile"""
 
@@ -17,12 +18,12 @@ class SocialProfileForm(forms.ModelForm):
     email = forms.EmailField(label="Email Address", widget=H5EmailInput())
     first_name = forms.CharField(max_length=30, required=False, label='First Name', )
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
-    returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/') #URI to Return to after save
+    returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/')  #URI to Return to after save
 
     class Meta():
         """Configuration for the ModelForm"""
         model = SocialProfile
-        exclude = {'user'} #Don't let through for security reasons, user should be based on logged in user only
+        exclude = {'user'}  #Don't let through for security reasons, user should be based on logged in user only
 
     def clean_description(self):
         """Automatically called by Django, this method 'cleans' the description, in our case stripping HTML out of description"""
@@ -51,12 +52,12 @@ class SocialProfileForm(forms.ModelForm):
                 user_dirty = True
                 setattr(self.instance.user, changed_field, self.cleaned_data.get(changed_field))
 
-            if changed_field == 'username': # Check Username for Uniqueness
+            if changed_field == 'username':  # Check Username for Uniqueness
                 try:
                     User.objects.get(username=self.cleaned_data.get('username'))
                     raise forms.ValidationError([_("Your new username is not available!")])
                 except ObjectDoesNotExist:
-                    pass # good news, the new username is available
+                    pass  # good news, the new username is available
 
             if user_dirty:
                 self.instance.user.save()
