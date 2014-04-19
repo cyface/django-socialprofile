@@ -1,6 +1,6 @@
 """Django Models for SocialProfile App"""
 
-# pylint: disable=C0111,C1001,E0202,W0613,W0141
+# pylint: disable=C0111,E0202,W0613,W0141
 
 from django.db.models.signals import post_save
 from social_auth.backends.facebook import FacebookBackend
@@ -32,7 +32,7 @@ class SocialProfile(models.Model):
     image_url = models.URLField(blank=True, verbose_name=_("Avatar Picture"))
     description = models.TextField(blank=True, verbose_name=_("Description"), help_text=_("Tell us about yourself!"))
 
-    class Meta:
+    class Meta(object):
         verbose_name = _("Social Profile")
         verbose_name_plural = _("Social Profiles")
         ordering = ['user__username']
