@@ -172,22 +172,7 @@ INSTALLED_APPS = (
 
 ##### Custom Variables Below Here #######
 
-# Django Socialauth Settings
-
-# Django Socialauth Settings
-TWITTER_CONSUMER_KEY = 'gvlRdtanILw15YXxKGIA'
-TWITTER_CONSUMER_SECRET = 'acw6IiDtt5kJrmUI8WJVHAENmnCSllpqlM13dQPI'
-# Below is the main facebook key
-#FACEBOOK_APP_ID              = '295912813778057'
-#FACEBOOK_API_SECRET          = 'bb0c4233c822875650962953aad4c40e'
-#Below is localhost facebook key
-FACEBOOK_APP_ID = '316069408433708'
-FACEBOOK_API_SECRET = '9b1d6707b2d709c6282fa65ec54fb0af'
-FACEBOOK_EXTENDED_PERMISSIONS = ['email', ]
-GOOGLE_OAUTH2_CLIENT_ID = '349612856343.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET = 'xUP-iEWhZBc7NqDEuWt5Nvu0'
-GOOGLE_OAUTH_EXTRA_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.profile', ]  # Note that this extra scope is not the same as the API URL we use
+# Django Socialauth
 
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
