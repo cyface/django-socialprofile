@@ -2,6 +2,9 @@
 Django Social Profile
 =====================
 
+.. image:: https://badge.fury.io/py/django-socialprofile.svg
+:target: http://badge.fury.io/py/django-socialprofile
+
 .. image:: https://travis-ci.org/cyface/django-socialprofile.svg?branch=master
 :target: https://travis-ci.org/cyface/django-socialprofile
 
