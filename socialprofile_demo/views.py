@@ -1,6 +1,7 @@
 """Django Views for the socialprofile-demo module"""
 from django.views.generic import TemplateView
 
+
 class IndexView(TemplateView):
     """
     Main site page page.
@@ -9,6 +10,7 @@ class IndexView(TemplateView):
     """
 
     template_name = "index.html"
+
 
 class SecureView(TemplateView):
     """

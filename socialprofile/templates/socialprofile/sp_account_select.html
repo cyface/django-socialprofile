@@ -10,19 +10,25 @@
         <a href="
 
 
-                {% url "socialauth_begin" 'google-oauth2' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
+
+
+                {% url "social:begin" 'google-oauth2' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
            id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom"
            data-iconshadow="false">{% trans "Google" %}</a>
         <a href="
 
 
-                {% url "socialauth_begin" 'twitter' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
+
+
+                {% url "social:begin" 'twitter' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
            id="sp-twitter-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom"
            data-iconshadow="false">{% trans "Twitter" %}</a>
         <a href="
 
 
-                {% url "socialauth_begin" 'facebook' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
+
+
+                {% url "social:begin" 'facebook' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
            id="sp-facebook-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom"
            data-iconshadow="false">{% trans "Facebook" %}</a>
     </div>

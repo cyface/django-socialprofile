@@ -5,13 +5,10 @@
 
 # pylint: disable=W0401, W0614, E1120
 
-from django.conf.urls import *  #@UnusedWildImport
-from django.contrib import admin
+from django.conf.urls import patterns, url, include
 from socialprofile.views import SelectAuthView, SocialProfileView, SocialProfileEditView, DeleteSocialProfileView
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
-
-admin.autodiscover()
 
 urlpatterns = patterns('',
 
@@ -33,7 +30,7 @@ urlpatterns = patterns('',
                        url(r'^delete/$', login_required(DeleteSocialProfileView.as_view()), name="sp_delete_page"),
 
                        # Social Auth
-                       url(r'^socialauth/', include('social_auth.urls')),
+                       url('', include('social.apps.django_app.urls', namespace='social')),
 
                        # Logout Page
                        url(r'^logout/$', 'django.contrib.auth.views.logout', kwargs={'next_page': "/"},
