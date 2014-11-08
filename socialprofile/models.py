@@ -25,6 +25,7 @@ class SocialProfile(models.Model):
     url = models.URLField(blank=True, verbose_name=_("Homepage"), help_text=_("Where can we find out more about you?"))
     image_url = models.URLField(blank=True, verbose_name=_("Avatar Picture"))
     description = models.TextField(blank=True, verbose_name=_("Description"), help_text=_("Tell us about yourself!"))
+    manually_edited = models.BooleanField(default=False)
 
     class Meta(object):
         verbose_name = _("Social Profile")
@@ -46,30 +47,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
-
-
-
-#
-#
-# socialauth_registered.connect(twitter_extra_values, sender=TwitterBackend)
-#
-#
-# def update_user_details(backend, details, response, user, is_new=False, *args,
-# **kwargs):
-# """Override of social_auth method, to prevent details from getting updated."""
-#     LOGGER.debug("socialprofile.models.update_user_details")
-#     changed = False  # flag to track changes
-#
-#     signal_response = lambda (receiver, response): response
-#     signal_kwargs = {'sender': backend.__class__, 'user': user,
-#                      'response': response, 'details': details}
-#
-#     changed |= any(filter(signal_response, pre_update.send(**signal_kwargs)))
-#
-#     # Fire socialauth_registered signal on new user registration
-#     if is_new:
-#         changed |= any(filter(signal_response,
-#                               socialauth_registered.send(**signal_kwargs)))
-#
-#     if changed:
-#         user.save()

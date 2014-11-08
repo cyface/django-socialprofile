@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                            never_cache(login_required(SecureView.as_view(template_name="securetoo.html"))),
                            name="sp_demo_secure_page_too"),
 
-                       # Social Profiles
+                       # Social Profile & Social Auth
                        url(r'^socialprofile/', include('socialprofile.urls')),
 
                        # Admin documentation:

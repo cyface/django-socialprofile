@@ -20,12 +20,13 @@ class SocialProfileForm(forms.ModelForm):
     email = forms.EmailField(label="Email Address", widget=H5EmailInput())
     first_name = forms.CharField(max_length=30, required=False, label='First Name', )
     last_name = forms.CharField(max_length=30, required=False, label='Last Name')
-    returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/')  #URI to Return to after save
+    returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/')  # URI to Return to after save
+    manually_edited = forms.BooleanField(widget=forms.HiddenInput, required=False, initial=True)
 
     class Meta(object):
         """Configuration for the ModelForm"""
         model = SocialProfile
-        exclude = {'user'}  # Don't let through for security reasons, user should be based on logged in user only
+        exclude = {'user', }  # Don't let through for security reasons, user should be based on logged in user only
 
     def clean_description(self):
         """Automatically called by Django, this method 'cleans' the description, e.g. stripping HTML out of desc"""
@@ -62,6 +63,7 @@ class SocialProfileForm(forms.ModelForm):
                     pass  # good news, the new username is available
 
             if user_dirty:
+                self.cleaned_data['manually_edited'] = True
                 self.instance.user.save()
 
         return self.cleaned_data

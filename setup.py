@@ -2,10 +2,10 @@ from setuptools import setup
 
 setup(
     name="django-socialprofile",
-    version="0.1.7",
+    version="0.2.0",
     url='http://timlwhite.com',
     license='BSD',
-    description="django-socialprofile enables users to manage their user profile built by logging in via a social service such as Google, Twitter, or Facebook. It relies on django-socialauth."
+    description="django-socialprofile enables users to manage their user profile built by logging in via a social service such as Google, Twitter, or Facebook. It relies on python-socialauth."
     ,
     long_description=open('README.rst').read(),
 
@@ -18,8 +18,8 @@ setup(
     include_package_data=True,
     zip_safe=True,
 
-    install_requires=['django>=1.4',
-                      'django-social-auth>=0.7.0', ],
+    install_requires=['django>=1.7.1',
+                      'python-social-auth>=0.2.1', ],
 
     classifiers=[
         'Development Status :: 4 - Beta',

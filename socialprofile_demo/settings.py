@@ -6,6 +6,7 @@ Django Settings File
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DEMO_DIR = os.path.join(BASE_DIR, 'socialprofile_demo')
 
 # Explicitly Define test runner to silence 1_6.W001 Warning
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
@@ -34,13 +35,13 @@ ADMINS = MANAGERS
 MEDIA_URL = '/media/'
 
 # Absolute path to the directory that holds media.
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediaroot')
+MEDIA_ROOT = os.path.join(DEMO_DIR, 'mediaroot')
 
 # Staticfiles Config
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
+STATIC_ROOT = os.path.join(DEMO_DIR, 'staticroot')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+STATICFILES_DIRS = [os.path.join(DEMO_DIR, 'static')]
+TEMPLATE_DIRS = [os.path.join(DEMO_DIR, 'templates')]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -53,14 +54,14 @@ DATABASES = {
     # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
     # 'NAME': 'socialprofile',
     # 'USER': 'socialprofile',
-    #        'PASSWORD': '',
+    # 'PASSWORD': '',
     #        'HOST': '127.0.0.1',
     #        'PORT': '', # Set to empty string for default.
     #        'SUPPORTS_TRANSACTIONS': 'true',
     #    },
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'socialprofile.db'),
+        'NAME': os.path.join(DEMO_DIR, 'socialprofile.db'),
         'SUPPORTS_TRANSACTIONS': 'false',
     }
 }
@@ -147,12 +148,12 @@ INSTALLED_APPS = (
 
 # #### Custom Variables Below Here #######
 
-# Python Socialauth
+# Python Socialauth Settings
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # Leave Enabled for Admin Access
     'social.backends.twitter.TwitterOAuth',
-    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.facebook.Facebook2OAuth2',
     'social.backends.google.GoogleOAuth2',
 )
 
@@ -187,6 +188,57 @@ SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/secure/'
 LOGIN_URL = '/socialprofile/select/'
 LOGIN_REDIRECT_URL = '/secure/'
 LOGIN_ERROR_URL = '/socialprofile/select/'
+
+# Logging
+LOGGING = {
+    'version': 1,
+    "disable_existing_loggers": False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        "root": {
+            "handlers": ["console"],
+            'propagate': True,
+            "level": "INFO",
+        },
+        'socialprofile': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+}
 
 try:
     from socialprofile_demo.local_settings import *
