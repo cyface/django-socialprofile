@@ -55,7 +55,7 @@ DATABASES = {
     # 'NAME': 'socialprofile',
     # 'USER': 'socialprofile',
     # 'PASSWORD': '',
-    #        'HOST': '127.0.0.1',
+    # 'HOST': '127.0.0.1',
     #        'PORT': '', # Set to empty string for default.
     #        'SUPPORTS_TRANSACTIONS': 'true',
     #    },
@@ -159,10 +159,6 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
-SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
-    'https://www.googleapis.com/auth/drive',
-    'https://www.googleapis.com/auth/userinfo.profile'
-]
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
