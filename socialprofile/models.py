@@ -22,8 +22,8 @@ class SocialProfile(models.Model):
     )
     user = models.OneToOneField(User, related_name='social_profile', verbose_name=_("Social Profile"))
     gender = models.CharField(max_length=10, blank=True, choices=GENDER_CHOICES, verbose_name=_("Gender"))
-    url = models.URLField(blank=True, verbose_name=_("Homepage"), help_text=_("Where can we find out more about you?"))
-    image_url = models.URLField(blank=True, verbose_name=_("Avatar Picture"))
+    url = models.URLField(blank=True, verbose_name=_("Homepage"), help_text=_("Where can we find out more about you?"), max_length=500)
+    image_url = models.URLField(blank=True, verbose_name=_("Avatar Picture"), max_length=500)
     description = models.TextField(blank=True, verbose_name=_("Description"), help_text=_("Tell us about yourself!"))
     manually_edited = models.BooleanField(default=False)
 
