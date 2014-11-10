@@ -5,6 +5,7 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from socialprofile.models import SocialProfile
 from social.apps.django_app.default.models import UserSocialAuth
 import logging
@@ -118,6 +119,28 @@ class SocialProfileTestCase(TestCase):
         }
         logged_in_edit_response_2 = self.client.post('/socialprofile/edit/', post_data, follow=True)
         self.assertContains(logged_in_edit_response_2, "updated")
+        try:
+            user = User.objects.get(username='user2')
+            self.assertEqual('user2', str(user))
+        except ObjectDoesNotExist as e:
+            LOGGER.error(e)
+            self.fail('Username Change Failed')
+
+        LOGGER.debug("Test Invalid Form Error")
+        post_data = {
+            'username': 'user2',
+            'email': 'user1@test.com',
+            'gender': 'Robot',
+            'first_name': 'Test',
+            'last_name': 'User',
+            'description': "Test1 User",
+            'image_url': 'http://foo.com',
+            'url': 'http://user1.com',
+            'returnTo': '/secure/'
+        }
+        logged_in_edit_response_3 = self.client.post('/socialprofile/edit/', post_data, follow=True)
+        self.assertContains(logged_in_edit_response_3, "NOT")
+
 
     def test_delete_user(self):
         """Test the views that enable deleting users/socialprofiles"""
