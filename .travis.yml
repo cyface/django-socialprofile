@@ -6,3 +6,7 @@ install:
   - "pip install -r socialprofile_demo/requirements_dev.txt --download-cache $HOME/.pip-cache"
 # command to run tests
 script: "python manage.py jenkins socialprofile --coverage-rcfile=devscripts/checkers/coveragerc"
+script:
+  coverage run --source=socialprofile,socialprofile_demo --rcfile=devscripts/checkers/coveragerc manage.py test
+after_success:
+  coveralls
