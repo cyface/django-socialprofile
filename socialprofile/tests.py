@@ -6,6 +6,7 @@ from django.test import TestCase
 
 from django.contrib.auth.models import User
 from socialprofile.models import SocialProfile
+from social.apps.django_app.default.models import UserSocialAuth
 import logging
 
 LOGGER = logging.getLogger(name='socialprofile')
@@ -24,6 +25,7 @@ class SocialProfileTestCase(TestCase):
                                                 description="Test User 1",
                                                 image_url="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm"
         )
+        self.sa1 = UserSocialAuth.objects.create(user=self.user1, provider='google-oauth2', uid='user1@user1.com')
 
     def tearDown(self):
         """Remove Test Data"""
@@ -69,7 +71,7 @@ class SocialProfileTestCase(TestCase):
 
         LOGGER.debug("Test POST to /socialprofile/view/ for logged in user")
         logged_in_view_post_response = self.client.post('/socialprofile/', {'user': 1}, follow=True)
-        self.assertEqual(405, logged_in_view_post_response.status_code)  #HTTP POST Not Allowed
+        self.assertEqual(405, logged_in_view_post_response.status_code)  # HTTP POST Not Allowed
 
     def test_socialprofile_permalink(self):
         """Test the permalink method of SocialProfile"""
@@ -105,7 +107,7 @@ class SocialProfileTestCase(TestCase):
 
         LOGGER.debug("Test POST /socialprofile/edit/ for logged in user")
         post_data = {
-            'username': 'user1',
+            'username': 'user2',
             'email': 'user1@test.com',
             'first_name': 'Test',
             'last_name': 'User',
@@ -115,7 +117,6 @@ class SocialProfileTestCase(TestCase):
             'returnTo': '/secure/'
         }
         logged_in_edit_response_2 = self.client.post('/socialprofile/edit/', post_data, follow=True)
-        # LOGGER.debug(logged_in_edit_response_2)
         self.assertContains(logged_in_edit_response_2, "updated")
 
     def test_delete_user(self):
