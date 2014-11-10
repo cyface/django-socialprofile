@@ -6,8 +6,11 @@ omit =
 	*/settings*
 	*/tests*
 	*/manage.py
+	*/migrations/*
 	*/devscripts*
 	*/docs/*
+	*/local_settings_template.py
+	*/wsgi.py
 
 [report]
 # Regexes for lines to exclude from consideration
