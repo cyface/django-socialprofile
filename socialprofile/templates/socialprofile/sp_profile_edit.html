@@ -6,7 +6,7 @@
 
 {% block header %}
     <header data-role="header" data-theme="b" data-position="fixed">
-        <a href="{% url "sp_profile_view_page" %}?returnTo={{ form.returnTo.value }}"
+        <a href="{% url "sp_profile_view_page" %}?returnTo={{ sp_form.returnTo.value }}"
            data-role="button">{% trans "Cancel" %}</a>
 
         <h1 class="ui-title">{% trans "Profile" %}</h1>
@@ -22,7 +22,10 @@
         <form action="{% url "sp_profile_edit_page" %}" method="post" id="sp-profile-form" data-ajax="false">
             {% csrf_token %}
             <ul>
-                {{ form.as_ul }}
+                {{ user_form.as_ul }}
+            </ul>
+            <ul>
+                {{ sp_form.as_ul }}
             </ul>
         </form>
         <h3 style="margin-left:10px;">{% trans "Social Connections" %}</h3>

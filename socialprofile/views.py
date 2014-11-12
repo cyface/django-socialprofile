@@ -8,13 +8,14 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from django.http import Http404
-from django.views.generic import TemplateView, FormView, UpdateView, DeleteView
-from models import SocialProfile
+from django.http import Http404, HttpResponseRedirect
+from django.views.generic import TemplateView, FormView, UpdateView, DeleteView, View
+from django.views.generic.base import TemplateResponseMixin, ContextMixin
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _
 
-from forms import SocialProfileForm
+from models import SocialProfile
+from forms import SocialProfileForm, UserForm
 
 import logging
 
@@ -43,7 +44,7 @@ class SelectAuthView(TemplateView):
         return context
 
 
-class SocialProfileView(FormView):
+class SocialProfileView(TemplateView):
     """
     Profile View Page
 
@@ -51,13 +52,11 @@ class SocialProfileView(FormView):
     """
     template_name = 'socialprofile/sp_profile_view.html'
 
-    form_class = SocialProfileForm
+    http_method_names = {'get'}
 
-    http_method_names = ['get']  # Limit to get for security reasons
-
-    def get_initial(self):
+    def get_context_data(self, **kwargs):
         """Load up the default data to show in the display form."""
-        LOGGER.debug("socialprofile.views.SocialProfileView.get_initial")
+        LOGGER.debug("socialprofile.views.SocialProfileView.get_context_data")
         username = self.kwargs.get('username')
         if username:
             user = get_object_or_404(User, username=username)
@@ -68,18 +67,15 @@ class SocialProfileView(FormView):
 
         return_to = self.request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
 
-        social_profile = SocialProfile.objects.get(user=user)
+        sp_form = SocialProfileForm(instance=user.social_profile)
+        user_form = UserForm(instance=user)
 
-        self.object = social_profile
+        sp_form.initial['returnTo'] = return_to
 
-        initial_data = model_to_dict(social_profile)
-        initial_data.update(model_to_dict(user))
-        initial_data.update({'returnTo': return_to})
-
-        return initial_data
+        return {'sp_form': sp_form, 'user_form': user_form}
 
 
-class SocialProfileEditView(UpdateView):
+class SocialProfileEditView(SocialProfileView):
     """
     Profile Editing View
 
@@ -88,34 +84,20 @@ class SocialProfileEditView(UpdateView):
 
     template_name = 'socialprofile/sp_profile_edit.html'
 
-    form_class = SocialProfileForm
+    http_method_names = {'get', 'post'}
 
-    model = SocialProfile
+    def post(self, request, *args, **kwargs):
+        user_form = UserForm(request.POST, instance=request.user)
+        sp_form = SocialProfileForm(request.POST, instance=request.user.social_profile)
 
-    def get_object(self, queryset=None):
-        return SocialProfile.objects.get(user=self.request.user)  # Force get from current user for security
-
-    def get_initial(self):
-        """Load up the default data to show in the form."""
-        LOGGER.debug("socialprofile.views.SocialProfileEditView.get_initial")
-
-        return_to = self.request.GET.get('returnTo', DEFAULT_RETURNTO_PATH)
-        self.success_url = return_to
-
-        initial_data = self.initial.copy()  # Copy data loaded automatically to start with
-        initial_data.update(model_to_dict(self.request.user))  # Add current user data
-        initial_data.update({'returnTo': return_to})
-
-        return initial_data
-
-    def form_valid(self, form):
-        messages.add_message(self.request, messages.INFO, _('Your profile has been updated.'))
-        self.success_url = form.cleaned_data.get('returnTo')
-        return super(SocialProfileEditView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        messages.add_message(self.request, messages.INFO, _('Your profile has NOT been updated.'))
-        return super(SocialProfileEditView, self).form_invalid(form)
+        if user_form.is_valid() & sp_form.is_valid():
+            user_form.save()
+            sp_form.save()
+            messages.add_message(self.request, messages.INFO, _('Your profile has been updated.'))
+            return HttpResponseRedirect(sp_form.cleaned_data.get('returnTo', DEFAULT_RETURNTO_PATH))
+        else:
+            messages.add_message(self.request, messages.INFO, _('Your profile has NOT been updated.'))
+            return self.render_to_response({'sp_form': sp_form, 'user_form': user_form})
 
 
 class DeleteSocialProfileView(DeleteView):

@@ -10,23 +10,49 @@ import logging
 
 # pylint: disable=E1120,W0212
 
-LOGGER = logging.getLogger(name='socialprofile')
+LOGGER = logging.getLogger(name='socialprofile.forms')
+
+
+class UserForm(forms.ModelForm):
+    """Form for editing the data that is part of the User model"""
+
+    class Meta(object):
+        """Configuration for the ModelForm"""
+        model = User
+        fields = {'username', 'first_name', 'last_name', 'email'}
+
+    def clean(self):
+        """Automatically called by Django, this method 'cleans' the whole form"""
+
+        LOGGER.debug("socialprofile.forms.UserForm.clean")
+
+        for changed_field in self.changed_data:
+            user_dirty = True
+
+            if changed_field == 'username':  # Check Username for Uniqueness
+                try:
+                    User.objects.get(username=self.cleaned_data.get('username'))
+                    raise forms.ValidationError([_("Your new username is not available!")])
+                except ObjectDoesNotExist:
+                    pass  # good news, the new username is available
+
+            if user_dirty:
+                self.cleaned_data['manually_edited'] = True
+
+        return self.cleaned_data
 
 
 class SocialProfileForm(forms.ModelForm):
     """Master form for editing the user's profile"""
 
-    username = forms.CharField(max_length=30, label='User Name')
-    email = forms.EmailField(label="Email Address", widget=H5EmailInput())
-    first_name = forms.CharField(max_length=30, required=False, label='First Name', )
-    last_name = forms.CharField(max_length=30, required=False, label='Last Name')
+    user = forms.IntegerField(widget=forms.HiddenInput, required=True)
     returnTo = forms.CharField(widget=forms.HiddenInput, required=False, initial='/')  # URI to Return to after save
     manually_edited = forms.BooleanField(widget=forms.HiddenInput, required=False, initial=True)
 
     class Meta(object):
         """Configuration for the ModelForm"""
         model = SocialProfile
-        exclude = {'user', }  # Don't let through for security reasons, user should be based on logged in user only
+        fields = {'user', 'gender', 'url', 'image_url', 'description'}  # Don't let through for security reasons, user should be based on logged in user only
 
     def clean_description(self):
         """Automatically called by Django, this method 'cleans' the description, e.g. stripping HTML out of desc"""
@@ -40,30 +66,7 @@ class SocialProfileForm(forms.ModelForm):
 
         LOGGER.debug("socialprofile.forms.SocialProfileForm.clean")
 
-        changed_data = self.changed_data
+        if self.changed_data:
+            self.cleaned_data['manually_edited'] = True
 
-        user_field_objects = User._meta.fields
 
-        user_fields = []
-        for field_object in user_field_objects:
-            user_fields.append(field_object.name)
-
-        user_dirty = False
-
-        for changed_field in changed_data:
-            if changed_field in user_fields:
-                user_dirty = True
-                setattr(self.instance.user, changed_field, self.cleaned_data.get(changed_field))
-
-            if changed_field == 'username':  # Check Username for Uniqueness
-                try:
-                    User.objects.get(username=self.cleaned_data.get('username'))
-                    raise forms.ValidationError([_("Your new username is not available!")])
-                except ObjectDoesNotExist:
-                    pass  # good news, the new username is available
-
-            if user_dirty:
-                self.cleaned_data['manually_edited'] = True
-                self.instance.user.save()
-
-        return self.cleaned_data

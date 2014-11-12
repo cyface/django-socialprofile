@@ -14,7 +14,7 @@ LOGGER = logging.getLogger(name='socialprofile')
 
 
 class SocialProfileTestCase(TestCase):
-    """Test Case for Social Profile URLs"""
+    """Test Case for Social Profile"""
 
     def setUp(self):
         """Set up common assets for tests"""
@@ -108,6 +108,7 @@ class SocialProfileTestCase(TestCase):
 
         LOGGER.debug("Test POST /socialprofile/edit/ for logged in user")
         post_data = {
+            'user': 1,
             'username': 'user2',
             'email': 'user1@test.com',
             'first_name': 'Test',
