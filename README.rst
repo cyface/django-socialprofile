@@ -265,7 +265,7 @@ Profile Delete Auth Type
 
 This is a default feature of python-socialauth, and is available using::
 
-    {% url "socialauth_disconnect" user_social_auth.provider %}
+    {% url "social:disconnect" user_social_auth.provider %}
 
 ... in a template.
 

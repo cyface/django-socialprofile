@@ -13,6 +13,9 @@ Django Social Profile
 .. image:: https://travis-ci.org/cyface/django-socialprofile.svg?branch=master
     :target: https://travis-ci.org/cyface/django-socialprofile
 
+.. image:: https://coveralls.io/repos/cyface/django-socialprofile/badge.png?branch=master
+    :target: https://coveralls.io/r/cyface/django-socialprofile?branch=master
+
 Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
 Google, Twitter, or Facebook authentication.
 
@@ -265,7 +268,7 @@ Profile Delete Auth Type
 
 This is a default feature of python-socialauth, and is available using::
 
-    {% url "socialauth_disconnect" user_social_auth.provider %}
+    {% url "social:disconnect" user_social_auth.provider %}
 
 ... in a template.
 
