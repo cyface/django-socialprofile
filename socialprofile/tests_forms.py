@@ -50,11 +50,8 @@ class SocialProfileFormTestCase(TestCase):
         data['url'] = 'http://new.url'
         data['image_url'] = 'http://new.image.url'
         form = SocialProfileForm(data=data, instance=self.user1.social_profile)
-        if form.is_valid():
-            form.save()
-        else:
-            LOGGER.error(form.errors)
-            self.fail('Form Invalid')
+        self.assertTrue(form.is_valid())
+        form.save()
         self.assertEquals(self.user1.social_profile.description, 'new description')
         self.assertEquals(self.user1.social_profile.url, 'http://new.url/')
         self.assertEquals(self.user1.social_profile.gender, 'female')
@@ -65,11 +62,8 @@ class SocialProfileFormTestCase(TestCase):
         data = model_to_dict(self.user1.social_profile)
         data['description'] = '<a href="http://bad.url">Bad Link</a>'
         form = SocialProfileForm(data=data, instance=self.user1.social_profile)
-        if form.is_valid():
-            form.save()
-        else:
-            LOGGER.error(form.errors)
-            self.fail('Form Invalid')
+        self.assertTrue(form.is_valid())
+        form.save()
         self.assertEquals(self.user1.social_profile.description, 'Bad Link')
 
 
@@ -94,11 +88,8 @@ class UserFormTestCase(TestCase):
             'manually_edited': False
         }
         form = UserForm(data)
-        if form.is_valid():
-            form.save()
-        else:
-            LOGGER.error(form.errors)
-            self.fail('Form Invalid')
+        self.assertTrue(form.is_valid())
+        form.save()
         user2 = User.objects.get(username='user2')
         self.assertEquals(user2.username, 'user2')
 
@@ -114,3 +105,33 @@ class UserFormTestCase(TestCase):
         self.assertInHTML('<input id="id_last_name" maxlength="30" name="last_name" type="text" />', form_html)
         self.assertNotIn('<input id="id_is_staff" name="is_staff" type="checkbox" />', form_html)
         self.assertNotIn('<input checked="checked" id="id_is_active" name="is_active" type="checkbox" />', form_html)
+
+    def test_user_form_dupe_username(self):
+        LOGGER.debug("Test user form update")
+        data = {
+            'username': 'user1',
+            'password': 'user2password',
+            'email': 'user@user2.com',
+            'first_name': 'user',
+            'last_name': '2',
+            'last_login': '2012-09-04 06:00',
+            'date_joined': '2012-09-04 06:00',
+            'manually_edited': False
+        }
+        form = UserForm(data)
+        self.assertIn('already exists', form.errors['username'][0])
+
+    def test_user_form_update(self):
+        LOGGER.debug("Test user form create")
+        data = {
+            'username': 'user1',
+            'first_name': 'user',
+            'last_name': 'Two',
+            'last_login': '2012-09-04 06:00',
+            'date_joined': '2012-09-04 06:00',
+            'manually_edited': False
+        }
+        form = UserForm(data, instance=self.user1)
+        self.assertTrue(form.is_valid())
+        form.save()
+        self.assertEquals(self.user1.last_name, 'Two')

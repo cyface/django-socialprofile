@@ -37,7 +37,7 @@
         {% else %}
             <ul>
                 {% for user_social_auth in user.social_auth.all %}
-                    <a href="{% url "socialauth_disconnect" user_social_auth.provider %}"
+                    <a href="{% url "social:disconnect" user_social_auth.provider %}"
                        data-role="button">{% trans "Disconnect" %} {{ user_social_auth.provider|social_provider_name }}</a>
                 {% endfor %}
                 <li><a href="{% url "sp_select_page" %}" data-theme="a" data-rel="dialog"

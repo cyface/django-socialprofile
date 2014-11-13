@@ -21,26 +21,6 @@ class UserForm(forms.ModelForm):
         model = User
         fields = {'username', 'first_name', 'last_name', 'email'}
 
-    def clean(self):
-        """Automatically called by Django, this method 'cleans' the whole form"""
-
-        LOGGER.debug("socialprofile.forms.UserForm.clean")
-
-        for changed_field in self.changed_data:
-            user_dirty = True
-
-            if changed_field == 'username':  # Check Username for Uniqueness
-                try:
-                    User.objects.get(username=self.cleaned_data.get('username'))
-                    raise forms.ValidationError([_("Your new username is not available!")])
-                except ObjectDoesNotExist:
-                    pass  # good news, the new username is available
-
-            if user_dirty:
-                self.cleaned_data['manually_edited'] = True
-
-        return self.cleaned_data
-
 
 class SocialProfileForm(forms.ModelForm):
     """Master form for editing the user's profile"""

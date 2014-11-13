@@ -27,6 +27,8 @@ class SocialProfileTestCase(TestCase):
                                                 image_url="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm"
         )
         self.sa1 = UserSocialAuth.objects.create(user=self.user1, provider='google-oauth2', uid='user1@user1.com')
+        self.sa2 = UserSocialAuth.objects.create(user=self.user1, provider='facebook', uid='user1@user1.com')
+        self.sa2 = UserSocialAuth.objects.create(user=self.user1, provider='twitter', uid='user1@user1.com')
 
     def tearDown(self):
         """Remove Test Data"""
@@ -120,12 +122,8 @@ class SocialProfileTestCase(TestCase):
         }
         logged_in_edit_response_2 = self.client.post('/socialprofile/edit/', post_data, follow=True)
         self.assertContains(logged_in_edit_response_2, "updated")
-        try:
-            user = User.objects.get(username='user2')
-            self.assertEqual('user2', str(user))
-        except ObjectDoesNotExist as e:
-            LOGGER.error(e)
-            self.fail('Username Change Failed')
+        user = User.objects.get(username='user2')
+        self.assertEqual('user2', str(user.social_profile))
 
         LOGGER.debug("Test Invalid Form Error")
         post_data = {
