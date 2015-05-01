@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load url from future %}
 {% block header %}{% endblock %}
 {% block page_role %}data-role="dialog"{% endblock %}
 {% block content %}
@@ -9,7 +10,6 @@
     <div data-role="content" data-theme="c" title="{% trans 'Really Delete?' %}">
         <a href="{% url "sp_profile_edit_page" %}" data-role="button" data-theme="b">{% trans "Keep Account" %}</a>
         <br>
-
         <form action="{% url "sp_delete_page" %}" method="post" data-ajax="false">
             {% csrf_token %}
             <input type="submit" data-theme="e" data-mini="true" value="{% trans 'Delete Account & All Data' %}">
