@@ -8,5 +8,6 @@ install:
 script: "python manage.py jenkins socialprofile --coverage-rcfile=devscripts/checkers/coveragerc"
 script:
   coverage run --source=socialprofile,socialprofile_demo --rcfile=devscripts/checkers/coveragerc manage.py test
+sudo: false
 after_success:
   coveralls
