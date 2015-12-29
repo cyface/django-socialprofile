@@ -3,32 +3,32 @@ Django Social Profile
 =====================
 
 .. image:: https://badge.fury.io/py/django-socialprofile.svg
-:target: http://badge.fury.io/py/django-socialprofile
+    :target: http://badge.fury.io/py/django-socialprofile
     :alt: PyPi Package Version
 
 .. image:: https://travis-ci.org/cyface/django-socialprofile.svg?branch=master
-:target: https://travis-ci.org/cyface/django-socialprofile
+    :target: https://travis-ci.org/cyface/django-socialprofile
     :alt: Travis Build Status
 
 .. image:: https://coveralls.io/repos/cyface/django-socialprofile/badge.png?branch=master
-:target: https://coveralls.io/r/cyface/django-socialprofile?branch=master
+    :target: https://coveralls.io/r/cyface/django-socialprofile?branch=master
     :alt: Coveralls Code Coverage
 
 .. image:: https://scrutinizer-ci.com/g/cyface/django-socialprofile/badges/quality-score.png?b=master
-:target: https://scrutinizer-ci.com/g/cyface/django-socialprofile/?branch=master)
+    :target: https://scrutinizer-ci.com/g/cyface/django-socialprofile/?branch=master)
     :alt: Scrutinizer Code Quality
 
 .. image:: https://readthedocs.org/projects/django-socialprofile/badge/?version=latest
-:target: http://django-socialprofile.readthedocs.org/en/latest/?badge=latest
+    :target: http://django-socialprofile.readthedocs.org/en/latest/?badge=latest
 	:alt: Documentation Status
 
 
-    Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
-    Google, Twitter, or Facebook authentication.
+Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
+Google, Twitter, or Facebook authentication.
 
-    Users can edit their profile, view other users' profiles, and add multiple types of auth to the same profile.
+Users can edit their profile, view other users' profiles, and add multiple types of auth to the same profile.
 
-    Django Social Profile relies on omab's excellent  `python-socialauth <https://github.com/omab/django-social-auth>`_ to do
+Django Social Profile relies on omab's excellent  `python-socialauth <https://github.com/omab/django-social-auth>`_ to do
 the actual authentication with the backend providers. If you are just looking for the authentication piece, as opposed
 to the UI for customers to use, that module will be all you need. If you are willing to spend a bit of time with the UI,
 you can integrate any of the backends that python-socialauth provides (which is extensive).
