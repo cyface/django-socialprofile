@@ -23,12 +23,12 @@ Django Social Profile
 	:alt: Documentation Status
 
 
-        Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
-        Google, Twitter, or Facebook authentication.
+    Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
+    Google, Twitter, or Facebook authentication.
 
-        Users can edit their profile, view other users' profiles, and add multiple types of auth to the same profile.
+    Users can edit their profile, view other users' profiles, and add multiple types of auth to the same profile.
 
-        Django Social Profile relies on omab's excellent  `python-socialauth <https://github.com/omab/django-social-auth>`_ to do
+    Django Social Profile relies on omab's excellent  `python-socialauth <https://github.com/omab/django-social-auth>`_ to do
 the actual authentication with the backend providers. If you are just looking for the authentication piece, as opposed
 to the UI for customers to use, that module will be all you need. If you are willing to spend a bit of time with the UI,
 you can integrate any of the backends that python-socialauth provides (which is extensive).
