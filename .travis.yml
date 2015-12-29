@@ -1,13 +1,15 @@
 language: python
 python:
-  - "2.7"
-# command to install dependencies
+- '2.7'
 install:
-  - "pip install -r socialprofile_demo/requirements_dev.txt --download-cache $HOME/.pip-cache"
-# command to run tests
-script: "python manage.py jenkins socialprofile --coverage-rcfile=devscripts/checkers/coveragerc"
-script:
-  coverage run --source=socialprofile,socialprofile_demo --rcfile=devscripts/checkers/coveragerc manage.py test
-sudo: false
-after_success:
-  coveralls
+- pip install -r socialprofile_demo/requirements_dev.txt --download-cache $HOME/.pip-cache
+script: coverage run --source=socialprofile,socialprofile_demo --rcfile=devscripts/checkers/coveragerc
+  manage.py test
+after_success: coveralls
+deploy:
+  provider: pypi
+  user: Tim.White
+  password:
+    secure: c1+ABo5KfkxyI0Ona832nl0B5etcunO6TJwteGf/sT4HbKf6TxKl3P1YsHeRSYgmasRGqtKOwg/Y8g+JwwpCqsfU1TqTj6HIgozOXElENtgoPM6rAUoEP+zwqFasMggqxtRGpyuAIuDJCGioArV7kGaNVZnRD5sUKW6Q2DEWQ/M=
+  on:
+    repo: cyface/django-socialprofile

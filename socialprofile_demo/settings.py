@@ -12,7 +12,6 @@ DEMO_DIR = os.path.join(BASE_DIR, 'socialprofile_demo')
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 # IP Addresses that should be treated as internal/debug users
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -41,7 +40,6 @@ MEDIA_ROOT = os.path.join(DEMO_DIR, 'mediaroot')
 STATIC_ROOT = os.path.join(DEMO_DIR, 'staticroot')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(DEMO_DIR, 'static')]
-TEMPLATE_DIRS = [os.path.join(DEMO_DIR, 'templates')]
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -105,21 +103,29 @@ SERVER_EMAIL = 'a real email address'
 
 """ Django settings for the project. """
 
-# List of callables that add their data to each template
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'social.apps.django_app.context_processors.backends',
-    'social.apps.django_app.context_processors.login_redirect',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(DEMO_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
+            ],
+            'debug': DEBUG,
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
-    'django.middleware.doc.XViewMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -200,7 +206,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'console': {
             'level': 'DEBUG',

@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load socialprofile_tags %}
-{% load url from future %}
 
 {% block headtitle %}{% trans "Profile for " %}{{ user.username }}{% endblock %}
 
 {% block header %}
-    <header data-role="header" data-theme="b" data-position="fixed">
+    <header data-role="header" data-position="fixed">
         <a href="{% url "sp_profile_view_page" %}?returnTo={{ sp_form.returnTo.value }}"
            data-role="button">{% trans "Cancel" %}</a>
 
@@ -41,7 +40,7 @@
                     <a href="{% url "social:disconnect" user_social_auth.provider %}"
                        data-role="button">{% trans "Disconnect" %} {{ user_social_auth.provider|social_provider_name }}</a>
                 {% endfor %}
-                <li><a href="{% url "sp_select_page" %}" data-theme="a" data-rel="dialog"
+                <li><a href="{% url "sp_select_page" %}" data-rel="dialog"
                        data-role="button">{% trans "Add Social Connection" %}</a></li>
             </ul>
 

@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load url from future %}
 {% block header %}{% endblock %}
 {% block page_role %}data-role="dialog"{% endblock %}
 {% block content %}
-    <div data-role="header" data-theme="b">
+    <div data-role="header">
         <h1>{% trans 'Really Delete?' %}</h1>
     </div>
-    <div data-role="content" data-theme="c" title="{% trans 'Really Delete?' %}">
+    <div data-role="content" title="{% trans 'Really Delete?' %}">
         <a href="{% url "sp_profile_edit_page" %}" data-role="button" data-theme="b">{% trans "Keep Account" %}</a>
         <br>
         <form action="{% url "sp_delete_page" %}" method="post" data-ajax="false">

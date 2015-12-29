@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load socialprofile_tags %}
-{% load url from future %}
 
 {% block headtitle %}{% trans "Profile for " %}{{ user.username }}{% endblock %}
 
 {% block header %}
-    <header data-role="header" data-theme="b" data-position="fixed">
+    <header data-role="header" data-position="fixed">
         <a href="{{ sp_form.returnTo.value|default:'/' }}" data-role="button" data-icon="arrow-l"
            data-mini="true">{% trans "Back" %}</a>
 
@@ -27,20 +26,20 @@
 
             <h2 class="sp-profile-name">{{ user_form.first_name.value|default:"&nbsp;" }} {{ user_form.last_name.value|default:"&nbsp;" }}</h2>
         </section>
-        <ul class="sp-profile-block" data-role="listview" data-inset="true" data-theme="b">
-            <li>{{ user_form.username.label_tag }}{{ user_form.username.value|default:"&nbsp;" }}</li>
+        <ul class="sp-profile-block" data-role="listview" data-inset="true">
+            <li>{{ user_form.username.label_tag }}&nbsp;{{ user_form.username.value|default:"&nbsp;" }}</li>
 
-            <li>{{ user_form.email.label_tag }}{{ user_form.email.value|default:"&nbsp;" }}</li>
+            <li>{{ user_form.email.label_tag }}&nbsp;{{ user_form.email.value|default:"&nbsp;" }}</li>
 
-            <li>{{ sp_form.gender.label_tag }}{{ sp_form.gender.value|title|default:"&nbsp;" }}</li>
+            <li>{{ sp_form.gender.label_tag }}&nbsp;{{ sp_form.gender.value|title|default:"&nbsp;" }}</li>
 
-            <li>{{ sp_form.url.label_tag }}&nbsp;
-                <div>{{ sp_form.url.value|urlize }}</div>
+            <li>{{ sp_form.url.label_tag }}
+                <div>&nbsp;{{ sp_form.url.value|urlize }}</div>
             </li>
 
-            <li>{{ sp_form.description.label_tag }}{{ sp_form.description.value|default:"&nbsp;" }}</li>
+            <li>{{ sp_form.description.label_tag }}&nbsp;{{ sp_form.description.value|default:"&nbsp;" }}</li>
             {% if request.user.username == user_form.username.value %}
-                <li><label>{% trans "Authentication" %}</label>
+                <li><label>{% trans "Authentication:" %}&nbsp;</label>
                     {% for user_social_auth in user.social_auth.all %}
                         {{ user_social_auth.provider|social_provider_name }}{% if not forloop.last %},&nbsp;{% endif %}
                     {% empty %}

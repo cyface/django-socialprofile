@@ -5,7 +5,7 @@
 
 # pylint: disable=E1120
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from views import IndexView, SecureView
@@ -15,30 +15,30 @@ from django.views.generic import RedirectView, TemplateView
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
-                       # Home Page
-                       url(r'^$', never_cache(IndexView.as_view()), name="sp_demo_home_page"),
+urlpatterns = (
+    # Home Page
+    url(r'^$', never_cache(IndexView.as_view()), name="sp_demo_home_page"),
 
-                       # Secure Page
-                       url(r'^secure/$', never_cache((login_required(SecureView.as_view()))),
-                           name="sp_demo_secure_page"),
+    # Secure Page
+    url(r'^secure/$', never_cache((login_required(SecureView.as_view()))),
+        name="sp_demo_secure_page"),
 
-                       # Secure Page Too
-                       url(r'^securetoo/$',
-                           never_cache(login_required(SecureView.as_view(template_name="securetoo.html"))),
-                           name="sp_demo_secure_page_too"),
+    # Secure Page Too
+    url(r'^securetoo/$',
+        never_cache(login_required(SecureView.as_view(template_name="securetoo.html"))),
+        name="sp_demo_secure_page_too"),
 
-                       # Social Profile & Social Auth
-                       url(r'^socialprofile/', include('socialprofile.urls')),
+    # Social Profile & Social Auth
+    url(r'^socialprofile/', include('socialprofile.urls')),
 
-                       # Admin documentation:
-                       (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # Admin documentation:
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-                       # Admin Site:
-                       (r'^admin/', include(admin.site.urls)),
+    # Admin Site:
+    url(r'^admin/', include(admin.site.urls)),
 
-                       # Robots and Favicon
-                       (r'^robots\.txt$', TemplateView.as_view(),
-                        {'template': 'robots.txt', 'mimetype': 'text/plain'}),
-                       (r'^favicon\.ico$', RedirectView.as_view(), {'url': settings.STATIC_URL + 'images/favicon.ico'}),
+    # Robots and Favicon
+    url(r'^robots\.txt$', TemplateView.as_view(),
+        {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    url(r'^favicon\.ico$', RedirectView.as_view(), {'url': settings.STATIC_URL + 'images/favicon.ico'}),
 )

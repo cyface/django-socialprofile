@@ -5,35 +5,33 @@
 
 # pylint: disable=W0401, W0614, E1120
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from socialprofile.views import SelectAuthView, SocialProfileView, SocialProfileEditView, DeleteSocialProfileView
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import logout
 
-urlpatterns = patterns('',
+urlpatterns = (
 
-                       # Profile Self View
-                       url(r'^$', never_cache(SocialProfileView.as_view()), name="sp_profile_view_page"),
+    # Profile Self View
+    url(r'^$', never_cache(SocialProfileView.as_view()), name="sp_profile_view_page"),
 
-                       # Profile Other View
-                       url(r'^view/(?P<username>\w+)/$', SocialProfileView.as_view(),
-                           name="sp_profile_other_view_page"),
+    # Profile Other View
+    url(r'^view/(?P<username>\w+)/$', SocialProfileView.as_view(), name="sp_profile_other_view_page"),
 
-                       # Profile Edit
-                       url(r'^edit/$', never_cache(login_required(SocialProfileEditView.as_view())),
-                           name="sp_profile_edit_page"),
+    # Profile Edit
+    url(r'^edit/$', never_cache(login_required(SocialProfileEditView.as_view())), name="sp_profile_edit_page"),
 
-                       # Select Sign Up Method
-                       url(r'^select/$', never_cache(SelectAuthView.as_view()), name="sp_select_page"),
+    # Select Sign Up Method
+    url(r'^select/$', never_cache(SelectAuthView.as_view()), name="sp_select_page"),
 
-                       # Delete
-                       url(r'^delete/$', login_required(DeleteSocialProfileView.as_view()), name="sp_delete_page"),
+    # Delete
+    url(r'^delete/$', login_required(DeleteSocialProfileView.as_view()), name="sp_delete_page"),
 
-                       # Social Auth
-                       url('', include('social.apps.django_app.urls', namespace='social')),
+    # Social Auth
+    url('', include('social.apps.django_app.urls', namespace='social')),
 
-                       # Logout Page
-                       url(r'^logout/$', 'django.contrib.auth.views.logout', kwargs={'next_page': "/"},
-                           name="sp_logout_page"),
+    # Logout Page
+    url(r'^logout/$', logout, kwargs={'next_page': "/"}, name="sp_logout_page"),
 
 )

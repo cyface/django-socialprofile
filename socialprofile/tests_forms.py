@@ -5,8 +5,6 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
-from socialprofile.models import SocialProfile
 from social.apps.django_app.default.models import UserSocialAuth
 from socialprofile.forms import SocialProfileForm, UserForm
 from django.forms.models import model_to_dict
@@ -53,9 +51,9 @@ class SocialProfileFormTestCase(TestCase):
         self.assertTrue(form.is_valid())
         form.save()
         self.assertEquals(self.user1.social_profile.description, 'new description')
-        self.assertEquals(self.user1.social_profile.url, 'http://new.url/')
+        self.assertEquals(self.user1.social_profile.url, 'http://new.url')
         self.assertEquals(self.user1.social_profile.gender, 'female')
-        self.assertEquals(self.user1.social_profile.image_url, 'http://new.image.url/')
+        self.assertEquals(self.user1.social_profile.image_url, 'http://new.image.url')
 
     def test_socialprofile_form_clean_desc(self):
         LOGGER.debug("Test socialprofile form clean desc")
@@ -101,7 +99,7 @@ class UserFormTestCase(TestCase):
         LOGGER.debug(form_html)
         self.assertInHTML('<input id="id_username" maxlength="30" name="username" type="text" value="user1" />', form_html)
         self.assertInHTML('<input id="id_first_name" maxlength="30" name="first_name" type="text" />', form_html)
-        self.assertInHTML('<input id="id_email" maxlength="75" name="email" type="email" value="user1@user1.com" />', form_html)
+        self.assertInHTML('<input id="id_email" maxlength="254" name="email" type="email" value="user1@user1.com" />', form_html)
         self.assertInHTML('<input id="id_last_name" maxlength="30" name="last_name" type="text" />', form_html)
         self.assertNotIn('<input id="id_is_staff" name="is_staff" type="checkbox" />', form_html)
         self.assertNotIn('<input checked="checked" id="id_is_active" name="is_active" type="checkbox" />', form_html)

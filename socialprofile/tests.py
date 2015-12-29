@@ -5,7 +5,6 @@
 from django.test import TestCase
 
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from socialprofile.models import SocialProfile
 from social.apps.django_app.default.models import UserSocialAuth
 import logging

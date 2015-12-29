@@ -16,13 +16,12 @@
 .settings
 .tmp_*
 .tox
-coverage.xml
-build/*
+build
 css-*_.css
-dist/*
+dist
 js-*_.js
 local_settings.py
 nosetests.xml
-reports/*
+reports
 settings_local.py
 style-*_.css

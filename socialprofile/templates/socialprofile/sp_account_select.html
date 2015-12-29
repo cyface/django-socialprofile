@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load url from future %}
 {% block header %}{% endblock %}
 {% block page_role %}id="sp-login-modal" data-role="dialog"{% endblock %}
 {% block content %}
     <div data-role="header" data-theme="b">
         <h1>{% trans 'Sign In' %}</h1>
     </div>
-    <div data-role="content" data-theme="c" title="{% trans 'Sign In' %}">
+    <div data-role="content" title="{% trans 'Sign In' %}">
         <a href="{% url "social:begin" 'google-oauth2' %}{% if next_url and next_param %}?{{ next_param }}={{ next_url }}{% endif %}"
            id="sp-google-button" data-ajax="false" data-role="button" data-theme="b" data-icon="custom"
            data-iconshadow="false">{% trans "Google" %}</a>
