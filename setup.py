@@ -4,7 +4,7 @@ readme = open('README.rst').read()
 
 setup(
     name="django-socialprofile",
-    version="0.2.2",
+        version="1.1",
     url='https://github.com/cyface/django-socialprofile',
     license='BSD',
     description="django-socialprofile enables users to manage their user profile built by logging in via a social \
@@ -19,10 +19,10 @@ setup(
     long_description=readme,
     include_package_data=True,
     zip_safe=True,
-    install_requires=['django>=1.7.1',
-                      'python-social-auth>=0.2.1', ],
+        install_requires=['django>=1.9',
+                          'python-social-auth>=0.2.13', ],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
