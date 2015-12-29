@@ -10,6 +10,6 @@ deploy:
   provider: pypi
   user: Tim.White
   password:
-    secure: c1+ABo5KfkxyI0Ona832nl0B5etcunO6TJwteGf/sT4HbKf6TxKl3P1YsHeRSYgmasRGqtKOwg/Y8g+JwwpCqsfU1TqTj6HIgozOXElENtgoPM6rAUoEP+zwqFasMggqxtRGpyuAIuDJCGioArV7kGaNVZnRD5sUKW6Q2DEWQ/M=
+    secure: QD4mZ/IKSeyNr52+TqZQItVDh3Z/0nVi/D3MweSJq7pebHo5GH1YuoYZecSG9mqMppqbZK1VsXbag9Zml/UuP9bSLsce2A4g01Z+kz7zgFRpU0//MJ7Aj3JXfKObdwoviailZcyp+JqGygCS1Xbfk8tpIJimFrwu47Ibmz61Sjw=
   on:
     repo: cyface/django-socialprofile
