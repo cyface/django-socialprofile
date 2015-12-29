@@ -4,31 +4,31 @@ Django Social Profile
 
 .. image:: https://badge.fury.io/py/django-socialprofile.svg
 :target: http://badge.fury.io/py/django-socialprofile
-	:alt: PyPi Package Version
+    :alt: PyPi Package Version
 
 .. image:: https://travis-ci.org/cyface/django-socialprofile.svg?branch=master
 :target: https://travis-ci.org/cyface/django-socialprofile
-	:alt: Travis Build Status
+    :alt: Travis Build Status
 
 .. image:: https://coveralls.io/repos/cyface/django-socialprofile/badge.png?branch=master
 :target: https://coveralls.io/r/cyface/django-socialprofile?branch=master
-	:alt: Coveralls Code Coverage
+    :alt: Coveralls Code Coverage
 
 .. image:: https://scrutinizer-ci.com/g/cyface/django-socialprofile/badges/quality-score.png?b=master
 :target: https://scrutinizer-ci.com/g/cyface/django-socialprofile/?branch=master)
-	:alt: Scrutinizer Code Quality
+    :alt: Scrutinizer Code Quality
 
 .. image:: https://readthedocs.org/projects/django-socialprofile/badge/?version=latest
 :target: http://django-socialprofile.readthedocs.org/en/latest/?badge=latest
 	:alt: Documentation Status
 
 
-    			Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
-    			Google, Twitter, or Facebook authentication.
+        Django Social Profile gives you an out-of-the-box way to let users create an account in your application using
+        Google, Twitter, or Facebook authentication.
 
-    			Users can edit their profile, view other users' profiles, and add multiple types of auth to the same profile.
+        Users can edit their profile, view other users' profiles, and add multiple types of auth to the same profile.
 
-    			Django Social Profile relies on omab's excellent  `python-socialauth <https://github.com/omab/django-social-auth>`_ to do
+        Django Social Profile relies on omab's excellent  `python-socialauth <https://github.com/omab/django-social-auth>`_ to do
 the actual authentication with the backend providers. If you are just looking for the authentication piece, as opposed
 to the UI for customers to use, that module will be all you need. If you are willing to spend a bit of time with the UI,
 you can integrate any of the backends that python-socialauth provides (which is extensive).
@@ -116,10 +116,10 @@ Add INSTALLED_APPS
 Add social_auth and socialprofile to installed applications::
 
 	INSTALLED_APPS = (
-		...
-		'social.apps.django_app.default',
-		'socialprofile',
-	)
+        ...
+        'social.apps.django_app.default',
+        'socialprofile',
+    )
 
 Add urls to urls.py
 -------------------
@@ -141,11 +141,11 @@ Google, Facebook, and Twitter.  ``python-socialauth`` can handle a huge number o
 
 	# Python Socialauth Settings
 	AUTHENTICATION_BACKENDS = (
-		'django.contrib.auth.backends.ModelBackend',  # Leave Enabled for Admin Access
-		'social.backends.twitter.TwitterOAuth',
-		'social.backends.facebook.Facebook2OAuth2',
-		'social.backends.google.GoogleOAuth2',
-	)
+        'django.contrib.auth.backends.ModelBackend',  # Leave Enabled for Admin Access
+        'social.backends.twitter.TwitterOAuth',
+        'social.backends.facebook.Facebook2OAuth2',
+        'social.backends.google.GoogleOAuth2',
+    )
 
 - Set up what page to go to post-authentication::
 
@@ -199,15 +199,15 @@ Add API Keys to Settings
 
 Take the keys from your APIs and add them to your settings::
 
-	SOCIAL_AUTH_TWITTER_KEY         = ''
-	SOCIAL_AUTH_TWITTER_SECRET      = ''
-	SOCIAL_AUTH_FACEBOOK_KEY        = ''
-	SOCIAL_AUTH_FACEBOOK_SECRET     = ''
-	SOCIAL_AUTH_FACEBOOK_SCOPE      = ['public_profile', 'email']
-	SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'first_name,last_name,gender,picture,link'}
-	SOCIAL_AUTH_GOOGLE_OAUTH2_KEY   = ''
-	SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
-	SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE  = ['https://www.googleapis.com/auth/userinfo.profile',]
+    SOCIAL_AUTH_TWITTER_KEY         = ''
+    SOCIAL_AUTH_TWITTER_SECRET      = ''
+    SOCIAL_AUTH_FACEBOOK_KEY        = ''
+    SOCIAL_AUTH_FACEBOOK_SECRET     = ''
+    SOCIAL_AUTH_FACEBOOK_SCOPE      = ['public_profile', 'email']
+    SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'first_name,last_name,gender,picture,link'}
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY   = ''
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+    SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE  = ['https://www.googleapis.com/auth/userinfo.profile',]
 
 Note that the extended permissions and such there are typical, you may also want to request the ability to post as that user
 and so forth.
@@ -277,7 +277,7 @@ Profile Delete Auth Type
 
 This is a default feature of python-socialauth, and is available using::
 
-	{% url "social:disconnect" user_social_auth.provider %}
+    {% url "social:disconnect" user_social_auth.provider %}
 
 ... in a template.
 
