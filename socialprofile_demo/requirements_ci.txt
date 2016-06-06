@@ -1,0 +1,6 @@
+python-social-auth==0.2.19
+django-jenkins==0.18.1
+coverage
+coveralls
+pylint
+sphinx
