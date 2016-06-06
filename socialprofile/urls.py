@@ -6,7 +6,7 @@
 # pylint: disable=W0401, W0614, E1120
 
 from django.conf.urls import url, include
-from socialprofile.views import SelectAuthView, SocialProfileView, SocialProfileEditView, DeleteSocialProfileView
+from .views import DeleteSocialProfileView, SelectAuthView, SocialProfileView, SocialProfileEditView
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout

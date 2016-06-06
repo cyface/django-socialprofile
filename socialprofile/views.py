@@ -9,13 +9,9 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect
-from django.views.generic import TemplateView, FormView, UpdateView, DeleteView, View
-from django.views.generic.base import TemplateResponseMixin, ContextMixin
-from django.forms.models import model_to_dict
+from django.views.generic import DeleteView, TemplateView
 from django.utils.translation import ugettext_lazy as _
-
-from models import SocialProfile
-from forms import SocialProfileForm, UserForm
+from .forms import SocialProfileForm, UserForm
 
 import logging
 

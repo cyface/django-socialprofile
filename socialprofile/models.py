@@ -32,7 +32,7 @@ class SocialProfile(models.Model):
         verbose_name_plural = _("Social Profiles")
         ordering = ['user__username']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
     @models.permalink
