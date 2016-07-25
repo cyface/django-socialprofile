@@ -4,7 +4,7 @@ readme = open('README.rst').read()
 
 setup(
     name="django-socialprofile",
-    version="1.2",
+    version="1.2.1",
     url='https://github.com/cyface/django-socialprofile',
     license='BSD',
     description="django-socialprofile enables users to manage their user profile built by logging in via a social \
