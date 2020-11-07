@@ -1,26 +1,8 @@
-===================== Django Social Profile =====================
+Django Social Profile
+=====================
 
-.. image:: https://badge.fury.io/py/django-socialprofile.svg :target:
-http://badge.fury.io/py/django-socialprofile :alt: PyPi Package Version
-
-.. image::
-https://travis-ci.org/cyface/django-socialprofile.svg?branch=master
-:target: https://travis-ci.org/cyface/django-socialprofile :alt: Travis
-Build Status
-
-.. image::
-https://coveralls.io/repos/cyface/django-socialprofile/badge.png?branch=master
-:target:
-https://coveralls.io/r/cyface/django-socialprofile?branch=master :alt:
-Coveralls Code Coverage
-
-.. image::
-https://readthedocs.org/projects/django-socialprofile/badge/?version=latest
-:target:
-http://django-socialprofile.readthedocs.org/en/latest/?badge=latest
-:alt: Documentation Status
-
-===== THIS REPO IS DEPRECATED There are a lot better ways to do this now, and I would not suggest you use this repo for new projects. Cheers! =====
+THIS REPO IS DEPRECATED There are a lot better ways to do this now, and I would not suggest you use this repo for new projects. Cheers!
+=======================================================================================================================================
 
 Django Social Profile gives you an out-of-the-box way to let users
 create an account in your application using Google, Twitter, or Facebook
