@@ -20,9 +20,7 @@ https://readthedocs.org/projects/django-socialprofile/badge/?version=latest
 http://django-socialprofile.readthedocs.org/en/latest/?badge=latest
 :alt: Documentation Status
 
-===== THIS REPO IS DEPRECATED There are a lot better ways to do this
-now, and I would not suggest you use this repo for new projects. Cheers!
-=====
+===== THIS REPO IS DEPRECATED There are a lot better ways to do this now, and I would not suggest you use this repo for new projects. Cheers! =====
 
 Django Social Profile gives you an out-of-the-box way to let users
 create an account in your application using Google, Twitter, or Facebook
