@@ -19,8 +19,6 @@ to use, that module will be all you need. If you are willing to spend a
 bit of time with the UI, you can integrate any of the backends that
 python-socialauth provides (which is extensive).
 
-.. contents:: Table of Contents
-
 Features
 ========
 
